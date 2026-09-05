@@ -1,6 +1,7 @@
 import { Heading, Row, Section, Stack, Text } from "@/ui";
 import { ACTIVITIES } from "@/data/profile";
 import { ProfileForm } from "@/components/profile/ProfileForm";
+import { ThemeToggle } from "@/components/system/ThemeToggle";
 import { useProfile } from "@/components/profile/ProfileContext";
 import { useSession } from "@/components/auth/SessionContext";
 
@@ -40,6 +41,22 @@ export function ProfilePage() {
         {/* Keyed by who is signed in, so a different person gets a fresh form rather
             than the previous one's unsaved draft. */}
         <ProfileForm key={session?.email ?? "signed-out"} />
+
+        {/* Outside the form on purpose: the theme applies the moment you press it,
+            while everything above waits for Save. Mixing the two under one button
+            would make Save look like it had done nothing. */}
+        <Stack gap={4}>
+          <Stack gap={2}>
+            <Heading level={2} size={4} className="section-eyebrow" id="appearance-heading">
+              Appearance
+            </Heading>
+            <Text size="sm" tone="muted" prose>
+              Set per browser rather than per profile — it's about the screen you're on, not
+              about you, so it doesn't follow you to another device.
+            </Text>
+          </Stack>
+          <ThemeToggle />
+        </Stack>
       </Stack>
     </Section>
   );
