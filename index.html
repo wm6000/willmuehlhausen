@@ -7,10 +7,17 @@
     <title>Will Muehlhausen</title>
     <meta name="description" content="Software, data and AI engineering. Seattle, WA." />
     <script>
-      // Applies the stored theme before first paint, so there is no flash of the
-      // wrong colour scheme. Kept inline and tiny on purpose.
+      // Applies the signed-in person's theme before first paint, so there is no flash
+      // of the wrong colour scheme. The theme is stored per person rather than per
+      // browser, so this has to find the session first: who is signed in, then their
+      // theme. Signed out there is nothing to apply and the device decides.
+      //
+      // The two key shapes below are duplicated from src/lib (session, theme:<email>)
+      // because this has to run before any module loads. Change them together.
       try {
-        var t = localStorage.getItem("theme");
+        var raw = localStorage.getItem("session") || sessionStorage.getItem("session");
+        var email = raw ? JSON.parse(raw).email : null;
+        var t = email ? localStorage.getItem("theme:" + email) : null;
         if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
       } catch (e) {}
     </script>

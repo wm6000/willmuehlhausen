@@ -51,8 +51,8 @@ export function ProfilePage() {
               Appearance
             </Heading>
             <Text size="sm" tone="muted" prose>
-              Set per browser rather than per profile — it's about the screen you're on, not
-              about you, so it doesn't follow you to another device.
+              Saved against your account, so it follows you to another browser and stays
+              yours when someone else signs in here.
             </Text>
           </Stack>
           <ThemeToggle />
