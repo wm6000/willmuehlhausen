@@ -1,24 +1,35 @@
 export type Theme = "light" | "dark" | "system";
 
+const STORAGE_KEY = "theme";
 const THEMES: readonly Theme[] = ["light", "dark", "system"];
 
-export function isTheme(value: unknown): value is Theme {
-  return typeof value === "string" && (THEMES as readonly string[]).includes(value);
+function isTheme(value: string | null): value is Theme {
+  return value !== null && (THEMES as readonly string[]).includes(value);
 }
 
-/**
- * Applies a theme to the document, and nothing else. The choice itself is a field on
- * the profile — it belongs to the person, and goes to the database with the rest of
- * their record — so storing it is @/lib/profile's job, not this file's.
- *
- * "system" removes the attribute, handing the choice back to prefers-color-scheme.
- */
+export function readTheme(): Theme {
+  try {
+    const stored = window.localStorage.getItem(STORAGE_KEY);
+    return isTheme(stored) ? stored : "system";
+  } catch {
+    // Private browsing, or site data blocked. System default is a fine answer.
+    return "system";
+  }
+}
+
+/** "system" removes the attribute, handing the choice back to prefers-color-scheme. */
 export function applyTheme(theme: Theme): void {
   const root = document.documentElement;
   if (theme === "system") {
     root.removeAttribute("data-theme");
   } else {
     root.setAttribute("data-theme", theme);
+  }
+
+  try {
+    window.localStorage.setItem(STORAGE_KEY, theme);
+  } catch {
+    // Not being able to remember the choice shouldn't stop it applying now.
   }
 }
 

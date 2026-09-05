@@ -1,6 +1,7 @@
-import { NavigationLink, Row, Stack } from "@/ui";
+import { NavigationLink, Row, Stack, Text } from "@/ui";
 import { NAV } from "@/data/site";
 import { AuthMenu } from "@/layout/AuthMenu";
+import { ThemeToggle } from "@/layout/ThemeToggle";
 
 export type NavDrawerProps = {
   id: string;
@@ -15,8 +16,14 @@ export function NavDrawer({ id }: NavDrawerProps) {
             {item.label}
           </NavigationLink>
         ))}
-        <Row className="drawer__footer">
-          <AuthMenu block />
+        <Row justify="between" className="drawer__footer">
+          <Text size="sm" tone="muted">
+            Theme
+          </Text>
+          <Row gap={2}>
+            <ThemeToggle />
+            <AuthMenu />
+          </Row>
         </Row>
       </Stack>
     </Stack>

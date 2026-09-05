@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { Button, Heading, Row, Stack, Text } from "@/ui";
 import { ACTIVITIES, type ActivityId, type Profile } from "@/data/profile";
-import { editableFields, enabledCount } from "@/lib/profile";
+import { enabledCount } from "@/lib/profile";
 import { ActivitySection } from "@/components/profile/ActivitySection";
 import { ConnectionsSection } from "@/components/profile/ConnectionsSection";
 import { SkiPreferences } from "@/components/profile/SkiPreferences";
@@ -18,10 +18,7 @@ export function ProfileForm() {
   const [draft, setDraft] = useState<Profile>(profile);
   const [saved, setSaved] = useState(false);
 
-  // Compared on the editable fields only. The theme sits on the same record but is
-  // written the moment it's pressed, and would otherwise show up here as an unsaved
-  // change the person never made.
-  const dirty = JSON.stringify(editableFields(draft)) !== JSON.stringify(editableFields(profile));
+  const dirty = JSON.stringify(draft) !== JSON.stringify(profile);
   const none = enabledCount(draft) === 0;
 
   function update(next: Profile) {
@@ -89,11 +86,7 @@ export function ProfileForm() {
       </Stack>
 
       <Row gap={3} wrap align="center">
-        <Button variant="primary" size="lg" onClick={() => {
-            // The live theme, not the draft's stale copy, or Save would revert it.
-            save({ ...draft, theme: profile.theme });
-            setSaved(true);
-          }} disabled={!dirty}>
+        <Button variant="primary" size="lg" onClick={() => { save(draft); setSaved(true); }} disabled={!dirty}>
           Save
         </Button>
         {saved && !dirty ? (

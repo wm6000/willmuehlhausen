@@ -8,7 +8,6 @@
  */
 
 import { PASSES, SKI_TYPES } from "@/data/ski";
-import type { Theme } from "@/lib/theme";
 
 export type ActivityId = "ski" | "training";
 
@@ -58,19 +57,11 @@ export type Profile = {
   ski: SkiPreferences;
   training: TrainingPreferences;
   connections: Connections;
-  /**
-   * A field on the record, not a browser setting: it belongs to the person and goes
-   * to the database with everything else here. It is the one field the profile form
-   * doesn't edit — see `editableFields` — because a theme has to apply the instant
-   * it's pressed rather than waiting for Save.
-   */
-  theme: Theme;
 };
 
 /** Everything on by default: a new profile should show the whole product, not a stub. */
 export const EMPTY_PROFILE: Profile = {
   activities: { ski: true, training: true },
-  theme: "system",
   ski: { types: [], passes: [] },
   training: { goals: "", limitations: "" },
   connections: { strava: false, calendar: false, location: "" },

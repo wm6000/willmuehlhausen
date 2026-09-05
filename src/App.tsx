@@ -4,7 +4,6 @@ import { PageShell } from "@/layout/PageShell";
 import { RequireSession } from "@/components/auth/RequireSession";
 import { SessionProvider } from "@/components/auth/SessionContext";
 import { ProfileProvider } from "@/components/profile/ProfileContext";
-import { ThemeSync } from "@/components/system/ThemeSync";
 import { AdvisorPage } from "@/pages/AdvisorPage";
 import { HomePage } from "@/pages/HomePage";
 import { LoginPage } from "@/pages/LoginPage";
@@ -17,7 +16,6 @@ export function App() {
   return (
     <SessionProvider>
       <ProfileProvider>
-        <ThemeSync />
         <BrowserRouter>
           <Routes>
             <Route element={<PageShell />}>

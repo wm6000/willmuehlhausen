@@ -2,7 +2,6 @@ import { createContext, useCallback, useContext, useMemo, useState } from "react
 import type { ReactNode } from "react";
 
 import { EMPTY_PROFILE, type Profile } from "@/data/profile";
-import type { Theme } from "@/lib/theme";
 import { loadProfile, saveProfile } from "@/lib/profile";
 import { useSession } from "@/components/auth/SessionContext";
 
@@ -10,11 +9,6 @@ export type ProfileValue = {
   /** The saved profile — what the advisor reads. The form edits a draft of it. */
   profile: Profile;
   save: (profile: Profile) => void;
-  /**
-   * Persists the theme on its own, without going through the form's draft. A theme
-   * has to apply the instant it is pressed; every other field waits for Save.
-   */
-  setTheme: (theme: Theme) => void;
 };
 
 const ProfileContext = createContext<ProfileValue | null>(null);
@@ -54,16 +48,9 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
     [email]
   );
 
-  const setTheme = useCallback(
-    (theme: Theme) => {
-      save({ ...loaded.profile, theme });
-    },
-    [loaded.profile, save]
-  );
-
   const value = useMemo<ProfileValue>(
-    () => ({ profile: loaded.profile, save, setTheme }),
-    [loaded.profile, save, setTheme]
+    () => ({ profile: loaded.profile, save }),
+    [loaded.profile, save]
   );
 
   return <ProfileContext.Provider value={value}>{children}</ProfileContext.Provider>;

@@ -1,7 +1,6 @@
 import { Heading, Row, Section, Stack, Text } from "@/ui";
 import { ACTIVITIES } from "@/data/profile";
 import { ProfileForm } from "@/components/profile/ProfileForm";
-import { ThemeToggle } from "@/components/system/ThemeToggle";
 import { useProfile } from "@/components/profile/ProfileContext";
 import { useSession } from "@/components/auth/SessionContext";
 
@@ -41,23 +40,6 @@ export function ProfilePage() {
         {/* Keyed by who is signed in, so a different person gets a fresh form rather
             than the previous one's unsaved draft. */}
         <ProfileForm key={session?.email ?? "signed-out"} />
-
-        {/* A field on the profile like everything above it, but outside the form on
-            purpose: it applies and saves the moment you press it, while the rest waits
-            for Save. Putting it under that button would mean you couldn't see a theme
-            until you committed to it. */}
-        <Stack gap={4}>
-          <Stack gap={2}>
-            <Heading level={2} size={4} className="section-eyebrow" id="appearance-heading">
-              Appearance
-            </Heading>
-            <Text size="sm" tone="muted" prose>
-              Part of your profile, so it follows you to another browser and stays yours
-              when someone else signs in here. Applies straight away — no need to save.
-            </Text>
-          </Stack>
-          <ThemeToggle />
-        </Stack>
       </Stack>
     </Section>
   );
