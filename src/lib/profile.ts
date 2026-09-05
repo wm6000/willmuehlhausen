@@ -1,4 +1,5 @@
 import { EMPTY_PROFILE, type ActivityId, type Profile } from "@/data/profile";
+import { isTheme } from "@/lib/theme";
 
 /**
  * A profile belongs to one person, so it is stored under that person's key and read
@@ -23,6 +24,9 @@ function hydrate(parsed: Partial<Profile>): Profile {
     ski: { ...EMPTY_PROFILE.ski, ...parsed.ski },
     training: { ...EMPTY_PROFILE.training, ...parsed.training },
     connections: { ...EMPTY_PROFILE.connections, ...parsed.connections },
+    // A scalar, so it is validated rather than merged: a hand-edited or outdated
+    // value falls back to following the device instead of setting a bogus attribute.
+    theme: isTheme(parsed.theme) ? parsed.theme : EMPTY_PROFILE.theme,
   };
 }
 
@@ -59,6 +63,16 @@ export function saveProfile(email: string | null, profile: Profile): void {
 /** Adds or removes a value. Used by every multi-select preference. */
 export function toggleIn(values: readonly string[], value: string): string[] {
   return values.includes(value) ? values.filter((v) => v !== value) : [...values, value];
+}
+
+/**
+ * Everything the profile form edits — which is everything except the theme. The theme
+ * lives on the same record but applies the moment it is pressed, so the form must
+ * neither count it as an unsaved change nor write a stale copy of it back on Save.
+ */
+export function editableFields(profile: Profile): Omit<Profile, "theme"> {
+  const { theme: _theme, ...rest } = profile;
+  return rest;
 }
 
 export function enabledCount(profile: Profile): number {

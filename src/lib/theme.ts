@@ -2,54 +2,23 @@ export type Theme = "light" | "dark" | "system";
 
 const THEMES: readonly Theme[] = ["light", "dark", "system"];
 
+export function isTheme(value: unknown): value is Theme {
+  return typeof value === "string" && (THEMES as readonly string[]).includes(value);
+}
+
 /**
- * The theme belongs to a person, not to a browser, so it is stored under their key
- * the same way their profile is. Signed out there is no key and no stored choice —
- * the site follows the device, and nobody inherits the last person's theme.
+ * Applies a theme to the document, and nothing else. The choice itself is a field on
+ * the profile — it belongs to the person, and goes to the database with the rest of
+ * their record — so storing it is @/lib/profile's job, not this file's.
  *
- * The inline script in index.html resolves this same key before first paint. If the
- * shape here changes, that script has to change with it.
+ * "system" removes the attribute, handing the choice back to prefers-color-scheme.
  */
-function storageKey(email: string | null): string | null {
-  return email === null ? null : `theme:${email}`;
-}
-
-function isTheme(value: string | null): value is Theme {
-  return value !== null && (THEMES as readonly string[]).includes(value);
-}
-
-export function readTheme(email: string | null): Theme {
-  const key = storageKey(email);
-  if (key === null) {
-    return "system";
-  }
-  try {
-    const stored = window.localStorage.getItem(key);
-    return isTheme(stored) ? stored : "system";
-  } catch {
-    // Private browsing, or site data blocked. System default is a fine answer.
-    return "system";
-  }
-}
-
-/** "system" removes the attribute, handing the choice back to prefers-color-scheme. */
-export function applyTheme(email: string | null, theme: Theme): void {
+export function applyTheme(theme: Theme): void {
   const root = document.documentElement;
   if (theme === "system") {
     root.removeAttribute("data-theme");
   } else {
     root.setAttribute("data-theme", theme);
-  }
-
-  const key = storageKey(email);
-  if (key === null) {
-    // Nobody to remember it for. Applied for this page, not stored.
-    return;
-  }
-  try {
-    window.localStorage.setItem(key, theme);
-  } catch {
-    // Not being able to remember the choice shouldn't stop it applying now.
   }
 }
 

@@ -8,16 +8,18 @@
     <meta name="description" content="Software, data and AI engineering. Seattle, WA." />
     <script>
       // Applies the signed-in person's theme before first paint, so there is no flash
-      // of the wrong colour scheme. The theme is stored per person rather than per
-      // browser, so this has to find the session first: who is signed in, then their
+      // of the wrong colour scheme. The theme is a field on their profile, so this has
+      // to find the session first: who is signed in, then their profile, then its
       // theme. Signed out there is nothing to apply and the device decides.
       //
-      // The two key shapes below are duplicated from src/lib (session, theme:<email>)
-      // because this has to run before any module loads. Change them together.
+      // The two key shapes below are duplicated from src/lib (session, profile:<email>)
+      // because this has to run before any module loads. Change them together — a test
+      // runs this script against the same store the app uses to check they agree.
       try {
         var raw = localStorage.getItem("session") || sessionStorage.getItem("session");
         var email = raw ? JSON.parse(raw).email : null;
-        var t = email ? localStorage.getItem("theme:" + email) : null;
+        var p = email ? localStorage.getItem("profile:" + email) : null;
+        var t = p ? JSON.parse(p).theme : null;
         if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
       } catch (e) {}
     </script>

@@ -67,17 +67,23 @@ page showing advisor numbers carries a banner. **No page may claim real conditio
 it says `"mock"`.** Setting it to `"live"` removes both everywhere, and nothing else.
 
 **One profile per person, and nobody inherits anyone else's.** A profile is stored under
-its owner's key (`profile:<email>`), and the theme alongside it under `theme:<email>`,
-never a shared one. Signing out drops it from memory
+its owner's key (`profile:<email>`), never a shared one. Signing out drops it from memory
 as well as stopping it being read, so the next person to sign in on the same browser gets
 their own profile or an empty one — never the last person's switches. Signed out there is
 no key, so `loadProfile` returns empty and `saveProfile` is a no-op rather than writing to
 a shared bucket. The advisor separately reads the profile only while signed in; the two
 together mean a signed-out visitor can neither see nor leave behind a profile.
 
-The theme follows the same rule, which is why the inline script in `index.html` resolves
-the session before it can apply anything: it has to know whose theme to read. Signing out
-drops the theme with the session rather than leaving it on the page for whoever is next.
+**The theme is a field on that record, not a browser setting.** It belongs to the person
+and goes to the database with the rest of their profile when there is one. That's why the
+inline script in `index.html` resolves the session before it can apply anything — it has
+to know whose profile to read — and why signing out returns the page to following the
+device rather than leaving the last person's theme on it.
+
+It is the one profile field the form doesn't edit: a theme has to apply the moment it's
+pressed, so it writes straight through while everything else waits for Save.
+`editableFields` in [src/lib/profile.ts](../src/lib/profile.ts) is what keeps the form
+from counting it as an unsaved change or writing a stale copy back over it.
 
 **A sport switched off is gone, not hidden.** The switches on `/profile` are not a
 display filter. `verdictFor` in [src/lib/advisor.ts](../src/lib/advisor.ts) takes the

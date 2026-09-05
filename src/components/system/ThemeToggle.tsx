@@ -1,10 +1,8 @@
-import { useState } from "react";
-
 import { Button, Icon, Row, Stack, Text } from "@/ui";
 import type { IconName } from "@/ui";
-import { THEME_LABELS, applyTheme, nextTheme, readTheme } from "@/lib/theme";
+import { THEME_LABELS, nextTheme } from "@/lib/theme";
 import type { Theme } from "@/lib/theme";
-import { useSession } from "@/components/auth/SessionContext";
+import { useProfile } from "@/components/profile/ProfileContext";
 
 const ICONS: Record<Theme, IconName> = {
   light: "sun",
@@ -24,18 +22,12 @@ const DESCRIPTIONS: Record<Theme, string> = {
  * whichever of the other two your device is already using — the label is there to
  * say which mode you're actually in when the colours can't.
  *
- * The choice is stored against the signed-in person, so it follows them to another
- * browser and never leaks to whoever signs in here next. ThemeSync is what applies
- * it when the session changes; this component only handles the press.
+ * Reads and writes the profile directly rather than holding its own state, so the
+ * one on screen is always the saved one. ThemeSync is what puts it on the document.
  */
 export function ThemeToggle() {
-  const { session } = useSession();
-  const email = session?.email ?? null;
-
-  // Read during the initial render, not in an effect. The colours are already correct
-  // before first paint thanks to the inline script in index.html, and an effect here
-  // would paint one frame of the wrong icon before correcting itself.
-  const [theme, setTheme] = useState<Theme>(() => readTheme(email));
+  const { profile, setTheme } = useProfile();
+  const theme = profile.theme;
   const upcoming = nextTheme(theme);
 
   return (
@@ -44,10 +36,7 @@ export function ThemeToggle() {
         variant="secondary"
         size="icon"
         ariaLabel={`Theme: ${THEME_LABELS[theme]}. Switch to ${THEME_LABELS[upcoming]}.`}
-        onClick={() => {
-          setTheme(upcoming);
-          applyTheme(email, upcoming);
-        }}
+        onClick={() => setTheme(upcoming)}
       >
         <Icon name={ICONS[theme]} size={18} />
       </Button>

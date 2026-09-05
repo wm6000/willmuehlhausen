@@ -42,17 +42,18 @@ export function ProfilePage() {
             than the previous one's unsaved draft. */}
         <ProfileForm key={session?.email ?? "signed-out"} />
 
-        {/* Outside the form on purpose: the theme applies the moment you press it,
-            while everything above waits for Save. Mixing the two under one button
-            would make Save look like it had done nothing. */}
+        {/* A field on the profile like everything above it, but outside the form on
+            purpose: it applies and saves the moment you press it, while the rest waits
+            for Save. Putting it under that button would mean you couldn't see a theme
+            until you committed to it. */}
         <Stack gap={4}>
           <Stack gap={2}>
             <Heading level={2} size={4} className="section-eyebrow" id="appearance-heading">
               Appearance
             </Heading>
             <Text size="sm" tone="muted" prose>
-              Saved against your account, so it follows you to another browser and stays
-              yours when someone else signs in here.
+              Part of your profile, so it follows you to another browser and stays yours
+              when someone else signs in here. Applies straight away — no need to save.
             </Text>
           </Stack>
           <ThemeToggle />
