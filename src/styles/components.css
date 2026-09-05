@@ -1,0 +1,224 @@
+/* Home hero */
+.hero { padding-block: var(--space-9) var(--space-8); }
+.hero__inner { width: 100%; max-width: var(--width-content); margin-inline: auto; padding-inline: var(--space-5); }
+.hero__body { max-width: 40rem; }
+
+@media (max-width: 640px) {
+  .hero { padding-block: var(--space-7) var(--space-6); }
+  .hero__inner { padding-inline: var(--space-4); }
+}
+
+/* Card grid */
+.card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+@media (max-width: 900px) { .card-grid { grid-template-columns: 1fr; } }
+
+/* Route placeholder, used by pages not yet built out */
+.placeholder {
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-lg);
+  padding: var(--space-7) var(--space-5);
+  text-align: center;
+  background: var(--surface);
+}
+
+/* Data-source chip */
+.data-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.15rem var(--space-2);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  color: var(--fg-muted);
+  white-space: nowrap;
+}
+.data-chip__dot { color: var(--verdict-rest); }
+
+/* Login */
+.login__form {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+}
+.login__identity {
+  background: var(--surface-muted);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-4);
+  align-items: center;
+}
+
+/* Auth menu */
+.auth__avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex: none;
+  border-radius: var(--radius-full);
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid transparent;
+  transition: border-color var(--duration-fast) var(--ease);
+}
+.auth__avatar:hover { border-color: var(--accent); }
+
+/* Sample-data banner */
+.banner {
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--verdict-rest);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  align-items: baseline;
+}
+
+/* A section heading that reads as a label rather than a title */
+.section-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-size: var(--text-xs);
+  color: var(--fg-subtle);
+}
+
+/* Advisor: controls */
+.advisor-controls { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 640px) { .advisor-controls { grid-template-columns: 1fr; } }
+.advisor-preview {
+  padding: var(--space-5);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+/* Advisor: today's call */
+.call {
+  padding: var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+.call__verdict { font-size: var(--text-sm); padding: 0.25rem var(--space-3); }
+.call__adjusted {
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--surface-muted);
+}
+
+/* Advisor: ranked picks */
+.picks { list-style: none; }
+
+/* Advisor: seven-day outlook */
+.outlook { list-style: none; }
+.outlook__day {
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+.outlook__row { grid-template-columns: 12rem 1fr 14rem; align-items: center; }
+@media (max-width: 760px) {
+  .outlook__row { grid-template-columns: 1fr; }
+}
+
+/* Advisor: recent activity */
+.recent { list-style: none; }
+.recent__when { min-width: 6rem; }
+
+/* Advisor: map */
+.advisor-map {
+  height: 22rem;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-muted);
+  z-index: 0;
+}
+.advisor-map__marker {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+  background: var(--accent);
+  border: 2px solid var(--surface);
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.2);
+}
+/* Leaflet paints its own light chrome; match it to the surface in both themes. */
+.leaflet-container { font: inherit; background: var(--surface-muted); }
+.leaflet-popup-content-wrapper, .leaflet-popup-tip { background: var(--surface); color: var(--fg); }
+.leaflet-bar a, .leaflet-control-attribution { background: var(--surface); color: var(--fg-muted); }
+.leaflet-bar a { border-bottom-color: var(--border); }
+.leaflet-control-attribution a { color: var(--accent); }
+
+/* Advisor: signed-out call to action */
+.advisor-cta {
+  padding: var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-muted);
+}
+
+/* Projects: listing */
+.post-list { list-style: none; }
+.post-card__kind { text-transform: uppercase; letter-spacing: 0.07em; }
+
+/* Projects: post */
+.post-header { max-width: var(--width-prose); }
+.post-section { scroll-margin-top: calc(var(--header-height) + var(--space-4)); }
+.post-notes {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-muted);
+}
+.post-notes__label { text-transform: uppercase; letter-spacing: 0.07em; }
+@media (max-width: 640px) { .post-notes { grid-template-columns: 1fr; } }
+
+/* Projects: a post's own interactive feature */
+.demo {
+  padding: var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+.demo__routes { list-style: none; }
+
+/* Profile: connections */
+.connection {
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  align-items: center;
+}
+
+/* Profile: an activity and its preferences */
+.activity {
+  padding: var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  transition: border-color var(--duration-base) var(--ease), opacity var(--duration-base) var(--ease);
+}
+/* Switched off reads as settled, not broken: dimmed, but the switch stays full strength. */
+.activity--off { background: var(--surface-muted); border-style: dashed; }
+.activity--off .ui-heading, .activity--off .ui-text { opacity: 0.65; }
+.activity--off .ui-switch { opacity: 1; }
+
+.prefs {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .activity { transition: none; }
+}
+
+/* A narrower outlook row, for when snow isn't one of the columns */
+.outlook__row--narrow { grid-template-columns: 12rem 1fr; }
+@media (max-width: 760px) { .outlook__row--narrow { grid-template-columns: 1fr; } }
