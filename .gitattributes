@@ -1,0 +1,4 @@
+# core.autocrlf is a per-machine setting, so it can't be relied on to agree with
+# .editorconfig's `end_of_line = lf`. This makes the repo the authority: LF in the
+# index and LF in the working tree, on every machine, whatever git is configured to do.
+* text=auto eol=lf
