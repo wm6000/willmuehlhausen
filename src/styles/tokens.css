@@ -1,0 +1,147 @@
+/* Design tokens. Every colour, space, size and duration in the app resolves here. */
+
+:root {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.9375rem;
+  --text-md: 1.0625rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 1.9375rem;
+  --text-3xl: 2.5rem;
+
+  --leading-tight: 1.15;
+  --leading-snug: 1.35;
+  --leading-normal: 1.6;
+
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+
+  --space-0: 0;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 999px;
+
+  --width-content: 68rem;
+  --width-prose: 42rem;
+  --header-height: 3.75rem;
+
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Light */
+  --bg: #fbfcfd;
+  --surface: #ffffff;
+  --surface-muted: #f1f4f7;
+  --surface-raised: #ffffff;
+  --border: #e3e8ed;
+  --border-strong: #c8d2da;
+  --fg: #0e151b;
+  --fg-muted: #586673;
+  --fg-subtle: #84909c;
+  --accent: #0b6e91;
+  --accent-hover: #085a78;
+  --accent-fg: #ffffff;
+  --accent-soft: #e4f1f7;
+  --focus: #0b6e91;
+
+  --verdict-ski: #1668a8;
+  --verdict-ski-soft: #e2eef8;
+  --verdict-train: #1f7a4d;
+  --verdict-train-soft: #e2f2ea;
+  --verdict-rest: #8a6314;
+  --verdict-rest-soft: #f7eeda;
+  --verdict-busy: #64707c;
+  --verdict-busy-soft: #eceff2;
+
+  --danger: #b3261e;
+  --danger-soft: #fbe6e4;
+
+  --shadow-sm: 0 1px 2px rgb(14 21 27 / 0.06), 0 1px 1px rgb(14 21 27 / 0.04);
+  --shadow-md: 0 4px 12px rgb(14 21 27 / 0.08), 0 1px 3px rgb(14 21 27 / 0.05);
+  --shadow-lg: 0 12px 32px rgb(14 21 27 / 0.12);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b0f13;
+    --surface: #11171d;
+    --surface-muted: #171f26;
+    --surface-raised: #1a232b;
+    --border: #232d36;
+    --border-strong: #35424e;
+    --fg: #e9eff4;
+    --fg-muted: #98a6b2;
+    --fg-subtle: #6c7986;
+    --accent: #48bde3;
+    --accent-hover: #6bcdec;
+    --accent-fg: #06222c;
+    --accent-soft: #10303c;
+    --focus: #48bde3;
+
+    --verdict-ski: #6ab6ec;
+    --verdict-ski-soft: #12293b;
+    --verdict-train: #5fc793;
+    --verdict-train-soft: #12301f;
+    --verdict-rest: #d9ae5c;
+    --verdict-rest-soft: #302615;
+    --verdict-busy: #8593a0;
+    --verdict-busy-soft: #1c242c;
+
+    --danger: #f2837b;
+    --danger-soft: #38191a;
+
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+    --shadow-md: 0 4px 12px rgb(0 0 0 / 0.45);
+    --shadow-lg: 0 12px 32px rgb(0 0 0 / 0.55);
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0b0f13;
+  --surface: #11171d;
+  --surface-muted: #171f26;
+  --surface-raised: #1a232b;
+  --border: #232d36;
+  --border-strong: #35424e;
+  --fg: #e9eff4;
+  --fg-muted: #98a6b2;
+  --fg-subtle: #6c7986;
+  --accent: #48bde3;
+  --accent-hover: #6bcdec;
+  --accent-fg: #06222c;
+  --accent-soft: #10303c;
+  --focus: #48bde3;
+
+  --verdict-ski: #6ab6ec;
+  --verdict-ski-soft: #12293b;
+  --verdict-train: #5fc793;
+  --verdict-train-soft: #12301f;
+  --verdict-rest: #d9ae5c;
+  --verdict-rest-soft: #302615;
+  --verdict-busy: #8593a0;
+  --verdict-busy-soft: #1c242c;
+
+  --danger: #f2837b;
+  --danger-soft: #38191a;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-md: 0 4px 12px rgb(0 0 0 / 0.45);
+  --shadow-lg: 0 12px 32px rgb(0 0 0 / 0.55);
+}
