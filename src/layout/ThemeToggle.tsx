@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { Button, Icon, VisuallyHidden } from "@/ui";
 import type { IconName } from "@/ui";
@@ -12,13 +12,11 @@ const ICONS: Record<Theme, IconName> = {
 };
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>("system");
-
-  // The pre-paint script in index.html has already applied the stored theme; this
-  // only syncs React's copy of it, so the button shows the right icon on first paint.
-  useEffect(() => {
-    setTheme(readTheme());
-  }, []);
+  // Read during the initial render rather than in an effect. The pre-paint script in
+  // index.html has already applied the stored theme to the document, so the colours
+  // are right either way — but starting from "system" and correcting afterwards paints
+  // one frame of the monitor icon on top of an already-light or already-dark page.
+  const [theme, setTheme] = useState<Theme>(readTheme);
 
   return (
     <Button
