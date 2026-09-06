@@ -121,8 +121,11 @@
 .ui-button--lg { height: 2.75rem; padding-inline: var(--space-5); font-size: var(--text-base); }
 .ui-button--icon { height: 2.25rem; width: 2.25rem; padding: 0; }
 
-.ui-button--primary { background: var(--accent); color: var(--accent-fg); }
-.ui-button--primary:hover { background: var(--accent-hover); }
+.ui-button--primary { background: var(--button-primary); color: var(--accent-fg); }
+.ui-button--primary:hover { background: var(--button-primary-hover); }
+/* The global focus ring is --focus, which is the link teal. On a violet button that reads
+   as a mistake, so the ring takes the button's own colour. */
+.ui-button--primary:focus-visible { outline-color: var(--button-primary); }
 .ui-button--secondary { background: var(--surface); color: var(--fg); border-color: var(--border-strong); box-shadow: var(--shadow-sm); }
 .ui-button--secondary:hover { background: var(--surface-muted); }
 .ui-button--ghost { color: var(--fg-muted); }

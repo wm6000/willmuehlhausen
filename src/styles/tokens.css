@@ -73,6 +73,12 @@
   --highlight: #12a7d6;
   --hero-bg: linear-gradient(168deg, #e8f4fb 0%, var(--bg) 100%);
 
+  /* Buttons carry their own colour — a cool violet against the teal ink, so the thing you
+     press is never the same colour as the thing you read. White label at 6.14:1 on it.
+     Dark mode points these at its cyan and is unchanged. */
+  --button-primary: #5b4bd6;
+  --button-primary-hover: #4a3cb0;
+
   --verdict-ski: #1668a8;
   --verdict-ski-soft: #e2eef8;
   --verdict-train: #1f7a4d;
@@ -119,6 +125,9 @@
     --highlight: #48bde3;
     --hero-bg: none;
 
+    --button-primary: #48bde3;
+    --button-primary-hover: #6bcdec;
+
     --danger: #f2837b;
     --danger-soft: #38191a;
 
@@ -155,6 +164,9 @@
 
   --highlight: #48bde3;
   --hero-bg: none;
+
+  --button-primary: #48bde3;
+  --button-primary-hover: #6bcdec;
 
   --danger: #f2837b;
   --danger-soft: #38191a;
