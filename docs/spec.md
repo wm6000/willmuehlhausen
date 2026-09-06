@@ -111,6 +111,12 @@ hand-edited profile resolves to off. Every other field can afford a permissive d
 a subscription cannot, because the failure mode is mail somebody never asked for. Nothing
 is sent today and the section says so, rather than collecting a signup that goes nowhere.
 
+When something does send, it sends in the **recipient's** local time — there are two daily
+emails, an evening one for planning tomorrow and a morning one for today, and both are
+meaningless in UTC. [emails.md](emails.md) records the shape and the constraints that come
+with it, including why the zone has to be an IANA name on the profile rather than an offset
+or a guess from `connections.location`.
+
 **Not advice.** The site carries `DISCLAIMER` — *not avalanche-safety or medical advice* —
 wherever it makes a call. The advisor suggests; it never certifies a slope is safe.
 
@@ -143,3 +149,6 @@ shell so pages get them without asking.
 - Decide the hosting target and the deploy path.
 - Decide where advisor conditions data actually comes from, and whether it lands in
   `data-platform` first or is read directly.
+- Capture an IANA timezone on the profile **before** the first real email send, not after —
+  see [emails.md](emails.md). Retrofitting it means guessing on behalf of everyone who
+  signed up in the meantime.
