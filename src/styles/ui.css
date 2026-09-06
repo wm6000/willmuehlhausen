@@ -141,7 +141,7 @@
     transform var(--duration-base) var(--ease);
 }
 .ui-card--interactive:hover {
-  border-color: var(--border-strong);
+  border-color: var(--highlight);
   box-shadow: var(--shadow-md);
   transform: translateY(-2px);
 }

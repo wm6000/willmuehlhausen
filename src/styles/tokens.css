@@ -46,31 +46,32 @@
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Light.
-     Unbleached paper rather than white. The old ground was #fbfcfd against #ffffff cards —
-     a 1.03:1 separation, which is to say none: everything sat in one flat white field held
-     together by hairlines. Here the page is paper and the cards are white on top of it, so
-     the hierarchy is carried by the surfaces themselves rather than by borders alone.
+     The page is white — a hair off it, cool rather than warm, so a card still lifts
+     (1.06:1) without the ground reading as tinted paper.
 
-     Warm ground, cold accent. It's the same teal dark mode uses, and against a warm paper
-     it reads as ink on stock instead of another blue-grey dashboard. */
-  --bg: #f4f0e8;
+     Colour arrives as highlights instead of as a wash. --accent is the ink: it carries
+     links and button fills, and it can't get brighter without losing contrast on white,
+     since a lighter teal on white is a *lower* ratio. --highlight is the opposite job —
+     decoration only, never text on it, so it's free to be as vivid as it likes. It marks
+     section labels, washes the hero and picks out a card on hover. */
+  --bg: #f7f9fb;
   --surface: #ffffff;
-  --surface-muted: #ebe5d9;
+  --surface-muted: #eff3f7;
   --surface-raised: #ffffff;
-  --border: #ddd5c6;
-  --border-strong: #bcb09c;
-  --fg: #181410;
-  --fg-muted: #5a5145;
-  /* 4.85:1 on a muted panel. The old #84909c was 2.95:1 there and failed AA outright. */
-  --fg-subtle: #6a6154;
-  --accent: #0a6d90;
+  --border: #dde5ec;
+  --border-strong: #b8c5d1;
+  --fg: #0d151c;
+  --fg-muted: #4f5e6c;
+  /* 4.60:1 on a muted panel. The old #84909c was 2.95:1 there and failed AA outright. */
+  --fg-subtle: #636f7b;
+  --accent: #0b6e91;
   --accent-hover: #085a78;
   --accent-fg: #ffffff;
-  --accent-soft: #d9ebf5;
-  --focus: #0a6d90;
+  --accent-soft: #dceef8;
+  --focus: #0b6e91;
 
-  /* A warm wash behind the home page's opening block. Dark mode sets this to none. */
-  --hero-bg: linear-gradient(168deg, #fdfbf5 0%, #f1ebdf 100%);
+  --highlight: #12a7d6;
+  --hero-bg: linear-gradient(168deg, #e8f4fb 0%, var(--bg) 100%);
 
   --verdict-ski: #1668a8;
   --verdict-ski-soft: #e2eef8;
@@ -84,9 +85,9 @@
   --danger: #b3261e;
   --danger-soft: #fbe6e4;
 
-  --shadow-sm: 0 1px 2px rgb(58 44 24 / 0.07), 0 1px 1px rgb(58 44 24 / 0.05);
-  --shadow-md: 0 4px 12px rgb(58 44 24 / 0.10), 0 1px 3px rgb(58 44 24 / 0.06);
-  --shadow-lg: 0 12px 32px rgb(58 44 24 / 0.15);
+  --shadow-sm: 0 1px 2px rgb(13 21 28 / 0.07), 0 1px 1px rgb(13 21 28 / 0.05);
+  --shadow-md: 0 4px 12px rgb(13 21 28 / 0.10), 0 1px 3px rgb(13 21 28 / 0.06);
+  --shadow-lg: 0 12px 32px rgb(13 21 28 / 0.16);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -115,6 +116,7 @@
     --verdict-busy: #8593a0;
     --verdict-busy-soft: #1c242c;
 
+    --highlight: #48bde3;
     --hero-bg: none;
 
     --danger: #f2837b;
@@ -151,6 +153,7 @@
   --verdict-busy: #8593a0;
   --verdict-busy-soft: #1c242c;
 
+  --highlight: #48bde3;
   --hero-bg: none;
 
   --danger: #f2837b;
