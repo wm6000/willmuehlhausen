@@ -121,11 +121,17 @@
 .ui-button--lg { height: 2.75rem; padding-inline: var(--space-5); font-size: var(--text-base); }
 .ui-button--icon { height: 2.25rem; width: 2.25rem; padding: 0; }
 
-.ui-button--primary { background: var(--button-primary); color: var(--accent-fg); }
+/* .ui-button already reserves a 1px transparent border, so drawing this one costs no
+   layout shift. In dark mode the edge is transparent and nothing changes. */
+.ui-button--primary {
+  background: var(--button-primary);
+  color: var(--button-primary-fg);
+  border-color: var(--button-primary-edge);
+}
 .ui-button--primary:hover { background: var(--button-primary-hover); }
-/* The global focus ring is --focus, which is the link teal. On a violet button that reads
-   as a mistake, so the ring takes the button's own colour. */
-.ui-button--primary:focus-visible { outline-color: var(--button-primary); }
+/* The global focus ring is --focus, the link teal, which around a purple button reads as
+   a mistake. The ring takes the button's own edge colour instead. */
+.ui-button--primary:focus-visible { outline-color: var(--button-primary-edge); }
 .ui-button--secondary { background: var(--surface); color: var(--fg); border-color: var(--border-strong); box-shadow: var(--shadow-sm); }
 .ui-button--secondary:hover { background: var(--surface-muted); }
 .ui-button--ghost { color: var(--fg-muted); }

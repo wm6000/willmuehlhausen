@@ -74,12 +74,19 @@
   --hero-bg: linear-gradient(168deg, #e8f4fb 0%, var(--bg) 100%);
 
   /* Buttons carry their own colour, so the thing you press is never the same colour as
-     the thing you read. Royal purple: hue 267 rather than the 247 of the indigo this
-     started as, which is the difference between reading as purple and reading as a blue
-     that went wrong. White label at 7.38:1.
-     Dark mode points these at its cyan and is unchanged. */
-  --button-primary: #6b3fa0;
-  --button-primary-hover: #5a2d8a;
+     the thing you read.
+
+     Lavender is pale, which costs two things a solid button normally gets free. A white
+     label is impossible on it — 1.85:1 — so the label is a deep purple instead, at
+     8.38:1. And the fill is only 1.72:1 against the page, well under the 3:1 a control
+     needs to have a visible boundary, so the edge is drawn rather than implied. Both are
+     forced by the colour, not decoration on top of it.
+
+     Dark mode points these at its cyan, needs no edge, and is unchanged. */
+  --button-primary: #c9b7f2;
+  --button-primary-hover: #bba7ea;
+  --button-primary-fg: #2e1a4f;
+  --button-primary-edge: #7a58c0;
 
   --verdict-ski: #1668a8;
   --verdict-ski-soft: #e2eef8;
@@ -129,6 +136,9 @@
 
     --button-primary: #48bde3;
     --button-primary-hover: #6bcdec;
+    --button-primary-fg: #06222c;
+    /* The cyan is 8.85:1 against this ground; it carries its own edge. */
+    --button-primary-edge: transparent;
 
     --danger: #f2837b;
     --danger-soft: #38191a;
@@ -169,6 +179,9 @@
 
   --button-primary: #48bde3;
   --button-primary-hover: #6bcdec;
+  --button-primary-fg: #06222c;
+  /* The cyan is 8.85:1 against this ground; it carries its own edge. */
+  --button-primary-edge: transparent;
 
   --danger: #f2837b;
   --danger-soft: #38191a;
