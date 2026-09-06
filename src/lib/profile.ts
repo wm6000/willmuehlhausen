@@ -1,4 +1,11 @@
-import { EMPTY_PROFILE, type PlanContext, type Profile, type SportTiers, type TargetEvent } from "@/data/profile";
+import {
+  EMPTY_PROFILE,
+  type EmailPreferences,
+  type PlanContext,
+  type Profile,
+  type SportTiers,
+  type TargetEvent,
+} from "@/data/profile";
 import { isSportId } from "@/data/sports";
 
 const STORAGE_KEY_PREFIX = "profile:";
@@ -52,6 +59,15 @@ function hydrateEvents(parsed: unknown): TargetEvent[] {
   return events;
 }
 
+/**
+ * Strictly `=== true`, not merged. A spread would let a stored "yes", 1 or "false" through
+ * as truthy and quietly subscribe someone; anything that isn't the boolean true means off.
+ */
+function hydrateEmails(parsed: unknown): EmailPreferences {
+  const source = typeof parsed === "object" && parsed !== null ? (parsed as Record<string, unknown>) : {};
+  return { daily: source["daily"] === true, weekly: source["weekly"] === true };
+}
+
 function hydrateContext(parsed: unknown): PlanContext {
   const source = typeof parsed === "object" && parsed !== null ? (parsed as Record<string, unknown>) : {};
   return {
@@ -71,6 +87,7 @@ function hydrate(parsed: Partial<Profile>): Profile {
   return {
     sports: hydrateSports(parsed.sports),
     context: hydrateContext(parsed.context),
+    emails: hydrateEmails(parsed.emails),
     ski: { ...EMPTY_PROFILE.ski, ...parsed.ski },
     connections: { ...EMPTY_PROFILE.connections, ...parsed.connections },
   };

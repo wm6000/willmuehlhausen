@@ -4,6 +4,7 @@ import { Button, Heading, Row, Stack, Text } from "@/ui";
 import type { Profile } from "@/data/profile";
 import { ConnectionsSection } from "@/components/profile/ConnectionsSection";
 import { ContextSection } from "@/components/profile/ContextSection";
+import { EmailSection } from "@/components/profile/EmailSection";
 import { SkiPreferences } from "@/components/profile/SkiPreferences";
 import { SportsSection } from "@/components/profile/sports/SportsSection";
 import { useProfile } from "@/components/profile/ProfileContext";
@@ -65,6 +66,18 @@ export function ProfileForm() {
           </Text>
         </Stack>
         <ContextSection value={draft.context} onChange={(context) => update({ ...draft, context })} />
+      </Stack>
+
+      <Stack gap={4}>
+        <Stack gap={2}>
+          <Heading level={2} size={4} className="section-eyebrow" id="emails-heading">
+            Emails
+          </Heading>
+          <Text size="sm" tone="muted" prose>
+            The same call this page makes, delivered. Both are off until you turn them on.
+          </Text>
+        </Stack>
+        <EmailSection value={draft.emails} onChange={(emails) => update({ ...draft, emails })} />
       </Stack>
 
       <Stack gap={4}>

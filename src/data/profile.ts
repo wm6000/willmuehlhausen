@@ -48,6 +48,16 @@ export type PlanContext = {
   events: TargetEvent[];
 };
 
+/**
+ * Both default to off, and stay off unless the stored value is literally `true`. An email
+ * subscription is the one setting where a corrupt or half-written value must not resolve
+ * in favour of sending something — nobody has ever been glad to be opted in by a bug.
+ */
+export type EmailPreferences = {
+  daily: boolean;
+  weekly: boolean;
+};
+
 export type Connections = {
   strava: boolean;
   calendar: boolean;
@@ -57,6 +67,7 @@ export type Connections = {
 export type Profile = {
   sports: SportTiers;
   context: PlanContext;
+  emails: EmailPreferences;
   ski: SkiPreferences;
   connections: Connections;
 };
@@ -69,6 +80,7 @@ export type Profile = {
 export const EMPTY_PROFILE: Profile = {
   sports: {},
   context: { goals: "", limitations: "", events: [] },
+  emails: { daily: false, weekly: false },
   ski: { types: [], passes: [] },
   connections: { strava: false, calendar: false, location: "" },
 };

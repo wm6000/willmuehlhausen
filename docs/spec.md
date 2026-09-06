@@ -30,7 +30,7 @@ runs on example data and says so.
 | `/advisor` | Today's call, a recap of the week behind you, and a seven-day outlook — in that order | M1 ✓ |
 | `/projects` | The blog-style listing, filterable by tag — see [projects.md](projects.md) | M2 ✓ |
 | `/projects/:slug` | One post, free to carry its own custom features | M2 ✓ |
-| `/profile` | Connections, the sports you do ranked into tiers, plan context, ski settings | M3 ✓ |
+| `/profile` | Connections, ranked sports, plan context, email opt-ins, ski settings | M3 ✓ |
 | `/login` | Sign in, on a mock session — see [auth.md](auth.md) | M3 ✓ |
 | `*` | A real 404 that offers a way back | M0 ✓ |
 
@@ -103,6 +103,13 @@ A new profile shows the whole product rather than an advisor that refuses to adv
 
 Adding a sport is an entry in `SPORTS`; the catalogue is Strava's, so in practice it changes
 only when Strava's does.
+
+**Email is opt-in, and only a literal `true` opts you in.** Both switches default to off,
+and `hydrateEmails` in [src/lib/profile.ts](../src/lib/profile.ts) reads a stored value with
+`=== true` rather than merging it — a truthy `"yes"`, `1` or `"false"` from a corrupt or
+hand-edited profile resolves to off. Every other field can afford a permissive default;
+a subscription cannot, because the failure mode is mail somebody never asked for. Nothing
+is sent today and the section says so, rather than collecting a signup that goes nowhere.
 
 **Not advice.** The site carries `DISCLAIMER` — *not avalanche-safety or medical advice* —
 wherever it makes a call. The advisor suggests; it never certifies a slope is safe.
