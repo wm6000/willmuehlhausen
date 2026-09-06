@@ -85,16 +85,6 @@
   color: var(--fg-subtle);
 }
 
-/* Advisor: controls */
-.advisor-controls { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-@media (max-width: 640px) { .advisor-controls { grid-template-columns: 1fr; } }
-.advisor-preview {
-  padding: var(--space-5);
-  border: 1px dashed var(--border-strong);
-  border-radius: var(--radius-lg);
-  background: var(--surface);
-}
-
 /* Advisor: today's call */
 .call {
   padding: var(--space-6);
@@ -110,9 +100,6 @@
   background: var(--surface-muted);
 }
 
-/* Advisor: ranked picks */
-.picks { list-style: none; }
-
 /* Advisor: seven-day outlook */
 .outlook { list-style: none; }
 .outlook__day {
@@ -126,33 +113,10 @@
   .outlook__row { grid-template-columns: 1fr; }
 }
 
-/* Advisor: recent activity */
-.recent { list-style: none; }
-.recent__when { min-width: 6rem; }
-
-/* Advisor: map */
-.advisor-map {
-  height: 22rem;
-  width: 100%;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  background: var(--surface-muted);
-  z-index: 0;
-}
-.advisor-map__marker {
-  width: 14px;
-  height: 14px;
-  border-radius: var(--radius-full);
-  background: var(--accent);
-  border: 2px solid var(--surface);
-  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.2);
-}
-/* Leaflet paints its own light chrome; match it to the surface in both themes. */
-.leaflet-container { font: inherit; background: var(--surface-muted); }
-.leaflet-popup-content-wrapper, .leaflet-popup-tip { background: var(--surface); color: var(--fg); }
-.leaflet-bar a, .leaflet-control-attribution { background: var(--surface); color: var(--fg-muted); }
-.leaflet-bar a { border-bottom-color: var(--border); }
-.leaflet-control-attribution a { color: var(--accent); }
+/* Advisor: the week behind you */
+.recap { list-style: none; }
+.recap__when { min-width: 6rem; }
+.recap__latest { border-color: var(--border-strong); }
 
 /* Advisor: signed-out call to action */
 .advisor-cta {

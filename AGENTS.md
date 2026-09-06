@@ -119,8 +119,10 @@ runs the app.
   (`alias: {'@': 'src'}`, `nodePaths: ['node_modules']`) and `renderToString` it, then
   assert on the HTML. Catches missing providers, crashes, and wrong conditional branches.
   Note `&` renders as `&amp;`.
-- **Leaflet needs a real browser.** Anything touching the map is unverified until someone
-  runs `npm run dev` and looks. Say so rather than implying otherwise.
+- **Anything a browser has and Node doesn't is unverified this way.** There is no such
+  code right now — Leaflet was the case, and it left with the advisor's map — but if you
+  add some, say plainly that it needs `npm run dev` and a look rather than implying the
+  render test covered it.
 
 Put throwaway test files in the scratchpad, not the repo.
 

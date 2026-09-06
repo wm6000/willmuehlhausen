@@ -27,7 +27,7 @@ runs on example data and says so.
 | Route | Owes the visitor | Milestone |
 |---|---|---|
 | `/` | The claim, and three doors: Advisor, Projects, Profile | M0 ✓ |
-| `/advisor` | Today's call across skiing and training; a seven-day outlook combining snow, workload and calendar; a plain-language box to adjust it | M1 ✓ |
+| `/advisor` | Today's call, a recap of the week behind you, and a seven-day outlook — in that order | M1 ✓ |
 | `/projects` | The blog-style listing, filterable by tag — see [projects.md](projects.md) | M2 ✓ |
 | `/projects/:slug` | One post, free to carry its own custom features | M2 ✓ |
 | `/profile` | Connections, the sports you do ranked into tiers, plan context, ski settings | M3 ✓ |
@@ -43,8 +43,12 @@ footer's site column. See `NAV` in [src/data/site.ts](../src/data/site.ts).
   primitive layer, header with drawer, footer, skip link, scroll reset. Complete.
   Unbuilt routes render `RoutePlaceholder`, which names the milestone that fills them
   in — an unfinished page must never read as a broken one.
-- **M1 — advisor.** Built. Today's call, ranked ski picks with a map, the seven-day
-  outlook and the adjustment box, all on mock data. The old site kept ski and training
+- **M1 — advisor.** Built: today's call with a plain-language adjustment box, a recap of
+  the week behind you, and the seven-day outlook, all on mock data. It also carried a
+  "where to go" section — a city and pass picker, ranked ski areas and a Leaflet map —
+  which came out once the profile became 55 ranked sports and that section read as
+  ski-specific furniture. It returns when it can serve whatever sports someone ranked;
+  the code is in git history and the dependency came out with it. The old site kept ski and training
   as two separate advisors with two separate seven-day lists; here a day carries snow,
   calendar and load together, and `verdictFor` in [src/lib/advisor.ts](../src/lib/advisor.ts)
   turns the three into one call. That reconciliation is the product.
@@ -110,10 +114,10 @@ so a build cannot pass while one is broken: at most 7 files per directory; no CS
 3, is in the root [README](../README.md#structure-rules).
 
 **No dependency without a reason that survives being said out loud.** React, React Router,
-TypeScript, Vite, and Leaflet for the advisor map — a real slippy map is not something to
-reimplement, and the alternative was cutting the map. Plain CSS on design tokens — no CSS
-framework, no component library. Every primitive in `src/ui/` is ours, which is why rule 3
-can be absolute.
+TypeScript, Vite. That's the whole runtime list. Leaflet was here for the advisor's map and
+left with it rather than sitting unused at a third of the bundle. Plain CSS on design
+tokens — no CSS framework, no component library. Every primitive in `src/ui/` is ours,
+which is why rule 3 can be absolute.
 
 **Accessible by construction.** Skip link, one `<main>`, headings that descend, focus
 visible, the drawer trapping and restoring focus. These live in the primitives and the

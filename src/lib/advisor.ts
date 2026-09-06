@@ -1,7 +1,39 @@
-import type { AdvisorDay } from "@/data/advisor";
+import type { AdvisorDay, Load, PastActivity } from "@/data/advisor";
 import { ALL_DOMAINS, type DomainTiers } from "@/lib/sports";
 
 export type Verdict = "ski" | "train" | "rest" | "busy";
+
+export type Recap = { sessions: number; miles: number; load: Load };
+
+const EFFORT_RANK: Record<Load, number> = { low: 0, moderate: 1, high: 2 };
+
+/**
+ * Summarises the week from the days themselves rather than being told it. A hardcoded
+ * "4 sessions, 31 miles" would eventually contradict the list printed underneath it, and
+ * the load the advisor keeps citing as a reason ought to be something you can check.
+ *
+ * A rest day is not a session. The week's load is its hardest day, not its average — one
+ * brutal session is what you're carrying, however gentle the rest of the week was.
+ */
+export function recapOf(activities: readonly PastActivity[]): Recap {
+  let sessions = 0;
+  let miles = 0;
+  let load: Load = "low";
+
+  for (const entry of activities) {
+    if (entry.miles === 0 && entry.activity === "Rest") {
+      continue;
+    }
+    sessions += 1;
+    miles += entry.miles;
+    if (EFFORT_RANK[entry.effort] > EFFORT_RANK[load]) {
+      load = entry.effort;
+    }
+  }
+
+  // Distances are one decimal place; summing floats gets there the long way round.
+  return { sessions, miles: Math.round(miles * 10) / 10, load };
+}
 
 export { ALL_DOMAINS };
 

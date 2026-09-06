@@ -73,7 +73,8 @@ export function ProfileForm() {
             Ski settings
           </Heading>
           <Text size="sm" tone="muted" prose>
-            Only used if you've ranked a snow sport above.
+            Nothing reads these yet. They came back off the advisor when its map did, and
+            they're kept so they're already here when it returns.
           </Text>
         </Stack>
         <SkiPreferences value={draft.ski} onChange={(ski) => update({ ...draft, ski })} />

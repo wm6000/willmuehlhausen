@@ -80,10 +80,25 @@ export const WEEK: readonly AdvisorDay[] = [
   },
 ];
 
-export type PastActivity = { label: string; activity: string };
+/**
+ * The week behind you. Rest days are included rather than filtered out, because a week
+ * with two rests in it is a different week from one without — and the recap's summary is
+ * derived from this list rather than stated alongside it, so the two can't disagree.
+ */
+export type PastActivity = {
+  label: string;
+  activity: string;
+  /** Zero on a rest day. */
+  miles: number;
+  effort: Load;
+  duration: string;
+};
 
 export const RECENT: readonly PastActivity[] = [
-  { label: "2 days ago", activity: "Interval workout — 6.1 mi" },
-  { label: "4 days ago", activity: "Long run — 12.4 mi" },
-  { label: "6 days ago", activity: "Rest" },
+  { label: "Yesterday", activity: "Interval workout", miles: 6.1, effort: "high", duration: "48 min" },
+  { label: "2 days ago", activity: "Easy run", miles: 4.2, effort: "low", duration: "38 min" },
+  { label: "3 days ago", activity: "Rest", miles: 0, effort: "low", duration: "—" },
+  { label: "4 days ago", activity: "Long run", miles: 12.4, effort: "moderate", duration: "1 hr 44" },
+  { label: "5 days ago", activity: "Strength", miles: 0, effort: "moderate", duration: "35 min" },
+  { label: "6 days ago", activity: "Rest", miles: 0, effort: "low", duration: "—" },
 ];
