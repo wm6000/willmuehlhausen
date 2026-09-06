@@ -1,5 +1,11 @@
 /* Home hero */
-.hero { padding-block: var(--space-9) var(--space-8); }
+.hero {
+  padding-block: var(--space-9) var(--space-8);
+  /* Light mode washes this block; dark mode sets the token to none and keeps its flat
+     ground, which is the half that already worked. */
+  background: var(--hero-bg);
+  border-bottom: 1px solid var(--border);
+}
 .hero__inner { width: 100%; max-width: var(--width-content); margin-inline: auto; padding-inline: var(--space-5); }
 .hero__body { max-width: 40rem; }
 

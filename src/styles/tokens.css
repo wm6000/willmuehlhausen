@@ -45,21 +45,32 @@
   --duration-base: 200ms;
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
 
-  /* Light */
-  --bg: #fbfcfd;
+  /* Light.
+     Unbleached paper rather than white. The old ground was #fbfcfd against #ffffff cards —
+     a 1.03:1 separation, which is to say none: everything sat in one flat white field held
+     together by hairlines. Here the page is paper and the cards are white on top of it, so
+     the hierarchy is carried by the surfaces themselves rather than by borders alone.
+
+     Warm ground, cold accent. It's the same teal dark mode uses, and against a warm paper
+     it reads as ink on stock instead of another blue-grey dashboard. */
+  --bg: #f4f0e8;
   --surface: #ffffff;
-  --surface-muted: #f1f4f7;
+  --surface-muted: #ebe5d9;
   --surface-raised: #ffffff;
-  --border: #e3e8ed;
-  --border-strong: #c8d2da;
-  --fg: #0e151b;
-  --fg-muted: #586673;
-  --fg-subtle: #84909c;
-  --accent: #0b6e91;
+  --border: #ddd5c6;
+  --border-strong: #bcb09c;
+  --fg: #181410;
+  --fg-muted: #5a5145;
+  /* 4.85:1 on a muted panel. The old #84909c was 2.95:1 there and failed AA outright. */
+  --fg-subtle: #6a6154;
+  --accent: #0a6d90;
   --accent-hover: #085a78;
   --accent-fg: #ffffff;
-  --accent-soft: #e4f1f7;
-  --focus: #0b6e91;
+  --accent-soft: #d9ebf5;
+  --focus: #0a6d90;
+
+  /* A warm wash behind the home page's opening block. Dark mode sets this to none. */
+  --hero-bg: linear-gradient(168deg, #fdfbf5 0%, #f1ebdf 100%);
 
   --verdict-ski: #1668a8;
   --verdict-ski-soft: #e2eef8;
@@ -67,15 +78,15 @@
   --verdict-train-soft: #e2f2ea;
   --verdict-rest: #8a6314;
   --verdict-rest-soft: #f7eeda;
-  --verdict-busy: #64707c;
+  --verdict-busy: #5a6672;
   --verdict-busy-soft: #eceff2;
 
   --danger: #b3261e;
   --danger-soft: #fbe6e4;
 
-  --shadow-sm: 0 1px 2px rgb(14 21 27 / 0.06), 0 1px 1px rgb(14 21 27 / 0.04);
-  --shadow-md: 0 4px 12px rgb(14 21 27 / 0.08), 0 1px 3px rgb(14 21 27 / 0.05);
-  --shadow-lg: 0 12px 32px rgb(14 21 27 / 0.12);
+  --shadow-sm: 0 1px 2px rgb(58 44 24 / 0.07), 0 1px 1px rgb(58 44 24 / 0.05);
+  --shadow-md: 0 4px 12px rgb(58 44 24 / 0.10), 0 1px 3px rgb(58 44 24 / 0.06);
+  --shadow-lg: 0 12px 32px rgb(58 44 24 / 0.15);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -88,7 +99,7 @@
     --border-strong: #35424e;
     --fg: #e9eff4;
     --fg-muted: #98a6b2;
-    --fg-subtle: #6c7986;
+    --fg-subtle: #7e8b98;
     --accent: #48bde3;
     --accent-hover: #6bcdec;
     --accent-fg: #06222c;
@@ -103,6 +114,8 @@
     --verdict-rest-soft: #302615;
     --verdict-busy: #8593a0;
     --verdict-busy-soft: #1c242c;
+
+    --hero-bg: none;
 
     --danger: #f2837b;
     --danger-soft: #38191a;
@@ -122,7 +135,7 @@
   --border-strong: #35424e;
   --fg: #e9eff4;
   --fg-muted: #98a6b2;
-  --fg-subtle: #6c7986;
+  --fg-subtle: #7e8b98;
   --accent: #48bde3;
   --accent-hover: #6bcdec;
   --accent-fg: #06222c;
@@ -137,6 +150,8 @@
   --verdict-rest-soft: #302615;
   --verdict-busy: #8593a0;
   --verdict-busy-soft: #1c242c;
+
+  --hero-bg: none;
 
   --danger: #f2837b;
   --danger-soft: #38191a;
