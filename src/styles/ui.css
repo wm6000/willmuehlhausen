@@ -129,9 +129,10 @@
   border-color: var(--button-primary-edge);
 }
 .ui-button--primary:hover { background: var(--button-primary-hover); }
-/* The global focus ring is --focus, the link teal, which around a purple button reads as
-   a mistake. The ring takes the button's own edge colour instead. */
-.ui-button--primary:focus-visible { outline-color: var(--button-primary-edge); }
+/* The global focus ring is --focus, the link teal, which around a lavender button reads
+   as a mistake. It can't be the edge either: dark mode has no drawn edge, so the ring
+   would be transparent and there would be no visible focus at all. Its own token. */
+.ui-button--primary:focus-visible { outline-color: var(--button-primary-ring); }
 .ui-button--secondary { background: var(--surface); color: var(--fg); border-color: var(--border-strong); box-shadow: var(--shadow-sm); }
 .ui-button--secondary:hover { background: var(--surface-muted); }
 .ui-button--ghost { color: var(--fg-muted); }

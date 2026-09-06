@@ -87,6 +87,9 @@
   --button-primary-hover: #bba7ea;
   --button-primary-fg: #2e1a4f;
   --button-primary-edge: #7a58c0;
+  /* Separate from the edge because the two themes need opposite answers: on a pale page
+     the ring must be darker than the button, on a dark page lighter. */
+  --button-primary-ring: #7a58c0;
 
   --verdict-ski: #1668a8;
   --verdict-ski-soft: #e2eef8;
@@ -134,11 +137,14 @@
     --highlight: #48bde3;
     --hero-bg: none;
 
-    --button-primary: #48bde3;
-    --button-primary-hover: #6bcdec;
-    --button-primary-fg: #06222c;
-    /* The cyan is 8.85:1 against this ground; it carries its own edge. */
+    /* The same lavender as light mode — buttons are one colour across both themes, and
+       the rest of the palette does the adapting. On this ground it is 10.57:1, so it
+       needs no drawn edge; the ring is the fill itself, which the page shows through. */
+    --button-primary: #c9b7f2;
+    --button-primary-hover: #d8cbf7;
+    --button-primary-fg: #2e1a4f;
     --button-primary-edge: transparent;
+    --button-primary-ring: #c9b7f2;
 
     --danger: #f2837b;
     --danger-soft: #38191a;
@@ -177,11 +183,14 @@
   --highlight: #48bde3;
   --hero-bg: none;
 
-  --button-primary: #48bde3;
-  --button-primary-hover: #6bcdec;
-  --button-primary-fg: #06222c;
-  /* The cyan is 8.85:1 against this ground; it carries its own edge. */
+  /* The same lavender as light mode — buttons are one colour across both themes, and
+     the rest of the palette does the adapting. On this ground it is 10.57:1, so it
+     needs no drawn edge; the ring is the fill itself, which the page shows through. */
+  --button-primary: #c9b7f2;
+  --button-primary-hover: #d8cbf7;
+  --button-primary-fg: #2e1a4f;
   --button-primary-edge: transparent;
+  --button-primary-ring: #c9b7f2;
 
   --danger: #f2837b;
   --danger-soft: #38191a;
