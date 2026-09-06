@@ -1,13 +1,19 @@
 /**
  * The sports Strava offers when you log an activity by hand.
  *
- * Two sources, which reconcile exactly. The API enum (SportType, in
+ * Two sources. The API enum (SportType, in
  * https://developers.strava.com/swagger/sport_type.json) has 56 values. The manual-activity
  * picker documented at
  * https://support.strava.com/en-us/articles/15402005-supported-sport-types-on-strava
- * shows 52 of them, in the five categories below. The four it leaves out — VirtualRide,
- * VirtualRow, VirtualRun and PhysicalTherapy — arrive from trainers and connected apps
- * rather than being logged by a person, so they aren't in this list either.
+ * shows 52 of them, in the five categories below, and supplies their display names.
+ *
+ * We carry 55: those 52 plus the three virtual types, which Strava omits from the picker
+ * only because they arrive from a trainer or an app rather than being typed in by hand.
+ * They are still sports somebody does, and a profile is about what you do rather than how
+ * it got recorded. The 56th, PhysicalTherapy, stays out — it isn't a sport.
+ *
+ * Strava publishes no category for the virtual three, so each sits at the end of its
+ * real-world category: a virtual ride is a ride. That grouping is ours, not Strava's.
  *
  * Static for now. Reading a person's actual sports needs OAuth, which needs the backend;
  * when that exists it fills this same shape rather than replacing it, which is why the ids
@@ -59,6 +65,7 @@ export const SPORTS = [
   { id: "TrailRun", label: "Trail Run", category: "foot", domain: "endurance" },
   { id: "Wheelchair", label: "Wheelchair", category: "foot", domain: "endurance" },
   { id: "Walk", label: "Walk", category: "foot", domain: "endurance" },
+  { id: "VirtualRun", label: "Virtual Run", category: "foot", domain: "endurance" },
 
   // Cycle Sports
   { id: "Ride", label: "Ride", category: "cycle", domain: "endurance" },
@@ -73,6 +80,7 @@ export const SPORTS = [
   { id: "GravelRide", label: "Gravel Ride", category: "cycle", domain: "endurance" },
   { id: "Velomobile", label: "Velomobile", category: "cycle", domain: "endurance" },
   { id: "Handcycle", label: "Handcycle", category: "cycle", domain: "endurance" },
+  { id: "VirtualRide", label: "Virtual Ride", category: "cycle", domain: "endurance" },
 
   // Water Sports
   { id: "Canoeing", label: "Canoe", category: "water", domain: "endurance" },
@@ -84,6 +92,7 @@ export const SPORTS = [
   { id: "Rowing", label: "Rowing", category: "water", domain: "endurance" },
   { id: "Windsurf", label: "Windsurf", category: "water", domain: null },
   { id: "Sail", label: "Sailing", category: "water", domain: null },
+  { id: "VirtualRow", label: "Virtual Row", category: "water", domain: "endurance" },
 
   // Winter Sports. Ice Skate is deliberately not "snow" — it's a rink sport, and has nothing
   // to do with whether there is anything worth chasing in the mountains.
@@ -130,7 +139,7 @@ export const SPORTS = [
 
 export type Sport = (typeof SPORTS)[number];
 
-/** The 52 ids as a union, derived from SPORTS rather than maintained beside it. */
+/** The 55 ids as a union, derived from SPORTS rather than maintained beside it. */
 export type SportId = Sport["id"];
 
 const BY_ID: ReadonlyMap<string, Sport> = new Map(SPORTS.map((sport) => [sport.id, sport]));

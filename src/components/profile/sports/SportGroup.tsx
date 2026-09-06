@@ -14,7 +14,7 @@ export type SportGroupProps = {
 };
 
 /**
- * One collapsible category. Collapsed by default — 52 sports open at once is a wall, and
+ * One collapsible category. Collapsed by default — 55 sports open at once is a wall, and
  * the count in the header is what you actually need at a glance.
  *
  * The disclosure is a button with aria-expanded and aria-controls over a conditionally

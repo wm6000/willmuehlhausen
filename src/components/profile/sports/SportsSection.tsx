@@ -13,7 +13,7 @@ export type SportsSectionProps = {
  * The sports you do, ranked. Primary is what you build a week around; Secondary fills the
  * gaps; anything you don't pick is simply not there.
  *
- * The summary sits above the catalogue because that is the answer — the 52 rows below it
+ * The summary sits above the catalogue because that is the answer — the 55 rows below it
  * are how you change it, and stay collapsed until you want them.
  */
 export function SportsSection({ value, onChange }: SportsSectionProps) {

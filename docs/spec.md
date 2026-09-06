@@ -88,7 +88,7 @@ day, because skiing instead is what quietly deletes the week's key workout. For 
 ranks a snow sport Primary and everything else Secondary, that flips. It is the one place
 ranking changes an answer, and it is deliberately the only one.
 
-**Ranked, but not yet reasoned about.** Most of the 52 sports feed neither domain — the
+**Ranked, but not yet reasoned about.** Most of the 55 sports feed neither domain — the
 advisor has snow and training load, and no swell, no wind and no court booking. Those
 sports are recorded and the profile says plainly that nothing acts on them yet, rather than
 letting a Primary-ranked sport silently do nothing.
