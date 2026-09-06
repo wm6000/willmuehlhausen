@@ -137,14 +137,14 @@
     --highlight: #48bde3;
     --hero-bg: none;
 
-    /* The same lavender as light mode — buttons are one colour across both themes, and
-       the rest of the palette does the adapting. On this ground it is 10.57:1, so it
-       needs no drawn edge; the ring is the fill itself, which the page shows through. */
-    --button-primary: #c9b7f2;
-    --button-primary-hover: #d8cbf7;
-    --button-primary-fg: #2e1a4f;
+    /* Dark keeps the cyan it always had. It is 8.85:1 against this ground, so it carries
+       its own boundary and needs no drawn edge; the ring is the fill colour, which is
+       what the global --focus gave it before buttons had tokens of their own. */
+    --button-primary: #48bde3;
+    --button-primary-hover: #6bcdec;
+    --button-primary-fg: #06222c;
     --button-primary-edge: transparent;
-    --button-primary-ring: #c9b7f2;
+    --button-primary-ring: #48bde3;
 
     --danger: #f2837b;
     --danger-soft: #38191a;
@@ -183,14 +183,14 @@
   --highlight: #48bde3;
   --hero-bg: none;
 
-  /* The same lavender as light mode — buttons are one colour across both themes, and
-     the rest of the palette does the adapting. On this ground it is 10.57:1, so it
-     needs no drawn edge; the ring is the fill itself, which the page shows through. */
-  --button-primary: #c9b7f2;
-  --button-primary-hover: #d8cbf7;
-  --button-primary-fg: #2e1a4f;
+  /* Dark keeps the cyan it always had. It is 8.85:1 against this ground, so it carries
+     its own boundary and needs no drawn edge; the ring is the fill colour, which is
+     what the global --focus gave it before buttons had tokens of their own. */
+  --button-primary: #48bde3;
+  --button-primary-hover: #6bcdec;
+  --button-primary-fg: #06222c;
   --button-primary-edge: transparent;
-  --button-primary-ring: #c9b7f2;
+  --button-primary-ring: #48bde3;
 
   --danger: #f2837b;
   --danger-soft: #38191a;
