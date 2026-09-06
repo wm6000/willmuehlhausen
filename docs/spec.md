@@ -104,16 +104,20 @@ A new profile shows the whole product rather than an advisor that refuses to adv
 Adding a sport is an entry in `SPORTS`; the catalogue is Strava's, so in practice it changes
 only when Strava's does.
 
-**Email is opt-in, and only a literal `true` opts you in.** Both switches default to off,
+**Email is opt-in, and only a literal `true` opts you in.** All three switches — morning,
+evening and weekly — default to off,
 and `hydrateEmails` in [src/lib/profile.ts](../src/lib/profile.ts) reads a stored value with
 `=== true` rather than merging it — a truthy `"yes"`, `1` or `"false"` from a corrupt or
 hand-edited profile resolves to off. Every other field can afford a permissive default;
 a subscription cannot, because the failure mode is mail somebody never asked for. Nothing
 is sent today and the section says so, rather than collecting a signup that goes nowhere.
 
-When something does send, it sends in the **recipient's** local time — there are two daily
-emails, an evening one for planning tomorrow and a morning one for today, and both are
-meaningless in UTC. [emails.md](emails.md) records the shape and the constraints that come
+The same holds across a rename: `daily` split into morning and evening, and a stored
+`daily: true` migrates to **morning only**, because doubling somebody's mail on the strength
+of a rename is the same consent failure as subscribing them from scratch.
+
+When something does send, it sends in the **recipient's** local time — an evening email for
+planning tomorrow and a morning one for today are both meaningless in UTC. [emails.md](emails.md) records the shape and the constraints that come
 with it, including why the zone has to be an IANA name on the profile rather than an offset
 or a guess from `connections.location`.
 

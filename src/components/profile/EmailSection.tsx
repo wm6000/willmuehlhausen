@@ -7,11 +7,17 @@ export type EmailSectionProps = {
   onChange: (value: EmailPreferences) => void;
 };
 
+/** In the order a day runs, which is not the order of usefulness — see the evening one. */
 const OPTIONS = [
   {
-    key: "daily" as const,
-    label: "Daily",
-    description: "The morning's call, before you've decided anything.",
+    key: "morning" as const,
+    label: "Morning",
+    description: "Today's call, first thing, before you've decided anything.",
+  },
+  {
+    key: "evening" as const,
+    label: "Evening",
+    description: "Tomorrow's call, the night before — while it's still a decision.",
   },
   {
     key: "weekly" as const,
@@ -21,11 +27,12 @@ const OPTIONS = [
 ];
 
 /**
- * Two switches, both off by default. Opting in is a thing a person does, never a default
+ * Three switches, all off by default. Opting in is a thing a person does, never a default
  * they have to find and undo.
  *
  * Nothing is sent — there is no backend to send it — and the section says so rather than
- * collecting a subscription that quietly goes nowhere.
+ * collecting a subscription that quietly goes nowhere. When something does send, the times
+ * below are the recipient's own, not the server's: docs/emails.md has why that matters.
  */
 export function EmailSection({ value, onChange }: EmailSectionProps) {
   const { session } = useSession();
@@ -57,8 +64,8 @@ export function EmailSection({ value, onChange }: EmailSectionProps) {
 
       <Text size="xs" tone="subtle" prose>
         {session === null
-          ? "No email is sent — there's no backend to send it."
-          : `No email is sent yet — there's no backend to send it. When there is, these would go to ${session.email}.`}
+          ? "No email is sent — there's no backend to send it. Times would be yours, not the server's."
+          : `No email is sent yet — there's no backend to send it. When there is, these would go to ${session.email}, at those times where you are.`}
       </Text>
     </Stack>
   );

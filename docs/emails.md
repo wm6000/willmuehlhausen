@@ -1,11 +1,13 @@
 # Emails
 
-Two switches exist on `/profile` — Daily and Weekly — and nothing sends them, because there
-is no backend to send with. This is what they are meant to become, written down before it's
-built because the timezone part is cheap to design for and expensive to retrofit.
+Three switches exist on `/profile` — Morning, Evening and Weekly — and nothing sends them,
+because there is no backend to send with.
 
-**Nothing here is implemented.** The current model is `{ daily, weekly }` in
-[src/data/profile.ts](../src/data/profile.ts).
+**The switches are built; the sending is not.** `EmailPreferences` in
+[src/data/profile.ts](../src/data/profile.ts) is `{ morning, evening, weekly }`. Everything
+under *Sends are in the recipient's local time* below is still a requirement, not a
+description — it is written down because it is cheap to design for and expensive to
+retrofit.
 
 ## Three sends, not two
 
@@ -15,13 +17,15 @@ built because the timezone part is cheap to design for and expensive to retrofit
 | **Morning** | Today's call, the same one `/advisor` opens with | For the decision you make on the way out of the door |
 | **Weekly** | The recap, plus the week ahead | Sunday |
 
-So `EmailPreferences` becomes `{ morning, evening, weekly }` — `daily` **splits** rather
-than gaining a sibling. Anyone already opted into `daily` has to land somewhere explicit;
-migrating them to both is opting them into something they didn't ask for, so the honest
-default is morning only, or neither with a prompt.
+`daily` **split** rather than gaining a sibling. It described itself as "the morning's
+call", so `hydrateEmails` in [src/lib/profile.ts](../src/lib/profile.ts) migrates a stored
+`daily: true` to `morning` and **never** to `evening`: somebody who agreed to one email a
+day still gets one email a day. Migrating them into both would be doubling the mail on the
+strength of a rename, which is the same consent failure as opting them in from scratch.
 
 Tomorrow's call needs no new data: `WEEK[1]` in [src/data/advisor.ts](../src/data/advisor.ts)
-is already Tomorrow, and `verdictFor` takes any day.
+is already Tomorrow, and `verdictFor` takes any day. Nothing renders it yet — the evening
+send is the first thing that will.
 
 ## Sends are in the recipient's local time
 
@@ -58,10 +62,9 @@ zone that schedules the send is also the zone that decides which day the content
 
 ## What carries over from what's built
 
-The opt-in rules in [spec.md](spec.md) hold for all three switches, not just the two that
-exist today: default off, and `hydrateEmails` in [src/lib/profile.ts](../src/lib/profile.ts)
-reads stored values with `=== true` rather than merging, so nothing but a literal true
-subscribes anybody. Splitting `daily` doesn't relax that — it makes it matter more, since
-there are then three ways to get it wrong.
+The opt-in rules in [spec.md](spec.md) hold for all three switches: default off, and
+`hydrateEmails` reads stored values with `=== true` rather than merging, so nothing but a
+literal true subscribes anybody. The split didn't relax that — it made it matter more,
+since there are now three ways to get it wrong and a migration path as a fourth.
 
 And until something actually sends, the section on `/profile` says so.

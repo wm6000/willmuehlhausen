@@ -7,7 +7,7 @@ recoverable from reading the code.
 |---|---|
 | [spec.md](spec.md) | What the site is, what each route owes the visitor, the milestones, and the rules that don't bend |
 | [projects.md](projects.md) | How the projects blog works — the index/post split, adding a project, and what a post's custom feature may do |
-| [emails.md](emails.md) | What the email switches are meant to become — three sends, and why they have to go out in the recipient's local time |
+| [emails.md](emails.md) | The three email sends, how `daily` split into two, and why they have to go out in the recipient's local time |
 | [auth.md](auth.md) | How signing in works — the flow, the credential rules, the mock session, and what Strava's login we did and didn't copy |
 
 Working in the code itself — structure rules, TypeScript gotchas, how to verify without a

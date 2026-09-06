@@ -74,7 +74,7 @@ export function ProfileForm() {
             Emails
           </Heading>
           <Text size="sm" tone="muted" prose>
-            The same call this page makes, delivered. Both are off until you turn them on.
+            The same call this page makes, delivered. All three are off until you turn them on.
           </Text>
         </Stack>
         <EmailSection value={draft.emails} onChange={(emails) => update({ ...draft, emails })} />

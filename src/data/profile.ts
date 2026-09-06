@@ -49,12 +49,19 @@ export type PlanContext = {
 };
 
 /**
- * Both default to off, and stay off unless the stored value is literally `true`. An email
+ * Three sends: today's call first thing, tomorrow's call the evening before — which is
+ * when the decision actually gets made — and the week on a Sunday.
+ *
+ * All default to off, and stay off unless the stored value is literally `true`. An email
  * subscription is the one setting where a corrupt or half-written value must not resolve
  * in favour of sending something — nobody has ever been glad to be opted in by a bug.
+ *
+ * When these are really sent it will be in the recipient's own local time, which is a
+ * bigger constraint than it looks. See docs/emails.md.
  */
 export type EmailPreferences = {
-  daily: boolean;
+  morning: boolean;
+  evening: boolean;
   weekly: boolean;
 };
 
@@ -80,7 +87,7 @@ export type Profile = {
 export const EMPTY_PROFILE: Profile = {
   sports: {},
   context: { goals: "", limitations: "", events: [] },
-  emails: { daily: false, weekly: false },
+  emails: { morning: false, evening: false, weekly: false },
   ski: { types: [], passes: [] },
   connections: { strava: false, calendar: false, location: "" },
 };

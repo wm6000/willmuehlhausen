@@ -62,10 +62,20 @@ function hydrateEvents(parsed: unknown): TargetEvent[] {
 /**
  * Strictly `=== true`, not merged. A spread would let a stored "yes", 1 or "false" through
  * as truthy and quietly subscribe someone; anything that isn't the boolean true means off.
+ *
+ * `daily` was the field before the morning/evening split. It described itself as "the
+ * morning's call", so it migrates to `morning` and never to `evening`: someone who agreed
+ * to one email a day must still get one email a day. Migrating them into both would be
+ * doubling the mail on the strength of a rename.
  */
 function hydrateEmails(parsed: unknown): EmailPreferences {
   const source = typeof parsed === "object" && parsed !== null ? (parsed as Record<string, unknown>) : {};
-  return { daily: source["daily"] === true, weekly: source["weekly"] === true };
+  const legacyDaily = source["daily"] === true;
+  return {
+    morning: source["morning"] === true || legacyDaily,
+    evening: source["evening"] === true,
+    weekly: source["weekly"] === true,
+  };
 }
 
 function hydrateContext(parsed: unknown): PlanContext {
