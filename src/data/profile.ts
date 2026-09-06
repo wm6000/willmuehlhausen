@@ -1,39 +1,28 @@
 /**
- * The profile shape, and the activities it can switch on and off.
+ * The profile shape.
  *
- * An activity being off is not a display preference — it's the advisor being told that
- * a whole sport is irrelevant to you, and it drops that sport everywhere: no ski picks,
- * no map, and never a "Ski" verdict. That's what makes the switch worth having rather
- * than a filter.
+ * Sports come from the Strava catalogue in @/data/sports and are ranked rather than
+ * switched: a sport is Primary if you build a week around it, Secondary if it fills the
+ * gaps, and simply absent otherwise. The advisor reads those tiers — see @/lib/sports —
+ * so a sport you haven't picked is genuinely gone from the reasoning rather than hidden.
  */
 
 import { PASSES, SKI_TYPES } from "@/data/ski";
+import type { SportId } from "@/data/sports";
 
-export type ActivityId = "ski" | "training";
+export type Tier = "primary" | "secondary";
 
-export type Activity = {
-  id: ActivityId;
-  label: string;
-  /** What turning it off actually does, said plainly next to the switch. */
-  description: string;
+/**
+ * Only the sports you do. "Off" is the absence of a key rather than a value, because
+ * saying "I don't play cricket" is the same as never having mentioned cricket, and
+ * storing 40-odd explicit noes would be noise.
+ */
+export type SportTiers = Partial<Record<SportId, Tier>>;
+
+export const TIER_LABELS: Record<Tier, string> = {
+  primary: "Primary",
+  secondary: "Secondary",
 };
-
-export const ACTIVITIES: readonly Activity[] = [
-  {
-    id: "ski",
-    label: "Skiing",
-    description:
-      "Snow conditions, where to go, and whether today is worth taking. Off, and the advisor stops mentioning the mountains entirely.",
-  },
-  {
-    id: "training",
-    label: "Training",
-    description:
-      "Running and workload — what the plan wants, and what you're carrying from earlier in the week. Off, and no session is ever suggested.",
-  },
-];
-
-export type ActivityFlags = Record<ActivityId, boolean>;
 
 export type SkiPreferences = {
   /** Empty means no preference, not "none" — the advisor treats it as all of them. */
@@ -41,9 +30,22 @@ export type SkiPreferences = {
   passes: string[];
 };
 
-export type TrainingPreferences = {
+export type TargetEvent = {
+  /** Stable across edits so React keys and removals don't depend on position. */
+  id: string;
+  name: string;
+  /** ISO yyyy-mm-dd, straight from a native date input. Empty until filled in. */
+  date: string;
+};
+
+/**
+ * What the advisor should know that it can't infer from a feed of activities: what you're
+ * working towards, what to avoid, and the dates that matter.
+ */
+export type PlanContext = {
   goals: string;
   limitations: string;
+  events: TargetEvent[];
 };
 
 export type Connections = {
@@ -53,17 +55,21 @@ export type Connections = {
 };
 
 export type Profile = {
-  activities: ActivityFlags;
+  sports: SportTiers;
+  context: PlanContext;
   ski: SkiPreferences;
-  training: TrainingPreferences;
   connections: Connections;
 };
 
-/** Everything on by default: a new profile should show the whole product, not a stub. */
+/**
+ * Empty, not opinionated. An empty `sports` means "you haven't said yet", which the
+ * advisor treats as "assume everything" — see isUnset in @/lib/sports. That keeps a new
+ * profile showing the whole product instead of a stub, without inventing sports for you.
+ */
 export const EMPTY_PROFILE: Profile = {
-  activities: { ski: true, training: true },
+  sports: {},
+  context: { goals: "", limitations: "", events: [] },
   ski: { types: [], passes: [] },
-  training: { goals: "", limitations: "" },
   connections: { strava: false, calendar: false, location: "" },
 };
 

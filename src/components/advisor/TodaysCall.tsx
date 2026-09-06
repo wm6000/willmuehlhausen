@@ -1,14 +1,14 @@
 import { useState } from "react";
 
 import { Badge, Button, Heading, Row, Stack, Text, Textarea } from "@/ui";
-import { ALL_ACTIVITIES, VERDICT_LABELS, reasonFor, verdictFor } from "@/lib/advisor";
+import { VERDICT_LABELS, reasonFor, verdictFor } from "@/lib/advisor";
 import type { AdvisorDay } from "@/data/advisor";
-import type { ActivityFlags } from "@/data/profile";
+import { ALL_DOMAINS, type DomainTiers } from "@/lib/sports";
 
 export type TodaysCallProps = {
   day: AdvisorDay;
-  /** Which sports you actually do. A sport switched off is never the answer. */
-  enabled?: ActivityFlags;
+  /** Which sports you actually do. A domain you do nothing in is never the answer. */
+  domains?: DomainTiers;
 };
 
 /**
@@ -19,8 +19,8 @@ export type TodaysCallProps = {
  * "my partner's out of town" are the things that actually change the call, and none of
  * them are a field you could put on a form.
  */
-export function TodaysCall({ day, enabled = ALL_ACTIVITIES }: TodaysCallProps) {
-  const verdict = verdictFor(day, enabled);
+export function TodaysCall({ day, domains = ALL_DOMAINS }: TodaysCallProps) {
+  const verdict = verdictFor(day, domains);
   const [note, setNote] = useState("");
   const [adjusting, setAdjusting] = useState(false);
   const [adjusted, setAdjusted] = useState<string | null>(null);
@@ -51,7 +51,7 @@ export function TodaysCall({ day, enabled = ALL_ACTIVITIES }: TodaysCallProps) {
       </Heading>
 
       <Text tone="muted" prose>
-        {reasonFor(day, enabled)}
+        {reasonFor(day, domains)}
       </Text>
 
       {adjusted === null ? null : (

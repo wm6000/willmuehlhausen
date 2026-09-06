@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import { cx } from "@/ui/cx";
 
-export type InputType = "text" | "email" | "password";
+export type InputType = "text" | "email" | "password" | "date";
 
 export type InputProps = {
   id: string;

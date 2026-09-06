@@ -30,7 +30,7 @@ runs on example data and says so.
 | `/advisor` | Today's call across skiing and training; a seven-day outlook combining snow, workload and calendar; a plain-language box to adjust it | M1 ✓ |
 | `/projects` | The blog-style listing, filterable by tag — see [projects.md](projects.md) | M2 ✓ |
 | `/projects/:slug` | One post, free to carry its own custom features | M2 ✓ |
-| `/profile` | Connections, a switch per activity, and the preferences under each | M3 ✓ |
+| `/profile` | Connections, the sports you do ranked into tiers, plan context, ski settings | M3 ✓ |
 | `/login` | Sign in, on a mock session — see [auth.md](auth.md) | M3 ✓ |
 | `*` | A real 404 that offers a way back | M0 ✓ |
 
@@ -53,8 +53,8 @@ footer's site column. See `NAV` in [src/data/site.ts](../src/data/site.ts).
   [projects.md](projects.md) has the convention. Both posts are drafts — real prose wanted.
 - **M3 — profile and session.** Built. The mock `SessionProvider`, the email-then-password
   login modelled on strava.com ([auth.md](auth.md)), `RequireSession` gating `/profile`,
-  the session-aware auth menu, and the profile itself: connections, a switch per activity,
-  and the preferences under each. Switching a sport off is what lets the advisor drop the
+  the session-aware auth menu, and the profile itself: connections, the Strava sport
+  catalogue ranked into tiers, the plan context, and ski settings. Switching a sport off is what lets the advisor drop the
   parts of itself a given person doesn't need.
 - **Later — real backend.** Real auth, real Strava and calendar reads, real conditions.
   Only at that point does `DATA_SOURCE.kind` flip to `"live"`.
@@ -74,13 +74,31 @@ no key, so `loadProfile` returns empty and `saveProfile` is a no-op rather than 
 a shared bucket. The advisor separately reads the profile only while signed in; the two
 together mean a signed-out visitor can neither see nor leave behind a profile.
 
-**A sport switched off is gone, not hidden.** The switches on `/profile` are not a
-display filter. `verdictFor` in [src/lib/advisor.ts](../src/lib/advisor.ts) takes the
-enabled activities and a disabled sport is never the answer — switch skiing off and the
-advice for the week genuinely changes, rather than the same advice being shown with the
-ski parts greyed out. Anything less makes the switch a lie. Adding an activity is an
-entry in `ACTIVITIES` in [src/data/profile.ts](../src/data/profile.ts) plus a branch for
-its preferences.
+**A sport you haven't ranked is gone, not hidden.** The tiers on `/profile` are not a
+display filter. Each sport in [src/data/sports.ts](../src/data/sports.ts) declares which
+domain it feeds — snow, endurance, or neither — and `domainTiers` in
+[src/lib/sports.ts](../src/lib/sports.ts) turns your picks into what `verdictFor` reasons
+with. Rank no snow sports and the advice for the week genuinely changes: no ski verdict, no
+mountains on the page, and **no mention of the snow in the reasoning either**. That last one
+is the easy part to get wrong — telling a runner about fresh powder is the same failure as
+showing them a ski section.
+
+**Primary outranks Secondary.** Normally a hard session already on the plan beats a powder
+day, because skiing instead is what quietly deletes the week's key workout. For someone who
+ranks a snow sport Primary and everything else Secondary, that flips. It is the one place
+ranking changes an answer, and it is deliberately the only one.
+
+**Ranked, but not yet reasoned about.** Most of the 52 sports feed neither domain — the
+advisor has snow and training load, and no swell, no wind and no court booking. Those
+sports are recorded and the profile says plainly that nothing acts on them yet, rather than
+letting a Primary-ranked sport silently do nothing.
+
+**Nothing ranked means "not answered", not "none".** An empty set is treated as assume
+everything, exactly as for a signed-out visitor, and the profile asks you to fill it in.
+A new profile shows the whole product rather than an advisor that refuses to advise.
+
+Adding a sport is an entry in `SPORTS`; the catalogue is Strava's, so in practice it changes
+only when Strava's does.
 
 **Not advice.** The site carries `DISCLAIMER` — *not avalanche-safety or medical advice* —
 wherever it makes a call. The advisor suggests; it never certifies a slope is safe.

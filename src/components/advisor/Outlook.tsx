@@ -1,10 +1,10 @@
 import { Badge, Grid, Row, Stack, Text } from "@/ui";
-import { ALL_ACTIVITIES, VERDICT_LABELS, verdictFor } from "@/lib/advisor";
+import { VERDICT_LABELS, verdictFor } from "@/lib/advisor";
 import { WEEK } from "@/data/advisor";
-import type { ActivityFlags } from "@/data/profile";
+import { ALL_DOMAINS, type DomainTiers } from "@/lib/sports";
 
 export type OutlookProps = {
-  enabled?: ActivityFlags;
+  domains?: DomainTiers;
   /** Snow is only worth a column if skiing is something you do. */
   showConditions?: boolean;
 };
@@ -14,11 +14,11 @@ export type OutlookProps = {
  * call. The old site showed two separate seven-day lists and left you to reconcile
  * them; the reconciliation is the product.
  */
-export function Outlook({ enabled = ALL_ACTIVITIES, showConditions = true }: OutlookProps) {
+export function Outlook({ domains = ALL_DOMAINS, showConditions = true }: OutlookProps) {
   return (
     <Stack gap={2} as="ul" className="outlook">
       {WEEK.map((day) => {
-        const verdict = verdictFor(day, enabled);
+        const verdict = verdictFor(day, domains);
         return (
           <Stack as="li" key={day.label} className="outlook__day">
             <Grid gap={3} className={showConditions ? "outlook__row" : "outlook__row outlook__row--narrow"}>

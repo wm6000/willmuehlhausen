@@ -197,26 +197,45 @@
   align-items: center;
 }
 
-/* Profile: an activity and its preferences */
-.activity {
-  padding: var(--space-5);
+/* Profile: the ranked sports you've picked */
+.chosen {
+  padding: var(--space-4);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   background: var(--surface);
-  transition: border-color var(--duration-base) var(--ease), opacity var(--duration-base) var(--ease);
 }
-/* Switched off reads as settled, not broken: dimmed, but the switch stays full strength. */
-.activity--off { background: var(--surface-muted); border-style: dashed; }
-.activity--off .ui-heading, .activity--off .ui-text { opacity: 0.65; }
-.activity--off .ui-switch { opacity: 1; }
+
+/* Profile: one collapsible sport category */
+.group { border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); }
+.group__toggle {
+  justify-content: flex-start;
+  gap: var(--space-3);
+  width: 100%;
+  height: auto;
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+}
+/* The count sits hard right, whatever the category name's length. */
+.group__toggle > .ui-text:last-child { margin-inline-start: auto; }
+.group__panel { padding: 0 var(--space-4) var(--space-4); }
+.group__row { border-top: 1px solid var(--border); padding-top: var(--space-2); }
+.group__row:first-child { border-top: 0; }
+
+/* A sport row: name on the left, tier on the right. Field stacks by default. */
+.sport { flex-direction: row; align-items: center; justify-content: space-between; gap: var(--space-4); width: 100%; }
+.sport .ui-field__label { font-weight: var(--weight-normal); }
+.sport__control { flex: none; }
+.sport__note { white-space: nowrap; }
+
+/* Profile: target events */
+.events { list-style: none; }
+.events__row { align-items: center; }
+.events__name { flex: 1 1 12rem; min-width: 0; }
+.events__date { flex: 0 1 10rem; }
 
 .prefs {
   padding-top: var(--space-4);
   border-top: 1px solid var(--border);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .activity { transition: none; }
 }
 
 /* A narrower outlook row, for when snow isn't one of the columns */

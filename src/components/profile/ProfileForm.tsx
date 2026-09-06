@@ -1,17 +1,20 @@
 import { useState } from "react";
 
 import { Button, Heading, Row, Stack, Text } from "@/ui";
-import { ACTIVITIES, type ActivityId, type Profile } from "@/data/profile";
-import { enabledCount } from "@/lib/profile";
-import { ActivitySection } from "@/components/profile/ActivitySection";
+import type { Profile } from "@/data/profile";
 import { ConnectionsSection } from "@/components/profile/ConnectionsSection";
+import { ContextSection } from "@/components/profile/ContextSection";
 import { SkiPreferences } from "@/components/profile/SkiPreferences";
-import { TrainingPreferences } from "@/components/profile/TrainingPreferences";
+import { SportsSection } from "@/components/profile/sports/SportsSection";
 import { useProfile } from "@/components/profile/ProfileContext";
 
 /**
  * Edits a draft and commits it on Save, so the advisor changes when you decide it
  * should rather than while you're still deciding.
+ *
+ * Order is deliberate: what you do, then what the advisor can't infer, then the settings
+ * for one sport in particular. Ski preferences sit last because they only matter to the
+ * people who got that far.
  */
 export function ProfileForm() {
   const { profile, save } = useProfile();
@@ -19,15 +22,10 @@ export function ProfileForm() {
   const [saved, setSaved] = useState(false);
 
   const dirty = JSON.stringify(draft) !== JSON.stringify(profile);
-  const none = enabledCount(draft) === 0;
 
   function update(next: Profile) {
     setDraft(next);
     setSaved(false);
-  }
-
-  function toggleActivity(id: ActivityId, enabled: boolean) {
-    update({ ...draft, activities: { ...draft.activities, [id]: enabled } });
   }
 
   return (
@@ -44,49 +42,53 @@ export function ProfileForm() {
 
       <Stack gap={4}>
         <Stack gap={2}>
-          <Heading level={2} size={4} className="section-eyebrow" id="activities-heading">
+          <Heading level={2} size={4} className="section-eyebrow" id="sports-heading">
             What you do
           </Heading>
           <Text size="sm" tone="muted" prose>
-            Switch off anything you don't do and the advisor drops it — not hidden, but gone
-            from the reasoning. Nothing will ever suggest skiing to someone who doesn't ski.
+            Rank the sports you actually do. Primary is what you build a week around; Secondary
+            fills the gaps. Anything you leave off is gone from the advisor's reasoning, not
+            hidden from its output — nothing will ever suggest skiing to someone who doesn't ski.
           </Text>
         </Stack>
+        <SportsSection value={draft.sports} onChange={(sports) => update({ ...draft, sports })} />
+      </Stack>
 
-        <Stack gap={5}>
-          {ACTIVITIES.map((activity) => (
-            <ActivitySection
-              key={activity.id}
-              activity={activity}
-              enabled={draft.activities[activity.id]}
-              onToggle={(enabled) => toggleActivity(activity.id, enabled)}
-            >
-              {activity.id === "ski" ? (
-                <SkiPreferences value={draft.ski} onChange={(ski) => update({ ...draft, ski })} />
-              ) : (
-                <TrainingPreferences
-                  value={draft.training}
-                  onChange={(training) => update({ ...draft, training })}
-                />
-              )}
-            </ActivitySection>
-          ))}
+      <Stack gap={4}>
+        <Stack gap={2}>
+          <Heading level={2} size={4} className="section-eyebrow" id="context-heading">
+            Context
+          </Heading>
+          <Text size="sm" tone="muted" prose>
+            The things a feed of activities can't tell it. Strava knows what you did; none of it
+            says what you're aiming at or what to avoid, and a plan is built from both.
+          </Text>
         </Stack>
+        <ContextSection value={draft.context} onChange={(context) => update({ ...draft, context })} />
+      </Stack>
 
-        {none ? (
-          <Row gap={3} wrap className="banner">
-            <Text inline size="sm" weight="medium">
-              Everything is off.
-            </Text>
-            <Text inline size="sm" tone="muted">
-              You can save this, but the advisor will have nothing to weigh up and will say so.
-            </Text>
-          </Row>
-        ) : null}
+      <Stack gap={4}>
+        <Stack gap={2}>
+          <Heading level={2} size={4} className="section-eyebrow" id="ski-heading">
+            Ski settings
+          </Heading>
+          <Text size="sm" tone="muted" prose>
+            Only used if you've ranked a snow sport above.
+          </Text>
+        </Stack>
+        <SkiPreferences value={draft.ski} onChange={(ski) => update({ ...draft, ski })} />
       </Stack>
 
       <Row gap={3} wrap align="center">
-        <Button variant="primary" size="lg" onClick={() => { save(draft); setSaved(true); }} disabled={!dirty}>
+        <Button
+          variant="primary"
+          size="lg"
+          onClick={() => {
+            save(draft);
+            setSaved(true);
+          }}
+          disabled={!dirty}
+        >
           Save
         </Button>
         {saved && !dirty ? (

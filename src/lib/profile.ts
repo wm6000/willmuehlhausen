@@ -1,27 +1,77 @@
-import { EMPTY_PROFILE, type ActivityId, type Profile } from "@/data/profile";
+import { EMPTY_PROFILE, type PlanContext, type Profile, type SportTiers, type TargetEvent } from "@/data/profile";
+import { isSportId } from "@/data/sports";
+
+const STORAGE_KEY_PREFIX = "profile:";
 
 /**
- * A profile belongs to one person, so it is stored under that person's key and read
- * back with it. A single shared "profile" key would hand the next person to sign in on
- * this browser the last person's switches — which is exactly what a profile must not do.
- *
- * Signed out there is no key, and therefore no profile to read: `null` means empty, not
- * "whatever was left behind".
+ * A profile belongs to a person, so it is stored under their key. A single shared key
+ * would hand the next person to sign in on this browser the last person's answers.
+ * Signed out there is no key, and therefore no profile: null means empty, not "whatever
+ * was left behind".
  */
 function storageKey(email: string | null): string | null {
-  return email === null ? null : `profile:${email}`;
+  return email === null ? null : `${STORAGE_KEY_PREFIX}${email}`;
+}
+
+function isTier(value: unknown): value is "primary" | "secondary" {
+  return value === "primary" || value === "secondary";
 }
 
 /**
- * Merged one level deep against EMPTY_PROFILE rather than spread flat: a profile saved
- * before a section existed is missing that key entirely, and a shallow merge would hand
- * the form `undefined` where it expects an object.
+ * Stored sports are untyped input twice over — hand-edited storage, and one day a Strava
+ * response. An id the catalogue no longer knows, or a tier that isn't one, is dropped
+ * rather than trusted into the model.
+ */
+function hydrateSports(parsed: unknown): SportTiers {
+  if (typeof parsed !== "object" || parsed === null) {
+    return {};
+  }
+  const sports: SportTiers = {};
+  for (const [id, tier] of Object.entries(parsed as Record<string, unknown>)) {
+    if (isSportId(id) && isTier(tier)) {
+      sports[id] = tier;
+    }
+  }
+  return sports;
+}
+
+function hydrateEvents(parsed: unknown): TargetEvent[] {
+  if (!Array.isArray(parsed)) {
+    return [];
+  }
+  const events: TargetEvent[] = [];
+  for (const entry of parsed as unknown[]) {
+    if (typeof entry !== "object" || entry === null) {
+      continue;
+    }
+    const { id, name, date } = entry as Record<string, unknown>;
+    if (typeof id === "string" && typeof name === "string" && typeof date === "string") {
+      events.push({ id, name, date });
+    }
+  }
+  return events;
+}
+
+function hydrateContext(parsed: unknown): PlanContext {
+  const source = typeof parsed === "object" && parsed !== null ? (parsed as Record<string, unknown>) : {};
+  return {
+    goals: typeof source["goals"] === "string" ? source["goals"] : "",
+    limitations: typeof source["limitations"] === "string" ? source["limitations"] : "",
+    events: hydrateEvents(source["events"]),
+  };
+}
+
+/**
+ * Merged against EMPTY_PROFILE rather than spread flat: a profile saved before a section
+ * existed is missing that key entirely, and a shallow merge would hand the form
+ * `undefined` where it expects an object. The two typed sections validate rather than
+ * merge, because their contents come from outside.
  */
 function hydrate(parsed: Partial<Profile>): Profile {
   return {
-    activities: { ...EMPTY_PROFILE.activities, ...parsed.activities },
+    sports: hydrateSports(parsed.sports),
+    context: hydrateContext(parsed.context),
     ski: { ...EMPTY_PROFILE.ski, ...parsed.ski },
-    training: { ...EMPTY_PROFILE.training, ...parsed.training },
     connections: { ...EMPTY_PROFILE.connections, ...parsed.connections },
   };
 }
@@ -59,12 +109,4 @@ export function saveProfile(email: string | null, profile: Profile): void {
 /** Adds or removes a value. Used by every multi-select preference. */
 export function toggleIn(values: readonly string[], value: string): string[] {
   return values.includes(value) ? values.filter((v) => v !== value) : [...values, value];
-}
-
-export function enabledCount(profile: Profile): number {
-  return Object.values(profile.activities).filter(Boolean).length;
-}
-
-export function isEnabled(profile: Profile, id: ActivityId): boolean {
-  return profile.activities[id];
 }

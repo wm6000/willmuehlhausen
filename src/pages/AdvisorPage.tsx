@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { ButtonLink, Heading, Row, Section, Stack, Text } from "@/ui";
 import { SKI_LOCATIONS_BY_CITY, type City, type SkiType } from "@/data/ski";
 import { WEEK } from "@/data/advisor";
-import { ALL_ACTIVITIES } from "@/lib/advisor";
+import { ALL_DOMAINS, domainTiers, isUnset } from "@/lib/sports";
 import { AdvisorControls } from "@/components/advisor/AdvisorControls";
 import { AdvisorMap } from "@/components/advisor/AdvisorMap";
 import { Outlook } from "@/components/advisor/Outlook";
@@ -24,9 +24,12 @@ export function AdvisorPage() {
   const { profile } = useProfile();
   const signedIn = session !== null;
 
-  // Signed out there is no profile to read, so the advisor assumes you do everything.
-  // Signed in, a sport switched off is dropped from the page and from the reasoning.
-  const enabled = signedIn ? profile.activities : ALL_ACTIVITIES;
+  // Signed out there is no profile to read. Signed in but with nothing ranked yet means
+  // the question hasn't been answered rather than answered "none", so both fall back to
+  // assuming everything. Once a sport is ranked, only what's ranked counts.
+  const domains =
+    signedIn && !isUnset(profile.sports) ? domainTiers(profile.sports) : ALL_DOMAINS;
+  const skiOn = domains.snow !== null;
 
   const [city, setCity] = useState<City>("Seattle");
   const [pass, setPass] = useState<string>("Any pass");
@@ -55,7 +58,7 @@ export function AdvisorPage() {
     throw new Error("WEEK is empty — the advisor has no day to make a call about.");
   }
 
-  const nothingOn = !enabled.ski && !enabled.training;
+  const nothingOn = domains.snow === null && domains.endurance === null;
 
   return (
     <Stack>
@@ -80,14 +83,14 @@ export function AdvisorPage() {
                 Everything is switched off.
               </Text>
               <Text inline size="sm" tone="muted">
-                Turn an activity back on in your profile and the advisor has something to weigh up.
+                Rank a sport in your profile and the advisor has something to weigh up.
               </Text>
             </Row>
           ) : null}
 
           {/* Shown signed in too, until the profile's location and passes drive them —
               hiding them early would leave a signed-in visitor stuck on one city. */}
-          {enabled.ski ? (
+          {skiOn ? (
             <Stack gap={4} className="advisor-preview">
               <Text size="sm" tone="muted">
                 {signedIn
@@ -112,11 +115,11 @@ export function AdvisorPage() {
           <Heading level={2} size={4} id="call-heading" className="section-eyebrow">
             Today
           </Heading>
-          <TodaysCall day={TODAY} enabled={enabled} />
+          <TodaysCall day={TODAY} domains={domains} />
         </Stack>
       </Section>
 
-      {enabled.ski ? (
+      {skiOn ? (
         <Section pad="sm" labelledBy="picks-heading">
           <Stack gap={4}>
             <Row justify="between" gap={3} wrap align="baseline">
@@ -142,11 +145,11 @@ export function AdvisorPage() {
           <Heading level={2} size={4} id="outlook-heading" className="section-eyebrow">
             Next seven days
           </Heading>
-          <Outlook enabled={enabled} showConditions={enabled.ski} />
+          <Outlook domains={domains} showConditions={skiOn} />
         </Stack>
       </Section>
 
-      {enabled.training ? (
+      {domains.endurance !== null ? (
         <Section pad="sm" labelledBy="recent-heading">
           <Stack gap={4}>
             <Heading level={2} size={4} id="recent-heading" className="section-eyebrow">

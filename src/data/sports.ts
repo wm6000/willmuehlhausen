@@ -23,7 +23,12 @@ export type SportCategory = "foot" | "cycle" | "water" | "winter" | "other";
  */
 export type SportDomain = "snow" | "endurance" | null;
 
-export type Sport = {
+/**
+ * The contract each entry below is checked against. Not exported: `Sport` is derived from
+ * the array instead, so that a sport carries its literal id rather than a bare string and
+ * `sport.id` can be handed straight to anything expecting a SportId.
+ */
+type SportShape = {
   /** Strava's SportType value, verbatim, so a real sync needs no translation. */
   readonly id: string;
   /** Strava's own display name, which is not always the id. */
@@ -44,7 +49,7 @@ export const SPORT_CATEGORIES: readonly { id: SportCategory; label: string }[] =
  * In Strava's own order, category by category.
  *
  * `as const` keeps the ids as literal types so SportId derives from this rather than being
- * maintained by hand; `satisfies` still checks every entry against Sport. Neither on its
+ * maintained by hand; `satisfies` still checks every entry against SportShape. Neither on its
  * own does both.
  */
 export const SPORTS = [
@@ -121,10 +126,12 @@ export const SPORTS = [
     domain: "endurance",
   },
   { id: "Cricket", label: "Cricket", category: "other", domain: null },
-] as const satisfies readonly Sport[];
+] as const satisfies readonly SportShape[];
+
+export type Sport = (typeof SPORTS)[number];
 
 /** The 52 ids as a union, derived from SPORTS rather than maintained beside it. */
-export type SportId = (typeof SPORTS)[number]["id"];
+export type SportId = Sport["id"];
 
 const BY_ID: ReadonlyMap<string, Sport> = new Map(SPORTS.map((sport) => [sport.id, sport]));
 

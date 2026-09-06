@@ -1,5 +1,5 @@
 import { Heading, Row, Section, Stack, Text } from "@/ui";
-import { ACTIVITIES } from "@/data/profile";
+import { chosenSports, isUnset } from "@/lib/sports";
 import { ProfileForm } from "@/components/profile/ProfileForm";
 import { useProfile } from "@/components/profile/ProfileContext";
 import { useSession } from "@/components/auth/SessionContext";
@@ -8,7 +8,8 @@ export function ProfilePage() {
   const { session } = useSession();
   const { profile } = useProfile();
 
-  const on = ACTIVITIES.filter((activity) => profile.activities[activity.id]);
+  const chosen = chosenSports(profile.sports);
+  const primary = chosen.filter((entry) => entry.tier === "primary").length;
 
   return (
     <Section pad="lg" narrow>
@@ -31,15 +32,13 @@ export function ProfilePage() {
           <Text inline size="sm" tone="muted">
             Nothing is sent anywhere, and no account is really connected. Cloud sync arrives with
             the backend.{" "}
-            {on.length === 0
-              ? "Every activity is currently off."
-              : `Currently on: ${on.map((activity) => activity.label.toLowerCase()).join(" and ")}.`}
+            {isUnset(profile.sports)
+              ? "No sports ranked yet, so the advisor is assuming you do everything."
+              : `${chosen.length} ${chosen.length === 1 ? "sport" : "sports"} ranked, ${primary} primary.`}
           </Text>
         </Row>
 
-        {/* Keyed by who is signed in, so a different person gets a fresh form rather
-            than the previous one's unsaved draft. */}
-        <ProfileForm key={session?.email ?? "signed-out"} />
+        <ProfileForm />
       </Stack>
     </Section>
   );

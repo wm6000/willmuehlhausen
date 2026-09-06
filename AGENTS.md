@@ -22,9 +22,10 @@ Enforced by [scripts/check-structure.mjs](scripts/check-structure.mjs) and wired
 `npm run lint`, so a build cannot pass while one is broken. They are the most common way
 to get a red build here.
 
-1. **At most 7 files per directory** (subdirectories don't count). `src/ui/inputs/` and
-   `src/pages/` are currently *at* the cap — adding a file to either forces a split
-   first. Splitting is fine; the `@/ui` barrel hides it from consumers.
+1. **At most 7 files per directory** (subdirectories don't count). `src/ui/inputs/`,
+   `src/pages/` and `src/data/` are currently *at* the cap — adding a file to any of them
+   forces a split first. Splitting is fine; the `@/ui` barrel hides it from consumers, and
+   a subdirectory (as in `src/components/profile/sports/`) is the usual escape.
 2. **No CSS outside `src/styles/`.** Stylesheets are imported once, in order, from
    [src/main.tsx](src/main.tsx). That file is where cascade order is decided.
 3. **No raw DOM tags outside `src/ui/`.** Pages and components compose from `@/ui`. This
