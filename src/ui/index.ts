@@ -62,6 +62,8 @@ export { SkipLink } from "@/ui/escapes/SkipLink";
 export type { SkipLinkProps } from "@/ui/escapes/SkipLink";
 export { VisuallyHidden } from "@/ui/escapes/VisuallyHidden";
 export type { VisuallyHiddenProps } from "@/ui/escapes/VisuallyHidden";
+export { Bars } from "@/ui/display/Bars";
+export type { Bar, BarsProps, BarTone } from "@/ui/display/Bars";
 export { Diagram } from "@/ui/escapes/Diagram";
 export type { DiagramEdge, DiagramNode, DiagramProps } from "@/ui/escapes/Diagram";
 export { MountPoint } from "@/ui/escapes/MountPoint";

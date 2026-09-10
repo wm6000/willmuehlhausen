@@ -7,9 +7,10 @@
     "dev": "vite --config config/vite.config.ts",
     "build": "npm run lint && vite build --config config/vite.config.ts",
     "preview": "vite preview --config config/vite.config.ts",
-    "lint": "node scripts/check-structure.mjs && tsc --noEmit -p config/tsconfig.json && eslint . --config config/eslint.config.mjs",
+    "lint": "node scripts/check-structure.mjs && node scripts/parity.mjs && tsc --noEmit -p config/tsconfig.json && eslint . --config config/eslint.config.mjs",
     "structure": "node scripts/check-structure.mjs",
-    "eslint": "eslint . --config config/eslint.config.mjs"
+    "eslint": "eslint . --config config/eslint.config.mjs",
+    "parity": "node scripts/parity.mjs"
   },
   "dependencies": {
     "leaflet": "^1.9.4",
