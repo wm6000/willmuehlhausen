@@ -9,10 +9,11 @@ breaking them.
 | Command | What it does |
 |---|---|
 | `npm run dev` | Vite dev server |
-| `npm run lint` | Structure check, then `tsc --noEmit`, then ESLint. **Run this before claiming anything works.** |
+| `npm run lint` | Structure check, parity check, then `tsc --noEmit`, then ESLint. **Run this before claiming anything works.** |
 | `npm run build` | `lint`, then a production build |
 | `npm run structure` | Structure check only |
 | `npm run eslint` | ESLint only |
+| `npm run parity` | Parity check only — the browser classifier vs. recorded scikit-learn output |
 
 There is no test framework yet. See **Verifying your work** below for what to do instead.
 
@@ -95,8 +96,10 @@ These are product invariants, not style. Breaking one is a bug, not a nitpick.
 
 - `DATA_SOURCE.kind` in [src/data/site.ts](src/data/site.ts) is the single switch for
   "this is sample data". **No page may claim real conditions while it says `"mock"`.**
-- A mock must say it's a mock, on the page: the login says no password is checked, the
-  classifier says it's a keyword stand-in, unfinished posts render a `DraftNotice`.
+- A mock must say it's a mock, on the page: the login says no password is checked and
+  unfinished posts render a `DraftNotice`. The inverse binds too — the disaster-response
+  classifier claims to *be* the trained model, so `scripts/parity.mjs` proves it on every
+  build. A claim about what the code is needs a check, not a comment.
 - Never invent facts about the work — stacks, metrics, outcomes. Placeholder text that
   announces itself beats plausible fiction.
 
@@ -119,10 +122,16 @@ runs the app.
   (`alias: {'@': 'src'}`, `nodePaths: ['node_modules']`) and `renderToString` it, then
   assert on the HTML. Catches missing providers, crashes, and wrong conditional branches.
   Note `&` renders as `&amp;`.
-- **Anything a browser has and Node doesn't is unverified this way.** There is no such
-  code right now — Leaflet was the case, and it left with the advisor's map — but if you
-  add some, say plainly that it needs `npm run dev` and a look rather than implying the
-  render test covered it.
+- **The disaster-response classifier has its own gate.** `scripts/parity.mjs` bundles
+  `src/lib/disaster/*` with esbuild and replays 200 messages recorded from the Python
+  pipeline, failing on any of 7,200 bits. If you touch the tokenizer, the TF-IDF maths or
+  the stump walk, this is the check that matters; regenerate the fixture only from a real
+  `models/export_web.py` run, never by hand.
+- **Anything a browser has and Node doesn't is unverified this way.** The whale-blog maps
+  are exactly that: Leaflet needs a real layout, tiles need the network, and a canvas
+  renderer draws nothing under `renderToString`. Verifying them means `npm run dev`, or
+  driving a headless browser over CDP and reading pixels back off the canvas. Say plainly
+  which you did rather than implying the render test covered it.
 
 Put throwaway test files in the scratchpad, not the repo.
 

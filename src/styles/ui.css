@@ -326,3 +326,105 @@
 @media (prefers-reduced-motion: reduce) {
   .ui-switch__control::after { transition: none; }
 }
+
+/* Bars: labelled proportional rates. Grid rather than flex so the label and value
+   columns line up down a stack of rows, which is the whole point of the component. */
+.ui-bars { display: flex; flex-direction: column; gap: var(--space-2); }
+.ui-bars__row {
+  display: grid;
+  grid-template-columns: minmax(0, 11rem) 1fr 2.75rem;
+  gap: var(--space-3);
+  align-items: center;
+}
+.ui-bars__label {
+  font-size: var(--text-sm);
+  color: var(--fg-muted);
+  overflow-wrap: anywhere;
+}
+.ui-bars__track {
+  display: block;
+  height: 0.5rem;
+  border-radius: var(--radius-full);
+  background: var(--chart-track);
+  overflow: hidden;
+}
+.ui-bars__fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width var(--duration-base) var(--ease);
+}
+.ui-bars__fill--accent { background: var(--accent); }
+.ui-bars__fill--alt { background: var(--chart-alt); }
+.ui-bars__fill--muted { background: var(--chart-muted); }
+.ui-bars__fill--danger { background: var(--danger); }
+.ui-bars__value {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--fg-muted);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+@media (prefers-reduced-motion: reduce) { .ui-bars__fill { transition: none; } }
+@media (max-width: 560px) {
+  .ui-bars__row { grid-template-columns: minmax(0, 7.5rem) 1fr 2.5rem; gap: var(--space-2); }
+}
+
+/* Diagram: the app's only raw <svg>. Scrolls inside itself rather than shrinking the
+   text to illegibility on a phone. */
+.ui-diagram { overflow-x: auto; }
+.ui-diagram__svg { display: block; width: 100%; min-width: 30rem; height: auto; }
+.ui-diagram__box { fill: var(--surface-muted); stroke: var(--border-strong); stroke-width: 1; }
+.ui-diagram__box--accent { fill: var(--accent-soft); stroke: var(--accent); }
+.ui-diagram__label { fill: var(--fg); font-size: 12px; font-weight: var(--weight-medium); }
+.ui-diagram__detail { fill: var(--fg-subtle); font-size: 10px; }
+.ui-diagram__edge { stroke: var(--border-strong); stroke-width: 1.5; }
+.ui-diagram__edge-label { fill: var(--fg-subtle); font-size: 9px; }
+.ui-diagram__arrowhead { fill: var(--border-strong); }
+
+/* Range: a slider over a few discrete steps. Sized against the touch target guidance
+   the rest of the controls follow rather than left at the browser default. */
+.ui-range {
+  appearance: none;
+  height: 1.5rem;
+  background: transparent;
+  cursor: pointer;
+}
+.ui-range::-webkit-slider-runnable-track {
+  height: 0.375rem;
+  border-radius: var(--radius-full);
+  background: var(--chart-track);
+}
+.ui-range::-moz-range-track {
+  height: 0.375rem;
+  border-radius: var(--radius-full);
+  background: var(--chart-track);
+}
+.ui-range::-webkit-slider-thumb {
+  appearance: none;
+  margin-top: -0.4375rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: var(--radius-full);
+  background: var(--accent);
+  border: 2px solid var(--surface);
+}
+.ui-range::-moz-range-thumb {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid var(--surface);
+  border-radius: var(--radius-full);
+  background: var(--accent);
+}
+.ui-range:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+/* Figure: an image with its credit attached. */
+.ui-figure { margin: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+.ui-figure__image {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-muted);
+}
+.ui-figure__caption { font-size: var(--text-xs); color: var(--fg-subtle); }

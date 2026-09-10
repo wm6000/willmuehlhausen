@@ -18,9 +18,10 @@ npm run dev
 | `npm run dev` | Vite dev server |
 | `npm run build` | `lint`, then a production build |
 | `npm run preview` | Serve the production build |
-| `npm run lint` | Structure check, then `tsc --noEmit`, then ESLint |
+| `npm run lint` | Structure check, parity check, then `tsc --noEmit`, then ESLint |
 | `npm run structure` | Structure check only |
 | `npm run eslint` | ESLint only |
+| `npm run parity` | Parity check only — the in-browser classifier vs. scikit-learn |
 
 ## Docs
 
@@ -59,7 +60,8 @@ Pages import from `@/ui` and never name a subfolder, so the `text` / `box` / `co
 
 ```
 config/     tsconfig.json, vite.config.ts   (root tsconfig.json is a shim that extends it)
-scripts/    check-structure.mjs
+scripts/    check-structure.mjs, parity.mjs, extract-whale-maps.mjs, fixtures/
+public/     favicon, the exported disaster-response model, and the whale map data
 src/
   ui/       the primitive layer + barrel
   layout/   header, footer, drawer, page shell
@@ -87,10 +89,17 @@ M0, M1 and M2 are complete, and sign-in from M3 with them:
 - **`/advisor`** — today's call, ranked ski picks with a Leaflet map, the seven-day
   outlook and the plain-language adjustment box, on mock data.
 - **`/projects`** — a blog-style listing, and posts that carry their own custom features.
-  Both posts are drafts: structure real, prose placeholder.
+  The disaster-response post is written, and runs the real trained classifier in the
+  browser: 1,800 decision stumps exported to JSON, with `npm run lint` failing the build
+  if any of 7,200 predictions disagrees with scikit-learn. The whale post carries its
+  three maps as real Leaflet maps rebuilt from the old site's Folium exports — 40.4MB of
+  generated iframes down to about 1.6MB of data, and 34,932 sightings drawn on a canvas
+  instead of as 34,932 DOM nodes.
 - **`/login`** — email-then-password on a mock session, gating `/profile`.
 - **`/profile`** — connections, and a switch per activity with its preferences beneath.
   Switching one off drops it from the advisor's reasoning, not just its display.
 
-Every page still runs on sample data. See [docs/spec.md](docs/spec.md) for the whole
-picture.
+The advisor still runs on sample data, and says so. The disaster-response post is the
+exception in the other direction: real corpus, real trained model, real evaluation
+numbers — see [docs/projects.md](docs/projects.md) for how it gets into the browser. See
+[docs/spec.md](docs/spec.md) for the whole picture.

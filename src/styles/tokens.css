@@ -103,6 +103,14 @@
   --danger: #b3261e;
   --danger-soft: #fbe6e4;
 
+  /* Two series that must stay apart for a reader who cannot separate them by hue.
+     --chart-alt is a warm amber against the cool accent, so the pair differs in
+     temperature as well as in colour, and neither carries meaning on its own. */
+  --chart-alt: #a4610a;
+  --chart-alt-soft: #fbeedd;
+  --chart-muted: #8595a3;
+  --chart-track: #e4ebf1;
+
   --shadow-sm: 0 1px 2px rgb(13 21 28 / 0.07), 0 1px 1px rgb(13 21 28 / 0.05);
   --shadow-md: 0 4px 12px rgb(13 21 28 / 0.10), 0 1px 3px rgb(13 21 28 / 0.06);
   --shadow-lg: 0 12px 32px rgb(13 21 28 / 0.16);
@@ -149,6 +157,14 @@
     --danger: #f2837b;
     --danger-soft: #38191a;
 
+    /* Two series that must stay apart for a reader who cannot separate them by hue.
+       --chart-alt is a warm amber against the cool accent, so the pair differs in
+       temperature as well as in colour, and neither carries meaning on its own. */
+    --chart-alt: #e2a44f;
+    --chart-alt-soft: #3a2a12;
+    --chart-muted: #7e8b98;
+    --chart-track: #232d36;
+
     --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
     --shadow-md: 0 4px 12px rgb(0 0 0 / 0.45);
     --shadow-lg: 0 12px 32px rgb(0 0 0 / 0.55);
@@ -194,6 +210,14 @@
 
   --danger: #f2837b;
   --danger-soft: #38191a;
+
+  /* Two series that must stay apart for a reader who cannot separate them by hue.
+     --chart-alt is a warm amber against the cool accent, so the pair differs in
+     temperature as well as in colour, and neither carries meaning on its own. */
+  --chart-alt: #e2a44f;
+  --chart-alt-soft: #3a2a12;
+  --chart-muted: #7e8b98;
+  --chart-track: #232d36;
 
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
   --shadow-md: 0 4px 12px rgb(0 0 0 / 0.45);

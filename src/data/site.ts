@@ -24,6 +24,7 @@ export const NAV: readonly NavItem[] = [
 export const EXTERNAL = {
   github: "https://github.com/wm6000",
   githubRepo: "https://github.com/wm6000/willmuehlhausen",
+  githubDisasterResponse: "https://github.com/wm6000/disaster-response-pipeline",
   linkedin: "https://www.linkedin.com/in/willmuehlhausen",
   email: "mailto:willmuehlhausen@gmail.com",
 } as const;

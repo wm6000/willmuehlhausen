@@ -6,11 +6,9 @@
  * The split is deliberate: the index is uniform so the listing can sort, filter and
  * summarise it, while the post below it is free to be whatever that project needs.
  *
- * TODO: the blurbs below came across from the old site. The posts themselves are
- * scaffolding with placeholder prose — real writing wanted before launch.
  */
 
-export type ProjectTag = "ml" | "pipelines" | "platform" | "writing" | "nlp";
+export type ProjectTag = "ml" | "pipelines" | "platform" | "writing" | "nlp" | "geospatial";
 
 export type Project = {
   slug: string;
@@ -27,6 +25,7 @@ export type Project = {
 
 export const TAG_LABELS: Record<ProjectTag, string> = {
   ml: "Machine learning",
+  geospatial: "Geospatial",
   nlp: "NLP",
   pipelines: "Pipelines",
   platform: "Platform",
@@ -38,20 +37,20 @@ export const PROJECTS: readonly Project[] = [
     slug: "disaster-response-pipeline",
     title: "Disaster Response Pipeline",
     date: "2026-03-14",
+    updated: "2026-09-09",
     blurb:
-      "An NLP pipeline that classifies incoming messages during a disaster and routes each one to the relief effort that can act on it. Getting the routing wrong costs time nobody has.",
+      "An NLP pipeline that takes messages sent during real disasters — tweets and direct messages — and sorts each one so it reaches the response organisation or team that can help. Along with an honest look at which categories it handles well and which it doesn't.",
     tags: ["nlp", "ml", "pipelines"],
     kind: "Machine learning",
   },
   {
     slug: "whale-blog",
-    title: "Whale Blog",
-    date: "2025-11-02",
-    updated: "2026-01-19",
+    title: "Whales, Shipping, and Sustainability",
+    date: "2023-04-30",
     blurb:
-      "A content and research blog about whales — what's known, what's contested, and where the data comes from.",
-    tags: ["writing"],
-    kind: "Writing",
+      "Where whale sightings along the West Coast overlap with global shipping traffic, and what rerouting a few shipping lanes around Los Angeles, San Francisco and San Diego would be worth.",
+    tags: ["writing", "geospatial"],
+    kind: "Analysis",
   },
 ];
 

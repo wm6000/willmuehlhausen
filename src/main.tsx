@@ -3,6 +3,11 @@ import { createRoot } from "react-dom/client";
 
 // Cascade order is explicit here rather than dependent on module resolution:
 // tokens, then reset, then base, then the primitive layer, then everything built on it.
+// Leaflet's own stylesheet, ahead of ours so whale-map rules can override it. It is
+// the one stylesheet not written here; rule 2 governs where our CSS lives, and this
+// file is still the single place cascade order is decided.
+import "leaflet/dist/leaflet.css";
+
 import "@/styles/tokens.css";
 import "@/styles/reset.css";
 import "@/styles/base.css";

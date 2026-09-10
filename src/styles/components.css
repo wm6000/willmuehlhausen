@@ -225,3 +225,71 @@
 /* A narrower outlook row, for when snow isn't one of the columns */
 .outlook__row--narrow { grid-template-columns: 12rem 1fr; }
 @media (max-width: 760px) { .outlook__row--narrow { grid-template-columns: 1fr; } }
+
+/* Whale blog: the three maps.
+   Height is viewport-relative with a floor, so a phone gets a map tall enough to read
+   without it eating the whole screen. The original was a fixed 700px iframe, which on a
+   narrow screen left no room for the surrounding argument. */
+.whale-map__canvas {
+  height: clamp(18rem, 55vh, 32rem);
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  /* Matches the tinted basemap so the frame doesn't flash pale while tiles load, and
+     so the gap outside the raster's bounds is the same navy as the tiles. */
+  background: #0d1524;
+  z-index: 0;
+}
+.whale-map__slider { flex: 1 1 8rem; min-width: 6rem; }
+
+/* Leaflet paints its own chrome; pull it onto our tokens so the map doesn't read as a
+   foreign object, and stays legible when the page is in dark mode. */
+.whale-map .leaflet-container { font: inherit; background: #0d1524; }
+
+/* Undo reset.css's `canvas { max-width: 100% }` for Leaflet's renderer.
+   Leaflet's panes are absolutely positioned with no width, so they are zero-width
+   containing blocks — which makes `max-width: 100%` resolve to zero, and the canvas
+   lays out 0px wide while still being painted. Nothing looks broken in the DOM or in
+   getImageData; the sightings and lanes are simply never composited. Leaflet ships this
+   override for `img` (which is why the shipping raster was unaffected) but not canvas,
+   because it doesn't expect a global media reset. Deliberately not scoped to .whale-map:
+   this is a Leaflet-versus-our-reset problem, and the next map to appear should not have
+   to rediscover it. */
+.leaflet-container canvas { max-width: none; }
+.whale-map .leaflet-control-layers,
+.whale-map .leaflet-bar a,
+.whale-map .leaflet-control-attribution {
+  background: var(--surface);
+  color: var(--fg-muted);
+  border-color: var(--border);
+}
+.whale-map .leaflet-bar a { color: var(--fg); }
+.whale-map .leaflet-control-attribution a { color: var(--accent); }
+.whale-map .leaflet-control-layers-expanded { padding: var(--space-3); font-size: var(--text-xs); }
+.whale-map .leaflet-control-layers label { display: flex; gap: var(--space-2); align-items: center; }
+
+/* Tint the basemap navy.
+
+   The original post used Thunderforest's transport-dark, a dark blue style. That needs
+   an API key, which cannot go in frontend code, so the tiles come from Esri's Dark Gray
+   Canvas instead — and those are strictly neutral, R=G=B on every pixel. Neutral grey at
+   this size reads as a black slab against the pale page.
+
+   No hue to rotate, so the colour has to be introduced: sepia lays down a warm tint,
+   the rotation carries it round to blue, and saturate sets how far. Scoped to the tile
+   pane, which holds nothing but basemap tiles — the shipping raster, the sighting
+   canvas and the heat layer all live in the overlay pane above it and keep their own
+   colours, which matters because the green wash and the red and cyan dots are only
+   legible if nothing shifts their hue.
+
+   Adjust the blue here: hue-rotate near 172deg is slate, 192deg goes indigo.
+
+   Still no theme-dependent filter. The basemap stays dark in both themes because the
+   shipping raster is a translucent green that disappears over anything pale, and a
+   figure that inverted with the page would make one of the two versions unreadable. */
+.whale-map .leaflet-tile-pane {
+  filter: sepia(1) hue-rotate(182deg) saturate(2.4) brightness(0.85);
+}
+
+/* Post: a plain list of reference links. */
+.post-links { list-style: none; }

@@ -131,9 +131,11 @@ so a build cannot pass while one is broken: at most 7 files per directory; no CS
 3, is in the root [README](../README.md#structure-rules).
 
 **No dependency without a reason that survives being said out loud.** React, React Router,
-TypeScript, Vite. That's the whole runtime list. Leaflet was here for the advisor's map and
-left with it rather than sitting unused at a third of the bundle. Plain CSS on design
-tokens — no CSS framework, no component library. Every primitive in `src/ui/` is ours,
+TypeScript, Vite, and Leaflet. Leaflet left once already, when the advisor's map went,
+rather than sit unused at a third of the bundle; it came back for the whale-blog maps,
+which are the post's argument rather than decoration on it. It is dynamically imported, so
+only that route pays the 43KB. Plain CSS on design tokens — no CSS framework, no component
+library. Every primitive in `src/ui/` is ours,
 which is why rule 3 can be absolute.
 
 **Accessible by construction.** Skip link, one `<main>`, headings that descend, focus
