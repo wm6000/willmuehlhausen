@@ -41,7 +41,7 @@ tells Pages to serve the custom domain and nothing else.
 
 1. **Register `willmuehlhausen.com`.** As of 2026-09-12 it is unregistered — `.com`
    returns NXDOMAIN.
-2. **Point DNS at Pages.** At the apex, four A records and four AAAA records:
+2. **Point DNS at Pages.** Four A records and four AAAA records at the apex, plus `www`:
 
    ```
    A     @    185.199.108.153     AAAA  @  2606:50c0:8000::153
@@ -53,6 +53,19 @@ tells Pages to serve the custom domain and nothing else.
 
    Confirm these against GitHub's own docs at the time — they are stable but they are
    GitHub's to change.
+
+   **The domain is on Cloudflare, which adds two traps.**
+
+   *Proxy off.* Every one of these records must be **DNS only** — the grey cloud, not
+   the orange one. Proxied, Cloudflare answers with its own IPs, GitHub cannot complete
+   the ACME challenge for the certificate, and **Enforce HTTPS stays permanently greyed
+   out**. Cloudflare's zone import defaults new records to proxied, so this has to be
+   checked after importing rather than assumed.
+
+   *If the proxy is ever turned on later,* SSL/TLS mode must be **Full** or **Full
+   (strict)**. **Flexible** makes Cloudflare talk HTTP to Pages, which redirects to
+   HTTPS, which Cloudflare serves again — an infinite redirect loop, and the failure
+   looks like the site being down rather than like a TLS setting.
 3. **Settings → Pages → Source: GitHub Actions.** Not the older branch-based option; the
    workflow publishes an artifact.
 4. **Push, or run the workflow by hand.** `workflow_dispatch` is enabled.
