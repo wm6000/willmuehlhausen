@@ -1,15 +1,25 @@
 /**
- * Site-wide content and constants. The header and footer read from here rather
- * than hardcoding copy, so a rename or a new link is a one-line change.
+ * Site-wide content and constants. The header, footer and home page read from here
+ * rather than hardcoding copy, so a rename or a new link is a one-line change.
  *
- * TODO before launch: replace the placeholder URLs below.
+ * `description` is duplicated as the `<meta name="description">` in index.html, which
+ * is static and cannot import this file. Change one, change the other.
  */
 
 export const SITE = {
   name: "Will Muehlhausen",
-  tagline: "Software, data and AI engineering.",
-  location: "Seattle, WA",
-  description: "Software, data and AI engineering. Seattle, WA.",
+  /**
+   * The home page's h1. It sells the visit rather than introducing the author: the
+   * advisor is what keeps a stranger on the site, so the first line is what they get
+   * from it. Separate from `tagline` because the two are read in different places and
+   * a headline aimed at a visitor is the wrong thing to print under a name.
+   */
+  headline: "Welcome to my website!",
+  /** The identity line, under the name in the footer. */
+  tagline: "Building solutions: mechanical, software and anything between.",
+  location: "Greater Wenatchee Area",
+  description:
+    "RecAdvisor turns your activity history, calendar and the mountain forecast into one call on the week — and the projects behind it. Engineer, mechanical by training and software by habit. Greater Wenatchee Area.",
 } as const;
 
 export type NavItem = { to: string; label: string; end?: boolean };

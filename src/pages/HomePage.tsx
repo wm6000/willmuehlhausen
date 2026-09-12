@@ -3,19 +3,19 @@ import { SITE } from "@/data/site";
 
 const CARDS = [
   {
-    to: "/advisor",
-    title: "Advisor",
-    body: "One page that reads your training history, your calendar and the snow forecast, then tells you what to do this week — and adapts to the sports you actually do.",
+    to: "/recadvisor",
+    title: "RecAdvisor",
+    body: "View the RecAdvisor page.",
   },
   {
     to: "/projects",
     title: "Projects",
-    body: "Data pipelines, machine learning and the writeups that go with them. Architecture, decisions, and what each one taught me.",
+    body: "A showcase of personal projects I have worked on.",
   },
   {
     to: "/profile",
-    title: "Profile",
-    body: "Connect Strava and a calendar, set your goals and preferences, and the advisor stops guessing and starts using your data.",
+    title: "Create Profile",
+    body: "Create your profile now to get started.",
   },
 ];
 
@@ -26,21 +26,21 @@ export function HomePage() {
         <Stack className="hero__inner">
           <Stack gap={5} className="hero__body">
             <Stack gap={4}>
-              <Text eyebrow>{SITE.location}</Text>
-              <Heading level={1}>Software, data and AI engineering.</Heading>
+              <Heading level={1}>{SITE.headline}</Heading>
               <Text size="md" tone="muted" balance>
-                I build data platforms and the products that sit on top of them. This site is one of
-                them: an advisor that combines training history, calendar and mountain conditions
-                into a single call on what to do next.
+                Come try out RecAdvisor!
+                It will generate a daily plan based on your activity history, 
+                goals, schedule, and weather to build personalized activity plans. 
+                Also check out my projects to see what I have been working on. 
               </Text>
             </Stack>
             <Row gap={3} wrap>
-              <ButtonLink to="/advisor" variant="primary" size="lg">
-                Open the advisor
+              <ButtonLink to="/recadvisor" variant="primary" size="lg">
+                Open RecAdvisor
                 <Icon name="arrowRight" size={16} />
               </ButtonLink>
               <ButtonLink to="/projects" variant="secondary" size="lg">
-                See the projects
+                See my projects
               </ButtonLink>
             </Row>
           </Stack>
