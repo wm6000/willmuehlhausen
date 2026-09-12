@@ -1,5 +1,7 @@
 # Deploy
 
+**Live at https://willmuehlhausen.com** since 2026-09-12.
+
 Static build, GitHub Pages, served from `willmuehlhausen.com`.
 [.github/workflows/deploy.yml](../.github/workflows/deploy.yml) builds on every push to
 `main` and publishes `dist/`.
@@ -68,9 +70,21 @@ tells Pages to serve the custom domain and nothing else.
    looks like the site being down rather than like a TLS setting.
 3. **Settings → Pages → Source: GitHub Actions.** Not the older branch-based option; the
    workflow publishes an artifact.
-4. **Push, or run the workflow by hand.** `workflow_dispatch` is enabled.
-5. **Tick "Enforce HTTPS"** once the certificate is issued. It cannot be ticked until DNS
-   resolves, and issuing takes a few minutes after that.
+4. **Set the custom domain explicitly**, in Settings → Pages, or:
+
+   ```
+   gh api -X PUT repos/wm6000/willmuehlhausen/pages -f cname=willmuehlhausen.com
+   ```
+
+   **`public/CNAME` does not do this on its own.** Shipping a CNAME file sets the domain
+   on the old branch-based deployment; on an Actions deployment it does not, and the
+   first deploy here published to `wm6000.github.io/willmuehlhausen/` — the prefix this
+   whole setup exists to avoid, with the asset paths broken exactly as predicted. The
+   file is still worth keeping, because it rides along in the artifact, but the setting
+   is what actually decides.
+5. **Push, or run the workflow by hand.** `workflow_dispatch` is enabled.
+6. **Enforce HTTPS** once the certificate is issued. It cannot be enabled until DNS
+   resolves; issuing took under a minute here.
 
 ## What the deploy gate covers
 
