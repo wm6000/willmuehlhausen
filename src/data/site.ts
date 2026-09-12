@@ -25,8 +25,11 @@ export const EXTERNAL = {
   github: "https://github.com/wm6000",
   githubRepo: "https://github.com/wm6000/willmuehlhausen",
   githubDisasterResponse: "https://github.com/wm6000/disaster-response-pipeline",
-  linkedin: "https://www.linkedin.com/in/willmuehlhausen",
+  // The handle is william-muehlhausen, not willmuehlhausen — the shorter one 404s.
+  linkedin: "https://www.linkedin.com/in/william-muehlhausen",
   email: "mailto:willmuehlhausen@gmail.com",
+  /** Served straight out of public/, so it keeps this path whatever the PDF is called. */
+  resume: "/resume.pdf",
 } as const;
 
 /**

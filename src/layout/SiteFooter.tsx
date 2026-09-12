@@ -4,7 +4,12 @@ import { DataSourceChip } from "@/components/system/DataSourceChip";
 
 const SITE_LINKS = [...NAV, { to: "/profile", label: "Profile" }];
 
+/**
+ * `external` on the résumé too: it is a file in public/, not a route, so router
+ * navigation would try to match it and land on the not-found page.
+ */
 const ELSEWHERE = [
+  { to: EXTERNAL.resume, label: "Résumé (PDF)" },
   { to: EXTERNAL.github, label: "GitHub" },
   { to: EXTERNAL.linkedin, label: "LinkedIn" },
   { to: EXTERNAL.email, label: "Email" },
