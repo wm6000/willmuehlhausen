@@ -154,7 +154,8 @@ shell so pages get them without asking.
 ## Open before launch
 
 - Replace the placeholder URLs in `EXTERNAL` ([src/data/site.ts](../src/data/site.ts)).
-- Decide the hosting target and the deploy path.
+- Register `willmuehlhausen.com` and point it at Pages — see [deploy.md](deploy.md).
+  Everything else is in place; the domain is the only blocker.
 - Decide where RecAdvisor conditions data actually comes from, and whether it lands in
   `data-platform` first or is read directly.
 - Capture an IANA timezone on the profile **before** the first real email send, not after —
