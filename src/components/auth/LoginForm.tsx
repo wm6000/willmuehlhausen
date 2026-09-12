@@ -166,8 +166,7 @@ export function LoginForm() {
 
       <Text size="sm" tone="subtle" prose>
         This is a mock session. Any valid email and a password of at least {PASSWORD_MIN_LENGTH}{" "}
-        characters signs you in; nothing is checked, and nothing leaves this browser. Creating an
-        account, resetting a password and connecting Strava all arrive with the real backend.
+        characters signs you in; nothing is checked, and nothing leaves this browser. 
       </Text>
     </Stack>
   );

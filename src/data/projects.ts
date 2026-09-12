@@ -45,7 +45,7 @@ export const PROJECTS: readonly Project[] = [
   },
   {
     slug: "whale-blog",
-    title: "Whales, Shipping, and Sustainability",
+    title: "Whales, Shipping, and Collisions",
     date: "2023-04-30",
     blurb:
       "Where whale sightings along the West Coast overlap with global shipping traffic, and what rerouting a few shipping lanes around Los Angeles, San Francisco and San Diego would be worth.",
