@@ -45,7 +45,7 @@ export function AdvisorPage() {
             </Heading>
             <Text tone="muted" prose>
               {signedIn
-                ? "Your recreation advisor: your sports, your calendar and the load you're carrying, resolved into one call on what to do next."
+                ? "Your recreation advisor: customized for you based on your activity history, goals, schedule, and weather."
                 : "Your recreation advisor. Main hub to view your activity advice. This is an example — sign in to get personalized recommendations."}
             </Text>
           </Stack>
