@@ -27,7 +27,7 @@ export const WEEK: readonly AdvisorDay[] = [
     conditions: "Fresh powder, 11in overnight",
     goodSnow: true,
     free: true,
-    training: "Easy 45 min run",
+    training: "half-day resort ski",
     load: "moderate",
   },
   {
