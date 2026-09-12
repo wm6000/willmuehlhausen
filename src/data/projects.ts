@@ -36,7 +36,7 @@ export const PROJECTS: readonly Project[] = [
   {
     slug: "disaster-response-pipeline",
     title: "Disaster Response Pipeline",
-    date: "2026-03-14",
+    date: "2023-05-14",
     updated: "2026-09-09",
     blurb:
       "An NLP pipeline that takes messages sent during real disasters — tweets and direct messages — and sorts each one so it reaches the response organisation or team that can help. Along with an honest look at which categories it handles well and which it doesn't.",
