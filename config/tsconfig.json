@@ -21,8 +21,7 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
 
-    "baseUrl": "..",
-    "paths": { "@/*": ["src/*"] }
+    "paths": { "@/*": ["../src/*"] }
   },
   "include": ["../src", "../scripts", "../config"]
 }
