@@ -14,7 +14,7 @@ retrofit.
 | Send | Carries | Why then |
 |---|---|---|
 | **Evening** | Tomorrow's call | People plan the next day the night before — this is the one that changes what someone actually does |
-| **Morning** | Today's call, the same one `/advisor` opens with | For the decision you make on the way out of the door |
+| **Morning** | Today's call, the same one `/recadvisor` opens with | For the decision you make on the way out of the door |
 | **Weekly** | The recap, plus the week ahead | Sunday |
 
 `daily` **split** rather than gaining a sibling. It described itself as "the morning's
@@ -56,7 +56,7 @@ is scheduled in may not exist; on the autumn day it happens twice. Skip or clamp
 decide, because the failure modes are a silently missing send and a duplicate, and both look
 like bugs in something else.
 
-**The advisor's own "today" is the same question.** `WEEK[0]` is Today relative to whoever
+**RecAdvisor's own "today" is the same question.** `WEEK[0]` is Today relative to whoever
 is reading. An evening email about tomorrow has to agree with what the site shows, so the
 zone that schedules the send is also the zone that decides which day the content is about.
 

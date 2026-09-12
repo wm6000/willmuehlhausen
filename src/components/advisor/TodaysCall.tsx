@@ -72,7 +72,7 @@ export function TodaysCall({ day, domains = ALL_DOMAINS }: TodaysCallProps) {
             id="advisor-adjust"
             value={note}
             onChange={setNote}
-            ariaLabel="What should the advisor know?"
+            ariaLabel="What should RecAdvisor know?"
             placeholder="I'm sore from Saturday, or I only have two hours, or the road's closed"
             // Revealed by pressing "Adjust this", so focus should follow it here.
             // eslint-disable-next-line jsx-a11y/no-autofocus

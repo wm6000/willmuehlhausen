@@ -27,7 +27,7 @@ export type NavItem = { to: string; label: string; end?: boolean };
 /** The top-level nav. /profile is deliberately absent — it lives in the auth menu. */
 export const NAV: readonly NavItem[] = [
   { to: "/", label: "Home", end: true },
-  { to: "/advisor", label: "Advisor" },
+  { to: "/recadvisor", label: "RecAdvisor" },
   { to: "/projects", label: "Projects" },
 ];
 

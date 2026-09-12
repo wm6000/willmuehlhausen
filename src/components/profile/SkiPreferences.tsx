@@ -28,7 +28,7 @@ export function SkiPreferences({ value, onChange }: SkiPreferencesProps) {
         </Row>
         <Text size="xs" tone="subtle">
           {value.types.length === 0
-            ? "Nothing picked, so the advisor considers all of them."
+            ? "Nothing picked, so RecAdvisor considers all of them."
             : "Picked types come first in the recommendations."}
         </Text>
       </Stack>

@@ -41,12 +41,12 @@ export function AdvisorPage() {
         <Stack gap={5}>
           <Stack gap={3}>
             <Heading level={1} size={2}>
-              Advisor
+              RecAdvisor
             </Heading>
             <Text tone="muted" prose>
               {signedIn
-                ? "Your sports, your calendar and the load you're carrying, resolved into one call on what to do next."
-                : "Snow, a calendar and a training load, resolved into one call on what to do next. This is the example version — sign in and it reads your data instead."}
+                ? "Your recreation advisor: your sports, your calendar and the load you're carrying, resolved into one call on what to do next."
+                : "Your recreation advisor. Main hub to view your activity advice. This is an example — sign in to get personalized recommendations."}
             </Text>
           </Stack>
 
@@ -58,7 +58,7 @@ export function AdvisorPage() {
                 Nothing to weigh up.
               </Text>
               <Text inline size="sm" tone="muted">
-                Rank a sport in your profile and the advisor has something to work with.
+                Rank a sport in your profile and RecAdvisor has something to work with.
               </Text>
             </Row>
           ) : null}
@@ -103,7 +103,7 @@ export function AdvisorPage() {
               Sign in and it stops guessing.
             </Heading>
             <Text tone="muted" prose>
-              Rank the sports you actually do and connect Strava and a calendar, and the advisor
+              Rank the sports you actually do and connect Strava and a calendar, and RecAdvisor
               drops what you don't do, reads the load you're carrying, and knows which days are
               already spoken for.
             </Text>

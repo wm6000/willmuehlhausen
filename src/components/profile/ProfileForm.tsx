@@ -48,7 +48,7 @@ export function ProfileForm() {
           </Heading>
           <Text size="sm" tone="muted" prose>
             Rank the sports you actually do. Primary is what you build a week around; Secondary
-            fills the gaps. Anything you leave off is gone from the advisor's reasoning, not
+            fills the gaps. Anything you leave off is gone from RecAdvisor's reasoning, not
             hidden from its output — nothing will ever suggest skiing to someone who doesn't ski.
           </Text>
         </Stack>
@@ -86,7 +86,7 @@ export function ProfileForm() {
             Ski settings
           </Heading>
           <Text size="sm" tone="muted" prose>
-            Nothing reads these yet. They came back off the advisor when its map did, and
+            Nothing reads these yet. They came back off RecAdvisor when its map did, and
             they're kept so they're already here when it returns.
           </Text>
         </Stack>
@@ -107,7 +107,7 @@ export function ProfileForm() {
         </Button>
         {saved && !dirty ? (
           <Text inline size="sm" tone="muted">
-            Saved. The advisor is using this now.
+            Saved. RecAdvisor is using this now.
           </Text>
         ) : null}
         {dirty ? (

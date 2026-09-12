@@ -115,7 +115,7 @@ export function reasonFor(day: AdvisorDay, domains: DomainTiers = ALL_DOMAINS): 
         : `${day.conditions} and you're free. Go.`;
     case "rest":
       if (!snow && domains.endurance === null) {
-        return "Nothing in your profile is something the advisor can plan around yet. Rank a sport and it has something to say.";
+        return "Nothing in your profile is something RecAdvisor can plan around yet. Rank a sport and it has something to say.";
       }
       return snow
         ? `${day.conditions}, and you're carrying load from earlier in the week. Take the day.`

@@ -19,7 +19,7 @@ export function ConnectionsSection({ value, onChange }: ConnectionsSectionProps)
             Strava
           </Text>
           <Text size="sm" tone="muted">
-            {value.strava ? "Connected" : "Not connected — the advisor is guessing at your load."}
+            {value.strava ? "Connected" : "Not connected — RecAdvisor is guessing at your load."}
           </Text>
         </Stack>
         <Button variant="secondary" onClick={() => onChange({ ...value, strava: !value.strava })}>

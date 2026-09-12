@@ -1,6 +1,6 @@
 # willmuehlhausen.com
 
-Personal site: a portfolio, and an advisor that combines training history, calendar and
+Personal site: a portfolio, and RecAdvisor, which combines activity history, calendar and
 mountain conditions into one call on what to do next.
 
 React 19, TypeScript, Vite, plain CSS on design tokens. No framework, no CSS framework,
@@ -74,9 +74,9 @@ src/
 
 ## Data
 
-Everything the advisor shows is currently sample data. `DATA_SOURCE.kind` in
+Everything RecAdvisor shows is currently sample data. `DATA_SOURCE.kind` in
 `src/data/site.ts` is the single switch: while it says `"mock"`, the footer carries a
-"Sample data" chip and pages that show advisor numbers carry a banner. Setting it to
+"Sample data" chip and pages that show RecAdvisor numbers carry a banner. Setting it to
 `"live"` removes both everywhere. No page may claim real conditions while it says `"mock"`.
 
 Placeholder URLs in `src/data/site.ts` (`EXTERNAL`) want replacing before launch.
@@ -86,7 +86,7 @@ Placeholder URLs in `src/data/site.ts` (`EXTERNAL`) want replacing before launch
 M0, M1 and M2 are complete, and sign-in from M3 with them:
 
 - **Shell** — routing, theming, design tokens, primitives, header, footer.
-- **`/advisor`** — today's call, ranked ski picks with a Leaflet map, the seven-day
+- **`/recadvisor`** — today's call, ranked ski picks with a Leaflet map, the seven-day
   outlook and the plain-language adjustment box, on mock data.
 - **`/projects`** — a blog-style listing, and posts that carry their own custom features.
   The disaster-response post is written, and runs the real trained classifier in the
@@ -97,9 +97,9 @@ M0, M1 and M2 are complete, and sign-in from M3 with them:
   instead of as 34,932 DOM nodes.
 - **`/login`** — email-then-password on a mock session, gating `/profile`.
 - **`/profile`** — connections, and a switch per activity with its preferences beneath.
-  Switching one off drops it from the advisor's reasoning, not just its display.
+  Switching one off drops it from RecAdvisor's reasoning, not just its display.
 
-The advisor still runs on sample data, and says so. The disaster-response post is the
+RecAdvisor still runs on sample data, and says so. The disaster-response post is the
 exception in the other direction: real corpus, real trained model, real evaluation
 numbers — see [docs/projects.md](docs/projects.md) for how it gets into the browser. See
 [docs/spec.md](docs/spec.md) for the whole picture.

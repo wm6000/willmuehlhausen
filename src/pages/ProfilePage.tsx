@@ -20,8 +20,8 @@ export function ProfilePage() {
           </Heading>
           <Text tone="muted" prose>
             {session === null
-              ? "What the advisor knows about you."
-              : `Signed in as ${session.email}. This is what the advisor knows about you — and, just as much, what it should stop bringing up.`}
+              ? "What RecAdvisor knows about you."
+              : `Signed in as ${session.email}. Connect your accounts to get the best possible recommendations.`}
           </Text>
         </Stack>
 
@@ -33,7 +33,7 @@ export function ProfilePage() {
             Nothing is sent anywhere, and no account is really connected. Cloud sync arrives with
             the backend.{" "}
             {isUnset(profile.sports)
-              ? "No sports ranked yet, so the advisor is assuming you do everything."
+              ? "No sports ranked yet, so RecAdvisor is assuming you do everything."
               : `${chosen.length} ${chosen.length === 1 ? "sport" : "sports"} ranked, ${primary} primary.`}
           </Text>
         </Row>

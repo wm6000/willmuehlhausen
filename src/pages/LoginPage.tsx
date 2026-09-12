@@ -23,7 +23,7 @@ export function LoginPage() {
             Sign in
           </Heading>
           <Text tone="muted" prose>
-            Signing in is what lets the advisor read your training history, your calendar and your
+            Signing in is what lets RecAdvisor read your activity history, your calendar and your
             preferences instead of running on example data.
           </Text>
         </Stack>

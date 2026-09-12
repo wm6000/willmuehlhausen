@@ -39,7 +39,7 @@ export function SportsSection({ value, onChange }: SportsSectionProps) {
             Nothing picked yet.
           </Text>
           <Text inline size="sm" tone="muted">
-            Until you rank a sport the advisor assumes you do everything, the same as it does
+            Until you rank a sport RecAdvisor assumes you do everything, the same as it does
             for a stranger. Pick the ones you actually do and it starts working for you.
           </Text>
         </Row>
@@ -61,7 +61,7 @@ export function SportsSection({ value, onChange }: SportsSectionProps) {
           </Text>
           {undomained.length > 0 ? (
             <Text size="xs" tone="subtle">
-              The advisor can't plan around {undomained.map((sport) => sport.label).join(", ")} yet
+              RecAdvisor can't plan around {undomained.map((sport) => sport.label).join(", ")} yet
               — it has snow and training load, and no swell, wind or court booking. They're
               recorded, and they'll start counting when there's data behind them.
             </Text>

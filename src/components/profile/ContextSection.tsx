@@ -19,7 +19,7 @@ export function ContextSection({ value, onChange }: ContextSectionProps) {
       <Field
         id="context-goals"
         label="What you're working towards"
-        hint="Plain language. The advisor reads this the same way it reads an adjustment."
+        hint="Plain language. RecAdvisor reads this the same way it reads an adjustment."
       >
         <Textarea
           id="context-goals"

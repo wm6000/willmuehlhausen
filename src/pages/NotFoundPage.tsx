@@ -18,8 +18,8 @@ export function NotFoundPage() {
           <ButtonLink to="/" variant="primary">
             Home
           </ButtonLink>
-          <ButtonLink to="/advisor" variant="secondary">
-            Advisor
+          <ButtonLink to="/recadvisor" variant="secondary">
+            RecAdvisor
           </ButtonLink>
           <ButtonLink to="/projects" variant="secondary">
             Projects

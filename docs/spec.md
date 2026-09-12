@@ -4,20 +4,22 @@
 
 A personal site with two jobs, in one codebase:
 
-1. **A portfolio.** Data pipelines, machine learning and platform work, each written up
-   with its architecture, stack and what it taught me.
-2. **An advisor.** A single call on what to do next, from training history, calendar and
+1. **A portfolio.** The things I've built, each written up with its architecture, stack and
+   what it taught me. Deliberately not scoped to a domain: the work spans mechanical design,
+   factory systems, data and machine learning, and the listing is tagged rather than themed
+   so it can hold all of it.
+2. **RecAdvisor.** A single call on what to do next, from activity history, calendar and
    mountain conditions combined. It is itself the portfolio's centrepiece — the site is
    an example of the kind of thing the portfolio claims I build.
 
-The advisor is the reason a stranger stays on the site. The portfolio is the reason they
+RecAdvisor is the reason a stranger stays on the site. The portfolio is the reason they
 were sent to it. Neither is a sub-page of the other.
 
 ## Audience
 
 - **A hiring manager or collaborator**, skimming for evidence, signed out, on a phone,
   for ninety seconds. Everything load-bearing must survive that.
-- **Me**, signed in, using the advisor as a real tool during a ski or training week.
+- **Me**, signed in, using RecAdvisor as a real tool during a ski or training week.
 
 Signed out is the default and must never look like a degraded version of signed in — it
 runs on example data and says so.
@@ -26,8 +28,8 @@ runs on example data and says so.
 
 | Route | Owes the visitor | Milestone |
 |---|---|---|
-| `/` | The claim, and three doors: Advisor, Projects, Profile | M0 ✓ |
-| `/advisor` | Today's call, a recap of the week behind you, and a seven-day outlook — in that order | M1 ✓ |
+| `/` | RecAdvisor's pitch, and three doors: RecAdvisor, Projects, Profile | M0 ✓ |
+| `/recadvisor` | Today's call, a recap of the week behind you, and a seven-day outlook — in that order | M1 ✓ |
 | `/projects` | The blog-style listing, filterable by tag — see [projects.md](projects.md) | M2 ✓ |
 | `/projects/:slug` | One post, free to carry its own custom features | M2 ✓ |
 | `/profile` | Connections, ranked sports, plan context, email opt-ins, ski settings | M3 ✓ |
@@ -43,7 +45,7 @@ footer's site column. See `NAV` in [src/data/site.ts](../src/data/site.ts).
   primitive layer, header with drawer, footer, skip link, scroll reset. Complete.
   Unbuilt routes render `RoutePlaceholder`, which names the milestone that fills them
   in — an unfinished page must never read as a broken one.
-- **M1 — advisor.** Built: today's call with a plain-language adjustment box, a recap of
+- **M1 — RecAdvisor.** Built: today's call with a plain-language adjustment box, a recap of
   the week behind you, and the seven-day outlook, all on mock data. It also carried a
   "where to go" section — a city and pass picker, ranked ski areas and a Leaflet map —
   which came out once the profile became 55 ranked sports and that section read as
@@ -58,7 +60,7 @@ footer's site column. See `NAV` in [src/data/site.ts](../src/data/site.ts).
 - **M3 — profile and session.** Built. The mock `SessionProvider`, the email-then-password
   login modelled on strava.com ([auth.md](auth.md)), `RequireSession` gating `/profile`,
   the session-aware auth menu, and the profile itself: connections, the Strava sport
-  catalogue ranked into tiers, the plan context, and ski settings. Switching a sport off is what lets the advisor drop the
+  catalogue ranked into tiers, the plan context, and ski settings. Switching a sport off is what lets RecAdvisor drop the
   parts of itself a given person doesn't need.
 - **Later — real backend.** Real auth, real Strava and calendar reads, real conditions.
   Only at that point does `DATA_SOURCE.kind` flip to `"live"`.
@@ -67,7 +69,7 @@ footer's site column. See `NAV` in [src/data/site.ts](../src/data/site.ts).
 
 **Honesty about data.** `DATA_SOURCE.kind` in [src/data/site.ts](../src/data/site.ts) is
 the single switch. While it says `"mock"`, the footer carries a "Sample data" chip and any
-page showing advisor numbers carries a banner. **No page may claim real conditions while
+page showing RecAdvisor numbers carries a banner. **No page may claim real conditions while
 it says `"mock"`.** Setting it to `"live"` removes both everywhere, and nothing else.
 
 **One profile per person, and nobody inherits anyone else's.** A profile is stored under
@@ -75,7 +77,7 @@ its owner's key (`profile:<email>`), never a shared one. Signing out drops it fr
 as well as stopping it being read, so the next person to sign in on the same browser gets
 their own profile or an empty one — never the last person's switches. Signed out there is
 no key, so `loadProfile` returns empty and `saveProfile` is a no-op rather than writing to
-a shared bucket. The advisor separately reads the profile only while signed in; the two
+a shared bucket. RecAdvisor separately reads the profile only while signed in; the two
 together mean a signed-out visitor can neither see nor leave behind a profile.
 
 **A sport you haven't ranked is gone, not hidden.** The tiers on `/profile` are not a
@@ -93,7 +95,7 @@ ranks a snow sport Primary and everything else Secondary, that flips. It is the 
 ranking changes an answer, and it is deliberately the only one.
 
 **Ranked, but not yet reasoned about.** Most of the 55 sports feed neither domain — the
-advisor has snow and training load, and no swell, no wind and no court booking. Those
+RecAdvisor has snow and training load, and no swell, no wind and no court booking. Those
 sports are recorded and the profile says plainly that nothing acts on them yet, rather than
 letting a Primary-ranked sport silently do nothing.
 
@@ -122,7 +124,7 @@ with it, including why the zone has to be an IANA name on the profile rather tha
 or a guess from `connections.location`.
 
 **Not advice.** The site carries `DISCLAIMER` — *not avalanche-safety or medical advice* —
-wherever it makes a call. The advisor suggests; it never certifies a slope is safe.
+wherever it makes a call. RecAdvisor suggests; it never certifies a slope is safe.
 
 **Structure over sprawl.** Three rules, enforced by
 [scripts/check-structure.mjs](../scripts/check-structure.mjs) and wired into `npm run lint`
@@ -131,7 +133,7 @@ so a build cannot pass while one is broken: at most 7 files per directory; no CS
 3, is in the root [README](../README.md#structure-rules).
 
 **No dependency without a reason that survives being said out loud.** React, React Router,
-TypeScript, Vite, and Leaflet. Leaflet left once already, when the advisor's map went,
+TypeScript, Vite, and Leaflet. Leaflet left once already, when RecAdvisor's map went,
 rather than sit unused at a third of the bundle; it came back for the whale-blog maps,
 which are the post's argument rather than decoration on it. It is dynamically imported, so
 only that route pays the 43KB. Plain CSS on design tokens — no CSS framework, no component
@@ -153,7 +155,7 @@ shell so pages get them without asking.
 
 - Replace the placeholder URLs in `EXTERNAL` ([src/data/site.ts](../src/data/site.ts)).
 - Decide the hosting target and the deploy path.
-- Decide where advisor conditions data actually comes from, and whether it lands in
+- Decide where RecAdvisor conditions data actually comes from, and whether it lands in
   `data-platform` first or is read directly.
 - Capture an IANA timezone on the profile **before** the first real email send, not after —
   see [emails.md](emails.md). Retrofitting it means guessing on behalf of everyone who
