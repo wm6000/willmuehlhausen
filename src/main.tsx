@@ -8,7 +8,10 @@ import { createRoot } from "react-dom/client";
 // file is still the single place cascade order is decided.
 import "leaflet/dist/leaflet.css";
 
-import "@/styles/tokens.css";
+// The tokens are shared with recadvisor.app and live in their own package, so a palette
+// change lands in both sites rather than in whichever one someone remembered. They stay
+// first: everything below resolves against them.
+import "@wm/design-tokens/core.css";
 import "@/styles/reset.css";
 import "@/styles/base.css";
 import "@/styles/ui.css";

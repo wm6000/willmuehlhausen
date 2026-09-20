@@ -1,9 +1,9 @@
 import { Row, Text } from "@/ui";
 
 /**
- * Marks a post whose structure exists but whose writing doesn't. Same principle as
- * RoutePlaceholder: a half-written page must announce itself rather than let a reader
- * mistake placeholder prose for a claim about the work.
+ * Marks a post whose structure exists but whose writing doesn't: a half-written page
+ * must announce itself rather than let a reader mistake placeholder prose for a claim
+ * about the work.
  */
 export function DraftNotice() {
   return (

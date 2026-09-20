@@ -1,21 +1,29 @@
 import { ButtonLink, Card, Grid, Heading, Icon, Row, Section, Stack, Text } from "@/ui";
-import { SITE } from "@/data/site";
+import { EXTERNAL, SITE } from "@/data/site";
 
+/**
+ * RecAdvisor is a card here like any other project, and an external one: it runs on its
+ * own domain now. Keeping it in the list rather than in the nav is the honest shape —
+ * it is a thing I built, and this site is the place that says so.
+ */
 const CARDS = [
   {
-    to: "/recadvisor",
-    title: "RecAdvisor",
-    body: "View the RecAdvisor page.",
-  },
-  {
     to: "/projects",
+    external: false,
     title: "Projects",
-    body: "A showcase of personal projects I have worked on.",
+    body: "Write-ups of what I've built, with the architecture and what each one taught me.",
   },
   {
-    to: "/profile",
-    title: "Create Profile",
-    body: "Create your profile now to get started.",
+    to: EXTERNAL.recadvisor,
+    external: true,
+    title: "RecAdvisor",
+    body: "A training advisor that reads your activity history, your calendar and the forecast, and makes one call on the day.",
+  },
+  {
+    to: EXTERNAL.resume,
+    external: true,
+    title: "Résumé",
+    body: "The short version, as a PDF.",
   },
 ];
 
@@ -28,19 +36,18 @@ export function HomePage() {
             <Stack gap={4}>
               <Heading level={1}>{SITE.headline}</Heading>
               <Text size="md" tone="muted" balance>
-                Come try out RecAdvisor!
-                It will generate a daily plan based on your activity history, 
-                goals, schedule, and weather to build personalized activity plans. 
-                Also check out my projects to see what I have been working on. 
+                I'm an engineer — mechanical by training, software by habit. This is where I
+                write up the things I've built: machine learning models, data pipelines,
+                factory systems, and the occasional map. Have a look around.
               </Text>
             </Stack>
             <Row gap={3} wrap>
-              <ButtonLink to="/recadvisor" variant="primary" size="lg">
-                Open RecAdvisor
+              <ButtonLink to="/projects" variant="primary" size="lg">
+                See my projects
                 <Icon name="arrowRight" size={16} />
               </ButtonLink>
-              <ButtonLink to="/projects" variant="secondary" size="lg">
-                See my projects
+              <ButtonLink to={EXTERNAL.recadvisor} variant="secondary" size="lg" external>
+                Try RecAdvisor
               </ButtonLink>
             </Row>
           </Stack>
@@ -54,13 +61,13 @@ export function HomePage() {
           </Heading>
           <Grid gap={4} className="card-grid">
             {CARDS.map((card) => (
-              <Card key={card.to} to={card.to}>
+              <Card key={card.to} to={card.to} external={card.external}>
                 <Stack gap={3}>
                   <Row justify="between" gap={3}>
                     <Heading level={3} size={4}>
                       {card.title}
                     </Heading>
-                    <Icon name="arrowRight" size={16} />
+                    <Icon name={card.external ? "external" : "arrowRight"} size={16} />
                   </Row>
                   <Text size="sm" tone="muted">
                     {card.body}

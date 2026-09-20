@@ -3,7 +3,6 @@ import { useLocation } from "react-router";
 
 import { Button, Icon, Link, NavigationLink, Row, Stack, VisuallyHidden } from "@/ui";
 import { NAV, SITE } from "@/data/site";
-import { AuthMenu } from "@/layout/AuthMenu";
 import { NavDrawer } from "@/layout/NavDrawer";
 import { ThemeToggle } from "@/layout/ThemeToggle";
 
@@ -37,7 +36,6 @@ export function SiteHeader() {
           </Row>
           <Row gap={2} className="header__actions">
             <ThemeToggle />
-            <AuthMenu />
           </Row>
         </Row>
 

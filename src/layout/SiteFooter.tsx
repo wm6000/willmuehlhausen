@@ -1,14 +1,15 @@
 import { Grid, Link, Row, Stack, Text } from "@/ui";
-import { COLOPHON, DISCLAIMER, EXTERNAL, NAV, SITE } from "@/data/site";
-import { DataSourceChip } from "@/components/system/DataSourceChip";
+import { COLOPHON, EXTERNAL, NAV, SITE } from "@/data/site";
 
-const SITE_LINKS = [...NAV, { to: "/profile", label: "Profile" }];
+/** Every route there is. The footer used to carry /profile, which has left with the advisor. */
+const SITE_LINKS = NAV;
 
 /**
  * `external` on the résumé too: it is a file in public/, not a route, so router
  * navigation would try to match it and land on the not-found page.
  */
 const ELSEWHERE = [
+  { to: EXTERNAL.recadvisor, label: "RecAdvisor" },
   { to: EXTERNAL.resume, label: "Résumé (PDF)" },
   { to: EXTERNAL.github, label: "GitHub" },
   { to: EXTERNAL.linkedin, label: "LinkedIn" },
@@ -61,16 +62,6 @@ export function SiteFooter() {
         <Row wrap className="footer__bottom">
           <Text inline size="xs" tone="subtle">
             {`© ${new Date().getFullYear()} ${SITE.name}`}
-          </Text>
-          <Text inline size="xs" tone="subtle" className="footer__sep">
-            &middot;
-          </Text>
-          <DataSourceChip />
-          <Text inline size="xs" tone="subtle" className="footer__sep">
-            &middot;
-          </Text>
-          <Text inline size="xs" tone="subtle">
-            {DISCLAIMER}
           </Text>
           <Text inline size="xs" tone="subtle" className="footer__sep">
             &middot;
