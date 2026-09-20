@@ -24,8 +24,8 @@ alternative was editing five places and undoing that later anyway.
 
 ## The SPA fallback
 
-Pages serves static files with no rewrite rule, so a cold load of `/recadvisor` — or any
-project post — asks for a file that does not exist. Pages answers unmatched paths with
+Pages serves static files with no rewrite rule, so a cold load of any project post asks
+for a file that does not exist. Pages answers unmatched paths with
 `404.html`, so the build writes a copy of `index.html` there (`spaFallback` in
 [config/vite.config.ts](../config/vite.config.ts)) and the router resolves the route
 client-side.
@@ -94,7 +94,15 @@ messages through the exported model and compares 7,200 predictions against sciki
 the disaster-response post says on the page that it runs the real model, and this is what
 keeps that claim true in production.
 
-## Still mock
+## The old advisor URLs
 
-`DATA_SOURCE.kind` is `"mock"`, so the deployed site carries the sample-data chip and
-banner. Deploying changes nothing about that — see the honesty rule in [spec.md](spec.md).
+`/recadvisor`, `/login` and `/profile` were real routes here until the split and are the
+paths anyone's bookmarks and any inbound link still point at. They now 404 through the SPA
+fallback like any other unmatched path.
+
+**They should redirect to recadvisor.app, and on this hosting they cannot.** A 301 needs a
+server, and Pages has no rewrite rule; Cloudflare could do it, but only for proxied
+traffic, and [these records must stay DNS-only](#why-a-custom-domain-rather-than-a-project-path)
+or the Pages certificate cannot be issued. The options are a meta-refresh stub committed
+at each path — which works but leaks link equity — or moving the site to a host that can
+redirect. Unresolved; the links are dead in the meantime.

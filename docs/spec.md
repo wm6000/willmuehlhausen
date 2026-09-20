@@ -2,129 +2,47 @@
 
 ## What this is
 
-A personal site with two jobs, in one codebase:
+A portfolio. The things I've built, each written up with its architecture, stack and what
+it taught me. Deliberately not scoped to a domain: the work spans mechanical design,
+factory systems, data and machine learning, and the listing is tagged rather than themed
+so it can hold all of it.
 
-1. **A portfolio.** The things I've built, each written up with its architecture, stack and
-   what it taught me. Deliberately not scoped to a domain: the work spans mechanical design,
-   factory systems, data and machine learning, and the listing is tagged rather than themed
-   so it can hold all of it.
-2. **RecAdvisor.** A single call on what to do next, from activity history, calendar and
-   mountain conditions combined. It is itself the portfolio's centrepiece — the site is
-   an example of the kind of thing the portfolio claims I build.
+It used to be two things. RecAdvisor — the training advisor that reads activity history,
+calendar and mountain conditions and makes one call on the day — shared this codebase and
+this domain, and now has its own of both at **recadvisor.app**. It is linked from here as
+a project, because that is what it is from this site's point of view.
 
-RecAdvisor is the reason a stranger stays on the site. The portfolio is the reason they
-were sent to it. Neither is a sub-page of the other.
+Why they split: the advisor grew a real backend, real auth and real user data, and none of
+that belongs behind the same deploy as a static portfolio. A hiring manager reading a
+project write-up and a signed-in user planning a ski week want different things from a
+page, and were being served the same bundle.
 
 ## Audience
 
-- **A hiring manager or collaborator**, skimming for evidence, signed out, on a phone,
-  for ninety seconds. Everything load-bearing must survive that.
-- **Me**, signed in, using RecAdvisor as a real tool during a ski or training week.
-
-Signed out is the default and must never look like a degraded version of signed in — it
-runs on example data and says so.
+**A hiring manager or collaborator**, skimming for evidence, on a phone, for ninety
+seconds. Everything load-bearing must survive that. There is no signed-in state any more —
+every visitor sees the same site, which is the whole site.
 
 ## Routes
 
-| Route | Owes the visitor | Milestone |
-|---|---|---|
-| `/` | RecAdvisor's pitch, and three doors: RecAdvisor, Projects, Profile | M0 ✓ |
-| `/recadvisor` | Today's call, a recap of the week behind you, and a seven-day outlook — in that order | M1 ✓ |
-| `/projects` | The blog-style listing, filterable by tag — see [projects.md](projects.md) | M2 ✓ |
-| `/projects/:slug` | One post, free to carry its own custom features | M2 ✓ |
-| `/profile` | Connections, ranked sports, plan context, email opt-ins, ski settings | M3 ✓ |
-| `/login` | Sign in, on a mock session — see [auth.md](auth.md) | M3 ✓ |
-| `*` | A real 404 that offers a way back | M0 ✓ |
+| Route | Owes the visitor |
+|---|---|
+| `/` | What I do, and two doors: the projects, and RecAdvisor |
+| `/projects` | The blog-style listing, filterable by tag — see [projects.md](projects.md) |
+| `/projects/:slug` | One post, free to carry its own custom features |
+| `*` | A real 404 that offers a way back |
 
-`/profile` is deliberately absent from the top nav — it lives in the auth menu, and in the
-footer's site column. See `NAV` in [src/data/site.ts](../src/data/site.ts).
-
-## Milestones
-
-- **M0 — shell.** Routing, theming (light/dark/system, remembered), design tokens, the
-  primitive layer, header with drawer, footer, skip link, scroll reset. Complete.
-  Unbuilt routes render `RoutePlaceholder`, which names the milestone that fills them
-  in — an unfinished page must never read as a broken one.
-- **M1 — RecAdvisor.** Built: today's call with a plain-language adjustment box, a recap of
-  the week behind you, and the seven-day outlook, all on mock data. It also carried a
-  "where to go" section — a city and pass picker, ranked ski areas and a Leaflet map —
-  which came out once the profile became 55 ranked sports and that section read as
-  ski-specific furniture. It returns when it can serve whatever sports someone ranked;
-  the code is in git history and the dependency came out with it. The old site kept ski and training
-  as two separate advisors with two separate seven-day lists; here a day carries snow,
-  calendar and load together, and `verdictFor` in [src/lib/advisor.ts](../src/lib/advisor.ts)
-  turns the three into one call. That reconciliation is the product.
-- **M2 — projects.** Built, as a blog: a uniform index in `src/data/projects.ts` drives
-  the listing, and each post is its own component free to carry its own custom features.
-  [projects.md](projects.md) has the convention. Both posts are drafts — real prose wanted.
-- **M3 — profile and session.** Built. The mock `SessionProvider`, the email-then-password
-  login modelled on strava.com ([auth.md](auth.md)), `RequireSession` gating `/profile`,
-  the session-aware auth menu, and the profile itself: connections, the Strava sport
-  catalogue ranked into tiers, the plan context, and ski settings. Switching a sport off is what lets RecAdvisor drop the
-  parts of itself a given person doesn't need.
-- **Later — real backend.** Real auth, real Strava and calendar reads, real conditions.
-  Only at that point does `DATA_SOURCE.kind` flip to `"live"`.
+Every route is built. There is no `RoutePlaceholder` any more — it existed for unbuilt
+milestones, and there aren't any.
 
 ## Rules that don't bend
 
-**Honesty about data.** `DATA_SOURCE.kind` in [src/data/site.ts](../src/data/site.ts) is
-the single switch. While it says `"mock"`, the footer carries a "Sample data" chip and any
-page showing RecAdvisor numbers carries a banner. **No page may claim real conditions while
-it says `"mock"`.** Setting it to `"live"` removes both everywhere, and nothing else.
-
-**One profile per person, and nobody inherits anyone else's.** A profile is stored under
-its owner's key (`profile:<email>`), never a shared one. Signing out drops it from memory
-as well as stopping it being read, so the next person to sign in on the same browser gets
-their own profile or an empty one — never the last person's switches. Signed out there is
-no key, so `loadProfile` returns empty and `saveProfile` is a no-op rather than writing to
-a shared bucket. RecAdvisor separately reads the profile only while signed in; the two
-together mean a signed-out visitor can neither see nor leave behind a profile.
-
-**A sport you haven't ranked is gone, not hidden.** The tiers on `/profile` are not a
-display filter. Each sport in [src/data/sports.ts](../src/data/sports.ts) declares which
-domain it feeds — snow, endurance, or neither — and `domainTiers` in
-[src/lib/sports.ts](../src/lib/sports.ts) turns your picks into what `verdictFor` reasons
-with. Rank no snow sports and the advice for the week genuinely changes: no ski verdict, no
-mountains on the page, and **no mention of the snow in the reasoning either**. That last one
-is the easy part to get wrong — telling a runner about fresh powder is the same failure as
-showing them a ski section.
-
-**Primary outranks Secondary.** Normally a hard session already on the plan beats a powder
-day, because skiing instead is what quietly deletes the week's key workout. For someone who
-ranks a snow sport Primary and everything else Secondary, that flips. It is the one place
-ranking changes an answer, and it is deliberately the only one.
-
-**Ranked, but not yet reasoned about.** Most of the 55 sports feed neither domain — the
-RecAdvisor has snow and training load, and no swell, no wind and no court booking. Those
-sports are recorded and the profile says plainly that nothing acts on them yet, rather than
-letting a Primary-ranked sport silently do nothing.
-
-**Nothing ranked means "not answered", not "none".** An empty set is treated as assume
-everything, exactly as for a signed-out visitor, and the profile asks you to fill it in.
-A new profile shows the whole product rather than an advisor that refuses to advise.
-
-Adding a sport is an entry in `SPORTS`; the catalogue is Strava's, so in practice it changes
-only when Strava's does.
-
-**Email is opt-in, and only a literal `true` opts you in.** All three switches — morning,
-evening and weekly — default to off,
-and `hydrateEmails` in [src/lib/profile.ts](../src/lib/profile.ts) reads a stored value with
-`=== true` rather than merging it — a truthy `"yes"`, `1` or `"false"` from a corrupt or
-hand-edited profile resolves to off. Every other field can afford a permissive default;
-a subscription cannot, because the failure mode is mail somebody never asked for. Nothing
-is sent today and the section says so, rather than collecting a signup that goes nowhere.
-
-The same holds across a rename: `daily` split into morning and evening, and a stored
-`daily: true` migrates to **morning only**, because doubling somebody's mail on the strength
-of a rename is the same consent failure as subscribing them from scratch.
-
-When something does send, it sends in the **recipient's** local time — an evening email for
-planning tomorrow and a morning one for today are both meaningless in UTC. [emails.md](emails.md) records the shape and the constraints that come
-with it, including why the zone has to be an IANA name on the profile rather than an offset
-or a guess from `connections.location`.
-
-**Not advice.** The site carries `DISCLAIMER` — *not avalanche-safety or medical advice* —
-wherever it makes a call. RecAdvisor suggests; it never certifies a slope is safe.
+**Honesty about the work.** Never invent facts about a project — stacks, metrics,
+outcomes. Placeholder text that announces itself beats plausible fiction, which is what
+`DraftNotice` is for: both posts are drafts and say so. The inverse binds too — the
+disaster-response classifier claims to *be* the trained model, so `scripts/parity.mjs`
+proves it on every build, replaying 200 messages and comparing 7,200 predictions against
+scikit-learn. **A claim about what the code is needs a check, not a comment.**
 
 **Structure over sprawl.** Three rules, enforced by
 [scripts/check-structure.mjs](../scripts/check-structure.mjs) and wired into `npm run lint`
@@ -132,13 +50,24 @@ so a build cannot pass while one is broken: at most 7 files per directory; no CS
 `src/styles/`; no raw DOM tags outside `src/ui/`. The reasoning, and how to work with rule
 3, is in the root [README](../README.md#structure-rules).
 
+**Every colour, space, size and duration resolves to a token**, in
+[src/styles/tokens.css](../src/styles/tokens.css). Adding one means adding it to all three
+blocks — `:root`, the `prefers-color-scheme` block, and `:root[data-theme="dark"]` — or
+the theme breaks in one direction only.
+
+**Nothing is shared with recadvisor.app but a starting point.** It has its own tokens and
+its own copy of `src/ui/`, taken from here at the split and free to drift. A shared
+package was built and then deliberately thrown away: two apps that render almost nothing
+in common, and are expected to diverge, do not earn the coordination cost of a versioned
+dependency between them. Copy the file if a colour should match; the alternative was a
+release process standing between this site and a hex code.
+
 **No dependency without a reason that survives being said out loud.** React, React Router,
 TypeScript, Vite, and Leaflet. Leaflet left once already, when RecAdvisor's map went,
 rather than sit unused at a third of the bundle; it came back for the whale-blog maps,
 which are the post's argument rather than decoration on it. It is dynamically imported, so
 only that route pays the 43KB. Plain CSS on design tokens — no CSS framework, no component
-library. Every primitive in `src/ui/` is ours,
-which is why rule 3 can be absolute.
+library. Every primitive in `src/ui/` is ours, which is why rule 3 can be absolute.
 
 **Accessible by construction.** Skip link, one `<main>`, headings that descend, focus
 visible, the drawer trapping and restoring focus. These live in the primitives and the
@@ -148,17 +77,13 @@ shell so pages get them without asking.
 
 - A blog or a CMS. Project writeups are content in `src/data/`, not posts.
 - Analytics, cookie banners, newsletter capture, chat widgets.
-- Anyone else's accounts. Signed-in is me, and a mock session for demonstration.
+- Accounts of any kind. Sign-in left with the advisor, and nothing here needs it.
 - SSR, until something needs it. It's a static build served as one.
 
-## Open before launch
+## Open
 
+- Real prose for both project posts. They are drafts and say so.
 - Replace the placeholder URLs in `EXTERNAL` ([src/data/site.ts](../src/data/site.ts)).
-- ~~Hosting~~ — done. Live at https://willmuehlhausen.com on GitHub Pages, built by
-  [the deploy workflow](../.github/workflows/deploy.yml) on every push to `main`. See
-  [deploy.md](deploy.md).
-- Decide where RecAdvisor conditions data actually comes from, and whether it lands in
-  `data-platform` first or is read directly.
-- Capture an IANA timezone on the profile **before** the first real email send, not after —
-  see [emails.md](emails.md). Retrofitting it means guessing on behalf of everyone who
-  signed up in the meantime.
+- `recadvisor.app` is linked from the home page and the footer before it serves anything.
+  Either ship it or drop the links — a portfolio that links to a dead product is worse
+  than one that doesn't mention it.

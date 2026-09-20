@@ -1,7 +1,12 @@
 # willmuehlhausen.com
 
-Personal site: a portfolio, and RecAdvisor, which combines activity history, calendar and
-mountain conditions into one call on what to do next.
+My portfolio: the things I've built, each written up with its architecture, stack and
+what it taught me.
+
+RecAdvisor used to live here too. It has its own repo and its own domain now —
+**[recadvisor.app](https://recadvisor.app)** — and the two share nothing but a starting
+point: each carries its own copy of the design tokens and the primitive layer, free to
+drift.
 
 React 19, TypeScript, Vite, plain CSS on design tokens. No framework, no CSS framework,
 no component library.
@@ -74,20 +79,19 @@ src/
 
 ## Data
 
-Everything RecAdvisor shows is currently sample data. `DATA_SOURCE.kind` in
-`src/data/site.ts` is the single switch: while it says `"mock"`, the footer carries a
-"Sample data" chip and pages that show RecAdvisor numbers carry a banner. Setting it to
-`"live"` removes both everywhere. No page may claim real conditions while it says `"mock"`.
+Nothing here is mocked any more — the sample-data switch went with the advisor. What the
+posts claim, they claim for real: the disaster-response classifier runs the actual trained
+model, and `npm run lint` fails the build if it disagrees with scikit-learn on any of
+7,200 predictions.
 
-Placeholder URLs in `src/data/site.ts` (`EXTERNAL`) want replacing before launch.
+Both posts are drafts and say so on the page, via `DraftNotice`. Placeholder URLs in
+`src/data/site.ts` (`EXTERNAL`) want replacing before launch.
 
 ## Status
 
-M0, M1 and M2 are complete, and sign-in from M3 with them:
+Live at <https://willmuehlhausen.com>, deployed from `main` — see [docs/deploy.md](docs/deploy.md).
 
-- **Shell** — routing, theming, design tokens, primitives, header, footer.
-- **`/recadvisor`** — today's call, ranked ski picks with a Leaflet map, the seven-day
-  outlook and the plain-language adjustment box, on mock data.
+- **Shell** — routing, theming, shared design tokens, primitives, header, footer.
 - **`/projects`** — a blog-style listing, and posts that carry their own custom features.
   The disaster-response post is written, and runs the real trained classifier in the
   browser: 1,800 decision stumps exported to JSON, with `npm run lint` failing the build
@@ -95,11 +99,5 @@ M0, M1 and M2 are complete, and sign-in from M3 with them:
   three maps as real Leaflet maps rebuilt from the old site's Folium exports — 40.4MB of
   generated iframes down to about 1.6MB of data, and 34,932 sightings drawn on a canvas
   instead of as 34,932 DOM nodes.
-- **`/login`** — email-then-password on a mock session, gating `/profile`.
-- **`/profile`** — connections, and a switch per activity with its preferences beneath.
-  Switching one off drops it from RecAdvisor's reasoning, not just its display.
 
-RecAdvisor still runs on sample data, and says so. The disaster-response post is the
-exception in the other direction: real corpus, real trained model, real evaluation
-numbers — see [docs/projects.md](docs/projects.md) for how it gets into the browser. See
-[docs/spec.md](docs/spec.md) for the whole picture.
+Both posts still want real prose. See [docs/spec.md](docs/spec.md) for the whole picture.

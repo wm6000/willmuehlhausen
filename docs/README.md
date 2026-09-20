@@ -5,10 +5,12 @@ recoverable from reading the code.
 
 | Doc | What's in it |
 |---|---|
-| [spec.md](spec.md) | What the site is, what each route owes the visitor, the milestones, and the rules that don't bend |
+| [spec.md](spec.md) | What the site is, what each route owes the visitor, and the rules that don't bend |
 | [projects.md](projects.md) | How the projects blog works — the index/post split, adding a project, and what a post's custom feature may do |
-| [emails.md](emails.md) | The three email sends, how `daily` split into two, and why they have to go out in the recipient's local time |
-| [auth.md](auth.md) | How signing in works — the flow, the credential rules, the mock session, and what Strava's login we did and didn't copy |
+| [deploy.md](deploy.md) | Hosting, DNS, the SPA fallback, and what the deploy gate covers |
+
+RecAdvisor moved to its own repo and its own domain — `auth.md` and `emails.md` went with
+it. They are in this repo's history up to the split if you need what they said.
 
 Working in the code itself — structure rules, TypeScript gotchas, how to verify without a
 test framework — is in [AGENTS.md](../AGENTS.md) at the repo root.

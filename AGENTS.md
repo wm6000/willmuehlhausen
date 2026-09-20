@@ -23,10 +23,10 @@ Enforced by [scripts/check-structure.mjs](scripts/check-structure.mjs) and wired
 `npm run lint`, so a build cannot pass while one is broken. They are the most common way
 to get a red build here.
 
-1. **At most 7 files per directory** (subdirectories don't count). `src/ui/inputs/`,
-   `src/pages/` and `src/data/` are currently *at* the cap — adding a file to any of them
-   forces a split first. Splitting is fine; the `@/ui` barrel hides it from consumers, and
-   a subdirectory (as in `src/components/profile/sports/`) is the usual escape.
+1. **At most 7 files per directory** (subdirectories don't count). Nothing is at the cap
+   since the split took three pages and most of the input primitives out. Splitting is
+   fine when something reaches it; the `@/ui` barrel hides a split from consumers, and a
+   subdirectory (as in `src/components/projects/whale-blog/`) is the usual escape.
 2. **No CSS outside `src/styles/`.** Stylesheets are imported once, in order, from
    [src/main.tsx](src/main.tsx). That file is where cascade order is decided.
 3. **No raw DOM tags outside `src/ui/`.** Pages and components compose from `@/ui`. This
@@ -86,7 +86,10 @@ copy its kebab-case.
   [src/styles/tokens.css](src/styles/tokens.css). No raw hex in a component's CSS.
 - Adding a colour means adding it to **all three blocks**: `:root`, the
   `prefers-color-scheme: dark` block, and `:root[data-theme="dark"]`. Miss one and the
-  theme toggle breaks in one direction only.
+  theme toggle breaks in one direction only — and it breaks for whoever's OS setting
+  disagrees with their toggle, which is not you, which is why it survives review.
+- recadvisor.app keeps its own copy of this file. The two are expected to drift, and
+  that is the point: neither site should have to win an argument to change a colour.
 - Primitive styles go in `ui.css`; everything built on them in `components.css`.
 - Animate nothing without a `prefers-reduced-motion` escape.
 
@@ -116,8 +119,8 @@ and always at that altitude.
 runs the app.
 
 - **Pure logic** runs directly: `node --experimental-strip-types --input-type=module -e '...'`
-  importing straight from `src/lib/*.ts`. Good for `verdictFor`, credential rules, profile
-  isolation.
+  importing straight from `src/lib/*.ts`. Good for the date helpers and the disaster
+  classifier's pure pieces.
 - **Components** can be rendered without a browser: bundle a throwaway entry with esbuild
   (`alias: {'@': 'src'}`, `nodePaths: ['node_modules']`) and `renderToString` it, then
   assert on the HTML. Catches missing providers, crashes, and wrong conditional branches.
@@ -140,17 +143,20 @@ Put throwaway test files in the scratchpad, not the repo.
 `docs/` is the source of truth for *what* and *why*; the code is truth for *how*. When
 behaviour changes, update the doc in the same change:
 
-- [docs/spec.md](docs/spec.md) — routes, milestones, the rules that don't bend
-- [docs/auth.md](docs/auth.md) — sign-in flow, credential rules, the mock session
+- [docs/spec.md](docs/spec.md) — routes, and the rules that don't bend
 - [docs/projects.md](docs/projects.md) — the projects blog, and adding a post
+- [docs/deploy.md](docs/deploy.md) — hosting, DNS, the SPA fallback
 
 One topic per file, and add a row to [docs/README.md](docs/README.md) when you add one.
 
 ## Git
 
-**This repo has no commits and no remote yet.** Nothing is recoverable from history, so
-back up a file before a risky rewrite rather than trusting `git checkout`.
+Remote is `wm6000/willmuehlhausen`; `main` deploys on push (see
+[docs/deploy.md](docs/deploy.md)), so work on a branch and let the PR run the gate.
 
 Conventions shared with the sibling repos (see `../CLAUDE.md`): trunk-based development,
 squash-merge only, Conventional Commits for PR titles (`feat:`, `fix:`, `docs:`,
 `chore:`, `refactor:`, `test:`). Don't commit or push unless asked.
+
+The advisor, its auth and its profile left this repo at the split — they are in history
+up to that commit, and live now in the `recadvisor` repo. Don't re-add a route for them.

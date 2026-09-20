@@ -91,15 +91,6 @@
      the ring must be darker than the button, on a dark page lighter. */
   --button-primary-ring: #7a58c0;
 
-  --verdict-ski: #1668a8;
-  --verdict-ski-soft: #e2eef8;
-  --verdict-train: #1f7a4d;
-  --verdict-train-soft: #e2f2ea;
-  --verdict-rest: #8a6314;
-  --verdict-rest-soft: #f7eeda;
-  --verdict-busy: #5a6672;
-  --verdict-busy-soft: #eceff2;
-
   --danger: #b3261e;
   --danger-soft: #fbe6e4;
 
@@ -132,15 +123,6 @@
     --accent-fg: #06222c;
     --accent-soft: #10303c;
     --focus: #48bde3;
-
-    --verdict-ski: #6ab6ec;
-    --verdict-ski-soft: #12293b;
-    --verdict-train: #5fc793;
-    --verdict-train-soft: #12301f;
-    --verdict-rest: #d9ae5c;
-    --verdict-rest-soft: #302615;
-    --verdict-busy: #8593a0;
-    --verdict-busy-soft: #1c242c;
 
     --highlight: #48bde3;
     --hero-bg: none;
@@ -186,15 +168,6 @@
   --accent-fg: #06222c;
   --accent-soft: #10303c;
   --focus: #48bde3;
-
-  --verdict-ski: #6ab6ec;
-  --verdict-ski-soft: #12293b;
-  --verdict-train: #5fc793;
-  --verdict-train-soft: #12301f;
-  --verdict-rest: #d9ae5c;
-  --verdict-rest-soft: #302615;
-  --verdict-busy: #8593a0;
-  --verdict-busy-soft: #1c242c;
 
   --highlight: #48bde3;
   --hero-bg: none;
