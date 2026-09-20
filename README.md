@@ -4,9 +4,9 @@ My portfolio: the things I've built, each written up with its architecture, stac
 what it taught me.
 
 RecAdvisor used to live here too. It has its own repo and its own domain now —
-**[recadvisor.app](https://recadvisor.app)** — and the two sites share their design
-language through [`@wm/design-tokens`](https://github.com/wm6000/design-tokens) and
-nothing else.
+**[recadvisor.app](https://recadvisor.app)** — and the two share nothing but a starting
+point: each carries its own copy of the design tokens and the primitive layer, free to
+drift.
 
 React 19, TypeScript, Vite, plain CSS on design tokens. No framework, no CSS framework,
 no component library.

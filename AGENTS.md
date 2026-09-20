@@ -82,13 +82,14 @@ copy its kebab-case.
 
 ## Styling
 
-- **Every colour, space, size and duration resolves to a token**, and the tokens are not
-  in this repo — they come from `@wm/design-tokens`, shared with recadvisor.app. No raw
-  hex in a component's CSS.
-- **Adding or changing a colour is a change to that package**, not to this one: edit its
-  `src/`, rebuild so `dist/` regenerates, tag it, and bump the pin here. The third
-  `:root[data-theme="dark"]` block is generated there, so the old rule about keeping three
-  blocks in sync is now the package's job rather than yours.
+- **Every colour, space, size and duration resolves to a token** in
+  [src/styles/tokens.css](src/styles/tokens.css). No raw hex in a component's CSS.
+- Adding a colour means adding it to **all three blocks**: `:root`, the
+  `prefers-color-scheme: dark` block, and `:root[data-theme="dark"]`. Miss one and the
+  theme toggle breaks in one direction only — and it breaks for whoever's OS setting
+  disagrees with their toggle, which is not you, which is why it survives review.
+- recadvisor.app keeps its own copy of this file. The two are expected to drift, and
+  that is the point: neither site should have to win an argument to change a colour.
 - Primitive styles go in `ui.css`; everything built on them in `components.css`.
 - Animate nothing without a `prefers-reduced-motion` escape.
 

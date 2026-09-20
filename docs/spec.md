@@ -10,9 +10,7 @@ so it can hold all of it.
 It used to be two things. RecAdvisor — the training advisor that reads activity history,
 calendar and mountain conditions and makes one call on the day — shared this codebase and
 this domain, and now has its own of both at **recadvisor.app**. It is linked from here as
-a project, because that is what it is from this site's point of view. What the two still
-share is the design language, via
-[`@wm/design-tokens`](https://github.com/wm6000/design-tokens).
+a project, because that is what it is from this site's point of view.
 
 Why they split: the advisor grew a real backend, real auth and real user data, and none of
 that belongs behind the same deploy as a static portfolio. A hiring manager reading a
@@ -52,12 +50,17 @@ so a build cannot pass while one is broken: at most 7 files per directory; no CS
 `src/styles/`; no raw DOM tags outside `src/ui/`. The reasoning, and how to work with rule
 3, is in the root [README](../README.md#structure-rules).
 
-**Tokens are shared, components are not.** Every colour, space, size and duration resolves
-to a token, and the tokens come from `@wm/design-tokens` so a palette change lands on both
-sites rather than on whichever one someone remembered. The primitive layer in `src/ui/` is
-*not* shared — recadvisor.app has its own copy, free to diverge. That was the deliberate
-trade at the split: shared components would have meant one repo's refactor breaking the
-other's deploy, for two apps that render almost nothing in common.
+**Every colour, space, size and duration resolves to a token**, in
+[src/styles/tokens.css](../src/styles/tokens.css). Adding one means adding it to all three
+blocks — `:root`, the `prefers-color-scheme` block, and `:root[data-theme="dark"]` — or
+the theme breaks in one direction only.
+
+**Nothing is shared with recadvisor.app but a starting point.** It has its own tokens and
+its own copy of `src/ui/`, taken from here at the split and free to drift. A shared
+package was built and then deliberately thrown away: two apps that render almost nothing
+in common, and are expected to diverge, do not earn the coordination cost of a versioned
+dependency between them. Copy the file if a colour should match; the alternative was a
+release process standing between this site and a hex code.
 
 **No dependency without a reason that survives being said out loud.** React, React Router,
 TypeScript, Vite, and Leaflet. Leaflet left once already, when RecAdvisor's map went,
