@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { Row, Text } from "@/ui";
 
 export type StatusNoticeProps = {
-  /** The one-word claim: "Draft.", "Not deployed." */
+  /** The short claim, stated flatly: "Draft.", "Deployed to dev." */
   label: string;
   children: ReactNode;
 };

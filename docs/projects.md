@@ -20,9 +20,9 @@ src/components/projects/
     StatusNotice
     recadvisor/
         Post.tsx                      prose only; the product it describes
-                                      lives in another repo
-    data-platform/
-        Post.tsx                      prose only
+                                      lives in another, private repo
+        ReflectionList.tsx            the feedback section, and its empty state
+        reflections.ts                dated entries — the only file an append touches
     disaster-response-pipeline/
         Post.tsx                      this project's body
         Classifier.tsx                the trained model, run in the browser
@@ -123,19 +123,36 @@ it, and extracting the data is often easier than making the artefact behave.
 
 ## Status
 
-Four posts. Two are finished, two are drafts, and the drafts say so.
+Three posts, all written.
 
-- `disaster-response-pipeline` — **written.** Real prose, real numbers, and the trained
-  model itself running in the page.
-- `whale-blog` — **written.** Its original prose and its three maps, rebuilt.
-- `recadvisor` — **draft.** Prose only. It renders a `StatusNotice`, and the post states
-  in its own words that nothing is deployed, because it describes a product a reader
-  cannot go and use. There is no live link anywhere on this site until there is something
-  to link to.
-- `data-platform` — **draft.** Prose only, same caveat. It stops where the recommendation
-  logic starts so it and the `recadvisor` post don't tell the same story twice.
+- `disaster-response-pipeline` — Real prose, real numbers, and the trained model itself
+  running in the page.
+- `whale-blog` — Its original prose and its three maps, rebuilt.
+- `recadvisor` — The progress-and-decisions post, carrying a `StatusNotice` that says it
+  is deployed to a dev environment and invite-only. It absorbed the separate
+  `data-platform` post: the hosting story straddled both, and one narrative beat one
+  narrative split in half.
 
-The two RecAdvisor posts are prose without a custom feature, which is allowed but is the
-weaker form. Both describe systems in other repos — one private — so a live demo would
-mean either deploying them or faking one, and faking one is the failure this section of
-the doc exists to prevent.
+`recadvisor` is prose without a custom feature, which is allowed but is the weaker form.
+The honest reason is better than it used to be and worth stating: the thing is now
+deployed, and a demo is *still* impossible, because invite-only means a reader cannot try
+it. Faking one would be the failure this section exists to prevent, and a screenshot is
+the obvious next step rather than a substitute for it.
+
+### The reflections mechanism
+
+`recadvisor` appends feedback over time, which is the first post to need content added
+after publication. The shape is the index/body split again, one level down:
+`reflections.ts` holds dated entries and `ReflectionList.tsx` renders them, so appending
+one is a single object literal in a data file rather than an edit to the end of a long
+narrative component.
+
+Two parts are load-bearing:
+
+- **The empty state is `REFLECTIONS.length === 0`,** not a sentence someone has to
+  remember to delete. A hand-written "nothing yet" line survives the arrival of real
+  feedback, and a post claiming no feedback directly above three pieces of it is worse
+  than having no section.
+- **Entries carry plain strings, not markup.** Rule 3 keeps raw DOM tags inside
+  `src/ui/`, and a `.ts` file holding JSX would be a way around that rather than a reason
+  it does not apply.

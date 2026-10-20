@@ -39,7 +39,14 @@ export const EXTERNAL = {
   email: "mailto:willmuehlhausen@gmail.com",
   /** Served straight out of public/, so it keeps this path whatever the PDF is called. */
   resume: "/resume.pdf",
-  githubDataPlatform: "https://github.com/wm6000/data-platform",
+  /**
+   * RecAdvisor's dev deployment. Invite-only, so it is never rendered as a bare link —
+   * the invite-only sentence has to sit next to it or a reader is sent to a refusal.
+   *
+   * There is deliberately no link to either source repository: both are private, so a
+   * link would 404 for everyone who isn't me.
+   */
+  recadvisorDev: "https://dev.recadvisor.app",
 } as const;
 
 export const COLOPHON = "Built with React, TypeScript and Vite.";

@@ -9,8 +9,9 @@ so it can hold all of it.
 
 It used to be two things. RecAdvisor — the training advisor that reads activity history,
 calendar and mountain conditions and makes one call on the day — shared this codebase and
-this domain, and now has its own of both at **recadvisor.app**. It is linked from here as
-a project, because that is what it is from this site's point of view.
+this domain, and now has its own of both — serving from **dev.recadvisor.app**, invite-only
+while it is shown to a handful of people. It is linked from here as a project, because that
+is what it is from this site's point of view.
 
 Why they split: the advisor grew a real backend, real auth and real user data, and none of
 that belongs behind the same deploy as a static portfolio. A hiring manager reading a
@@ -86,9 +87,12 @@ shell so pages get them without asking.
 
 ## Open
 
-- Real prose for the two RecAdvisor posts, and a custom feature for at least one of them.
-  Both are drafts and say so.
+- A custom feature for the RecAdvisor post. The prose is written; it is the one post
+  carrying no demo, and the reason is real (invite-only) rather than unfinished work. A
+  screenshot would close most of the gap.
 - Replace the placeholder URLs in `EXTERNAL` ([src/data/site.ts](../src/data/site.ts)).
-- ~~`recadvisor.app` is linked before it serves anything~~ — resolved by removing the
-  links. RecAdvisor is a project write-up here, not an outbound door. Add a link the day
-  it is actually deployed, and not before.
+- ~~`recadvisor.app` is linked before it serves anything~~ — resolved, then resolved
+  again. The links came out in September because the domain served nothing. It now serves
+  from `dev.recadvisor.app`, so the condition was met and the link went back in — but only
+  inside the post, and only with the sentence saying it is invite-only and will refuse you.
+  A link that is also a refusal needs to say so where it is clicked, not in a footer.

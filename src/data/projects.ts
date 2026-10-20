@@ -8,7 +8,7 @@
  *
  */
 
-export type ProjectTag = "ml" | "pipelines" | "platform" | "writing" | "nlp" | "geospatial";
+export type ProjectTag = "ml" | "llm" | "pipelines" | "platform" | "writing" | "nlp" | "geospatial";
 
 export type Project = {
   slug: string;
@@ -25,6 +25,12 @@ export type Project = {
 
 export const TAG_LABELS: Record<ProjectTag, string> = {
   ml: "Machine learning",
+  /**
+   * Separate from `ml` on purpose. `ml` is a model I trained and can evaluate; `llm` is a
+   * model somebody else trained that I prompt and guard. Filing both under one label
+   * would blur exactly the distinction the honesty rules exist to keep.
+   */
+  llm: "LLM",
   geospatial: "Geospatial",
   nlp: "NLP",
   pipelines: "Pipelines",
@@ -37,21 +43,11 @@ export const PROJECTS: readonly Project[] = [
     slug: "recadvisor",
     title: "RecAdvisor",
     date: "2026-09-16",
-    updated: "2026-09-22",
+    updated: "2026-10-19",
     blurb:
-      "A training advisor that reads what you actually did, what your week actually looks like, and the forecast, and makes one call on the day. Built around a rule most of these things break: the plan never changes unless you ask it to.",
-    tags: ["platform"],
+      "A training advisor that reads what you actually did and what your week actually looks like, and makes one call on the day. It shipped on a rule it had to break — the plan was never allowed to change on its own, and a month of real use taught it how to, visibly, one day at a time.",
+    tags: ["platform", "llm", "pipelines"],
     kind: "Product",
-  },
-  {
-    slug: "data-platform",
-    title: "The Data Platform Behind It",
-    date: "2026-08-26",
-    updated: "2026-09-22",
-    blurb:
-      "Postgres, migrations and the ingestion that feeds RecAdvisor — including what it takes to notice that the run your watch uploaded and the run Strava shows you are the same run.",
-    tags: ["pipelines", "platform"],
-    kind: "Data engineering",
   },
   {
     slug: "disaster-response-pipeline",

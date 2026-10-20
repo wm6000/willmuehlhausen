@@ -18,7 +18,7 @@ export function NotFoundPage() {
           <ButtonLink to="/" variant="primary">
             Home
           </ButtonLink>
-          <ButtonLink to="/recadvisor" variant="secondary">
+          <ButtonLink to="/projects/recadvisor" variant="secondary">
             RecAdvisor
           </ButtonLink>
           <ButtonLink to="/projects" variant="secondary">
