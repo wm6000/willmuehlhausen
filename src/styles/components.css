@@ -29,7 +29,8 @@
 
 /* Projects: listing */
 .post-list { list-style: none; }
-.post-reflections { list-style: none; }
+.timeline { list-style: none; }
+.timeline__when { font-variant-numeric: tabular-nums; }
 .post-card__kind { text-transform: uppercase; letter-spacing: 0.07em; }
 
 /* Projects: post */

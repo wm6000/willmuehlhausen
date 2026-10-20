@@ -21,8 +21,8 @@ src/components/projects/
     recadvisor/
         Post.tsx                      prose only; the product it describes
                                       lives in another, private repo
-        ReflectionList.tsx            the feedback section, and its empty state
-        reflections.ts                dated entries — the only file an append touches
+        ChapterList.tsx               renders the dated build log
+        timeline.ts                   the chapters — the only file an append touches
     disaster-response-pipeline/
         Post.tsx                      this project's body
         Classifier.tsx                the trained model, run in the browser
@@ -139,20 +139,18 @@ deployed, and a demo is *still* impossible, because invite-only means a reader c
 it. Faking one would be the failure this section exists to prevent, and a screenshot is
 the obvious next step rather than a substitute for it.
 
-### The reflections mechanism
+### Appending to a post after it ships
 
-`recadvisor` appends feedback over time, which is the first post to need content added
-after publication. The shape is the index/body split again, one level down:
-`reflections.ts` holds dated entries and `ReflectionList.tsx` renders them, so appending
-one is a single object literal in a data file rather than an edit to the end of a long
-narrative component.
+`recadvisor` is a dated build log, and it gains chapters as the work continues. The shape is
+the index/body split again, one level down: `timeline.ts` holds the chapters and
+`ChapterList.tsx` renders them in array order, so adding one is a single object literal at
+the end of a data file rather than an edit to prose in the middle of a long component.
 
 Two parts are load-bearing:
 
-- **The empty state is `REFLECTIONS.length === 0`,** not a sentence someone has to
-  remember to delete. A hand-written "nothing yet" line survives the arrival of real
-  feedback, and a post claiming no feedback directly above three pieces of it is worse
-  than having no section.
-- **Entries carry plain strings, not markup.** Rule 3 keeps raw DOM tags inside
-  `src/ui/`, and a `.ts` file holding JSX would be a way around that rather than a reason
-  it does not apply.
+- **Chapters stay two or three paragraphs.** The value of the format is that a reader can
+  skim the dates and stop where they are interested, and that stops working once each entry
+  is an essay.
+- **Entries carry plain strings, not markup.** Rule 3 keeps raw DOM tags inside `src/ui/`,
+  and a `.ts` file holding JSX would be a way around that rather than a reason it does not
+  apply.
