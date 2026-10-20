@@ -1,20 +1,33 @@
-import { ButtonLink, Heading, Icon, Row, Section, Stack, Text } from "@/ui";
+import { ButtonLink, Card, Grid, Heading, Icon, Row, Section, Stack, Text } from "@/ui";
 import { EXTERNAL, SITE } from "@/data/site";
-import { PROJECTS } from "@/data/projects";
-import { byNewest } from "@/lib/dates";
-import { PostCard } from "@/components/projects/PostCard";
 
 /**
- * The home page leads with the work itself rather than with doors to it. A visitor here
- * is deciding in about ninety seconds whether the work is worth reading, and three cards
- * saying "Projects", "RecAdvisor" and "Résumé" made them spend a click to find out.
+ * Three doors and a short introduction. The alternative — leading with the newest project
+ * cards — puts the work first, which reads well for somebody who already wants to read a
+ * write-up and badly for somebody deciding whether to.
  *
- * It reuses PostCard rather than styling its own summaries, so a project looks the same
- * here as it does on the listing and there is only one place to change that.
+ * RecAdvisor points at its own write-up rather than at dev.recadvisor.app. The app is
+ * invite-only, so an outbound link from here would send almost everybody to a refusal; the
+ * post carries the link along with the sentence explaining who can use it.
  */
-
-/** The newest few. The listing is one click away and does filtering properly. */
-const FEATURED = [...PROJECTS].sort(byNewest).slice(0, 3);
+const CARDS = [
+  {
+    to: "/projects",
+    title: "Projects",
+    body: "Write-ups of what I've built, with the architecture and what each one taught me.",
+  },
+  {
+    to: "/projects/recadvisor",
+    title: "RecAdvisor",
+    body: "A training advisor that reads your activity history and your calendar, and makes one call on the day. In private testing.",
+  },
+  {
+    to: EXTERNAL.resume,
+    external: true,
+    title: "Résumé",
+    body: "The short version, as a PDF.",
+  },
+];
 
 export function HomePage() {
   return (
@@ -25,44 +38,46 @@ export function HomePage() {
             <Stack gap={4}>
               <Heading level={1}>{SITE.headline}</Heading>
               <Text size="md" tone="muted" balance>
-                I&rsquo;m an engineer — mechanical by training, software by habit. Most of what
-                I build ends in a decision someone has to act on: which category a disaster
-                message belongs to, whether a shipping lane is worth moving, what to train
-                today. These are the write-ups.
+                I&rsquo;m an engineer — mechanical by training, software by habit. This is where
+                I write up the things I&rsquo;ve built: machine learning models, data
+                pipelines, factory systems, and the occasional map. Have a look around.
               </Text>
             </Stack>
             <Row gap={3} wrap>
               <ButtonLink to="/projects" variant="primary" size="lg">
-                Read the projects
+                See my projects
                 <Icon name="arrowRight" size={16} />
               </ButtonLink>
-              <ButtonLink to={EXTERNAL.resume} variant="secondary" size="lg" external>
-                Résumé (PDF)
+              <ButtonLink to="/projects/recadvisor" variant="secondary" size="lg">
+                Read about RecAdvisor
               </ButtonLink>
             </Row>
           </Stack>
         </Stack>
       </Stack>
 
-      <Section pad="md" labelledBy="recent-heading">
+      <Section pad="md" labelledBy="explore-heading">
         <Stack gap={5}>
-          <Row justify="between" gap={3} wrap align="baseline">
-            <Heading level={2} size={3} id="recent-heading">
-              Recent work
-            </Heading>
-            <ButtonLink to="/projects" variant="ghost">
-              All projects
-              <Icon name="arrowRight" size={14} />
-            </ButtonLink>
-          </Row>
-
-          <Stack gap={4} className="post-list" as="ul">
-            {FEATURED.map((project) => (
-              <Stack as="li" key={project.slug}>
-                <PostCard project={project} />
-              </Stack>
+          <Heading level={2} size={3} id="explore-heading">
+            Start here
+          </Heading>
+          <Grid gap={4} className="card-grid">
+            {CARDS.map((card) => (
+              <Card key={card.to} to={card.to} external={card.external ?? false}>
+                <Stack gap={3}>
+                  <Row justify="between" gap={3}>
+                    <Heading level={3} size={4}>
+                      {card.title}
+                    </Heading>
+                    <Icon name={card.external === true ? "external" : "arrowRight"} size={16} />
+                  </Row>
+                  <Text size="sm" tone="muted">
+                    {card.body}
+                  </Text>
+                </Stack>
+              </Card>
             ))}
-          </Stack>
+          </Grid>
         </Stack>
       </Section>
     </Stack>

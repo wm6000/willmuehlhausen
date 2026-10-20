@@ -8,13 +8,8 @@
 
 export const SITE = {
   name: "Will Muehlhausen",
-  /**
-   * The home page's h1. It gets the most attention of any line on the site, so it says
-   * what I do rather than greeting the reader — "Welcome to my website" spent it on
-   * nothing. Separate from `tagline` because the two are read in different places, and a
-   * headline aimed at a visitor is the wrong thing to print under a name.
-   */
-  headline: "I build things that make a decision.",
+  /** The home page's h1. Separate from `tagline`, which is printed under the name in the footer. */
+  headline: "Welcome to my website!",
   /** The identity line, under the name in the footer. */
   tagline: "Building solutions: mechanical, software and anything between.",
   location: "Greater Wenatchee Area",
