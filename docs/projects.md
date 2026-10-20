@@ -17,7 +17,12 @@ src/components/projects/
     registry.ts                       slug -> post component
     PostCard, PostHeader,             shared furniture, so only the body
     PostSection, PostNotes,           has to be bespoke
-    DraftNotice
+    StatusNotice
+    recadvisor/
+        Post.tsx                      prose only; the product it describes
+                                      lives in another repo
+    data-platform/
+        Post.tsx                      prose only
     disaster-response-pipeline/
         Post.tsx                      this project's body
         Classifier.tsx                the trained model, run in the browser
@@ -118,7 +123,19 @@ it, and extracting the data is often easier than making the artefact behave.
 
 ## Status
 
-Both posts are **written**. Neither renders a `DraftNotice`.
+Four posts. Two are finished, two are drafts, and the drafts say so.
 
-`disaster-response-pipeline` carries real prose, real numbers and the trained model
-itself. `whale-blog` carries its original prose and its three maps, rebuilt.
+- `disaster-response-pipeline` — **written.** Real prose, real numbers, and the trained
+  model itself running in the page.
+- `whale-blog` — **written.** Its original prose and its three maps, rebuilt.
+- `recadvisor` — **draft.** Prose only. It renders a `StatusNotice`, and the post states
+  in its own words that nothing is deployed, because it describes a product a reader
+  cannot go and use. There is no live link anywhere on this site until there is something
+  to link to.
+- `data-platform` — **draft.** Prose only, same caveat. It stops where the recommendation
+  logic starts so it and the `recadvisor` post don't tell the same story twice.
+
+The two RecAdvisor posts are prose without a custom feature, which is allowed but is the
+weaker form. Both describe systems in other repos — one private — so a live demo would
+mean either deploying them or faking one, and faking one is the failure this section of
+the doc exists to prevent.

@@ -1,6 +1,8 @@
 import type { ComponentType } from "react";
 
+import { Post as DataPlatformPost } from "@/components/projects/data-platform/Post";
 import { Post as DisasterResponsePost } from "@/components/projects/disaster-response-pipeline/Post";
+import { Post as RecAdvisorPost } from "@/components/projects/recadvisor/Post";
 import { Post as WhaleBlogPost } from "@/components/projects/whale-blog/Post";
 
 /**
@@ -12,6 +14,8 @@ import { Post as WhaleBlogPost } from "@/components/projects/whale-blog/Post";
  * Adding a project is two edits: an entry in PROJECTS, and a line here.
  */
 export const POSTS: Record<string, ComponentType> = {
+  recadvisor: RecAdvisorPost,
+  "data-platform": DataPlatformPost,
   "disaster-response-pipeline": DisasterResponsePost,
   "whale-blog": WhaleBlogPost,
 };

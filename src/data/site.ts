@@ -9,12 +9,12 @@
 export const SITE = {
   name: "Will Muehlhausen",
   /**
-   * The home page's h1. The site is a portfolio again — RecAdvisor moved to its own
-   * domain — so the first line sells the work rather than the product. Separate from
-   * `tagline` because the two are read in different places and a headline aimed at a
-   * visitor is the wrong thing to print under a name.
+   * The home page's h1. It gets the most attention of any line on the site, so it says
+   * what I do rather than greeting the reader — "Welcome to my website" spent it on
+   * nothing. Separate from `tagline` because the two are read in different places, and a
+   * headline aimed at a visitor is the wrong thing to print under a name.
    */
-  headline: "Welcome to my website!",
+  headline: "I build things that make a decision.",
   /** The identity line, under the name in the footer. */
   tagline: "Building solutions: mechanical, software and anything between.",
   location: "Greater Wenatchee Area",
@@ -39,12 +39,7 @@ export const EXTERNAL = {
   email: "mailto:willmuehlhausen@gmail.com",
   /** Served straight out of public/, so it keeps this path whatever the PDF is called. */
   resume: "/resume.pdf",
-  /**
-   * RecAdvisor lives on its own domain and its own deploy. It is linked from here as a
-   * project rather than routed to: nothing about it renders in this app any more, so a
-   * router link would be a promise this bundle cannot keep.
-   */
-  recadvisor: "https://recadvisor.app",
+  githubDataPlatform: "https://github.com/wm6000/data-platform",
 } as const;
 
 export const COLOPHON = "Built with React, TypeScript and Vite.";

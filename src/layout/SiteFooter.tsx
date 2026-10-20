@@ -9,7 +9,6 @@ const SITE_LINKS = NAV;
  * navigation would try to match it and land on the not-found page.
  */
 const ELSEWHERE = [
-  { to: EXTERNAL.recadvisor, label: "RecAdvisor" },
   { to: EXTERNAL.resume, label: "Résumé (PDF)" },
   { to: EXTERNAL.github, label: "GitHub" },
   { to: EXTERNAL.linkedin, label: "LinkedIn" },

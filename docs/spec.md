@@ -27,7 +27,7 @@ every visitor sees the same site, which is the whole site.
 
 | Route | Owes the visitor |
 |---|---|
-| `/` | What I do, and two doors: the projects, and RecAdvisor |
+| `/` | What I do, and the newest three projects — the work itself, not doors to it |
 | `/projects` | The blog-style listing, filterable by tag — see [projects.md](projects.md) |
 | `/projects/:slug` | One post, free to carry its own custom features |
 | `*` | A real 404 that offers a way back |
@@ -39,7 +39,11 @@ milestones, and there aren't any.
 
 **Honesty about the work.** Never invent facts about a project — stacks, metrics,
 outcomes. Placeholder text that announces itself beats plausible fiction, which is what
-`DraftNotice` is for: both posts are drafts and say so. The inverse binds too — the
+`StatusNotice` is for: a post says up front which way it falls short, in its own words.
+It replaced a fixed "the prose is placeholder" banner, which described one kind of
+incompleteness and misdescribed every other — a post whose writing is done but whose
+subject is not deployed would have claimed the opposite of its real problem. The inverse
+binds too — the
 disaster-response classifier claims to *be* the trained model, so `scripts/parity.mjs`
 proves it on every build, replaying 200 messages and comparing 7,200 predictions against
 scikit-learn. **A claim about what the code is needs a check, not a comment.**
@@ -82,8 +86,9 @@ shell so pages get them without asking.
 
 ## Open
 
-- Real prose for both project posts. They are drafts and say so.
+- Real prose for the two RecAdvisor posts, and a custom feature for at least one of them.
+  Both are drafts and say so.
 - Replace the placeholder URLs in `EXTERNAL` ([src/data/site.ts](../src/data/site.ts)).
-- `recadvisor.app` is linked from the home page and the footer before it serves anything.
-  Either ship it or drop the links — a portfolio that links to a dead product is worse
-  than one that doesn't mention it.
+- ~~`recadvisor.app` is linked before it serves anything~~ — resolved by removing the
+  links. RecAdvisor is a project write-up here, not an outbound door. Add a link the day
+  it is actually deployed, and not before.

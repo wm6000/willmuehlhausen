@@ -84,7 +84,8 @@ posts claim, they claim for real: the disaster-response classifier runs the actu
 model, and `npm run lint` fails the build if it disagrees with scikit-learn on any of
 7,200 predictions.
 
-Both posts are drafts and say so on the page, via `DraftNotice`. Placeholder URLs in
+The two RecAdvisor posts describe systems that are not deployed, and say so on the page
+via `StatusNotice`. Placeholder URLs in
 `src/data/site.ts` (`EXTERNAL`) want replacing before launch.
 
 ## Status

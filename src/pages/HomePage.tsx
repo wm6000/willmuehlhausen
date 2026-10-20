@@ -1,31 +1,20 @@
-import { ButtonLink, Card, Grid, Heading, Icon, Row, Section, Stack, Text } from "@/ui";
+import { ButtonLink, Heading, Icon, Row, Section, Stack, Text } from "@/ui";
 import { EXTERNAL, SITE } from "@/data/site";
+import { PROJECTS } from "@/data/projects";
+import { byNewest } from "@/lib/dates";
+import { PostCard } from "@/components/projects/PostCard";
 
 /**
- * RecAdvisor is a card here like any other project, and an external one: it runs on its
- * own domain now. Keeping it in the list rather than in the nav is the honest shape —
- * it is a thing I built, and this site is the place that says so.
+ * The home page leads with the work itself rather than with doors to it. A visitor here
+ * is deciding in about ninety seconds whether the work is worth reading, and three cards
+ * saying "Projects", "RecAdvisor" and "Résumé" made them spend a click to find out.
+ *
+ * It reuses PostCard rather than styling its own summaries, so a project looks the same
+ * here as it does on the listing and there is only one place to change that.
  */
-const CARDS = [
-  {
-    to: "/projects",
-    external: false,
-    title: "Projects",
-    body: "Write-ups of what I've built, with the architecture and what each one taught me.",
-  },
-  {
-    to: EXTERNAL.recadvisor,
-    external: true,
-    title: "RecAdvisor",
-    body: "A training advisor that reads your activity history, your calendar and the forecast, and makes one call on the day.",
-  },
-  {
-    to: EXTERNAL.resume,
-    external: true,
-    title: "Résumé",
-    body: "The short version, as a PDF.",
-  },
-];
+
+/** The newest few. The listing is one click away and does filtering properly. */
+const FEATURED = [...PROJECTS].sort(byNewest).slice(0, 3);
 
 export function HomePage() {
   return (
@@ -36,46 +25,44 @@ export function HomePage() {
             <Stack gap={4}>
               <Heading level={1}>{SITE.headline}</Heading>
               <Text size="md" tone="muted" balance>
-                I'm an engineer — mechanical by training, software by habit. This is where I
-                write up the things I've built: machine learning models, data pipelines,
-                factory systems, and the occasional map. Have a look around.
+                I&rsquo;m an engineer — mechanical by training, software by habit. Most of what
+                I build ends in a decision someone has to act on: which category a disaster
+                message belongs to, whether a shipping lane is worth moving, what to train
+                today. These are the write-ups.
               </Text>
             </Stack>
             <Row gap={3} wrap>
               <ButtonLink to="/projects" variant="primary" size="lg">
-                See my projects
+                Read the projects
                 <Icon name="arrowRight" size={16} />
               </ButtonLink>
-              <ButtonLink to={EXTERNAL.recadvisor} variant="secondary" size="lg" external>
-                Try RecAdvisor
+              <ButtonLink to={EXTERNAL.resume} variant="secondary" size="lg" external>
+                Résumé (PDF)
               </ButtonLink>
             </Row>
           </Stack>
         </Stack>
       </Stack>
 
-      <Section pad="md" labelledBy="explore-heading">
+      <Section pad="md" labelledBy="recent-heading">
         <Stack gap={5}>
-          <Heading level={2} size={3} id="explore-heading">
-            Start here
-          </Heading>
-          <Grid gap={4} className="card-grid">
-            {CARDS.map((card) => (
-              <Card key={card.to} to={card.to} external={card.external}>
-                <Stack gap={3}>
-                  <Row justify="between" gap={3}>
-                    <Heading level={3} size={4}>
-                      {card.title}
-                    </Heading>
-                    <Icon name={card.external ? "external" : "arrowRight"} size={16} />
-                  </Row>
-                  <Text size="sm" tone="muted">
-                    {card.body}
-                  </Text>
-                </Stack>
-              </Card>
+          <Row justify="between" gap={3} wrap align="baseline">
+            <Heading level={2} size={3} id="recent-heading">
+              Recent work
+            </Heading>
+            <ButtonLink to="/projects" variant="ghost">
+              All projects
+              <Icon name="arrowRight" size={14} />
+            </ButtonLink>
+          </Row>
+
+          <Stack gap={4} className="post-list" as="ul">
+            {FEATURED.map((project) => (
+              <Stack as="li" key={project.slug}>
+                <PostCard project={project} />
+              </Stack>
             ))}
-          </Grid>
+          </Stack>
         </Stack>
       </Section>
     </Stack>

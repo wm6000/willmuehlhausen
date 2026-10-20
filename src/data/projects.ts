@@ -34,6 +34,26 @@ export const TAG_LABELS: Record<ProjectTag, string> = {
 
 export const PROJECTS: readonly Project[] = [
   {
+    slug: "recadvisor",
+    title: "RecAdvisor",
+    date: "2026-09-16",
+    updated: "2026-09-22",
+    blurb:
+      "A training advisor that reads what you actually did, what your week actually looks like, and the forecast, and makes one call on the day. Built around a rule most of these things break: the plan never changes unless you ask it to.",
+    tags: ["platform"],
+    kind: "Product",
+  },
+  {
+    slug: "data-platform",
+    title: "The Data Platform Behind It",
+    date: "2026-08-26",
+    updated: "2026-09-22",
+    blurb:
+      "Postgres, migrations and the ingestion that feeds RecAdvisor — including what it takes to notice that the run your watch uploaded and the run Strava shows you are the same run.",
+    tags: ["pipelines", "platform"],
+    kind: "Data engineering",
+  },
+  {
     slug: "disaster-response-pipeline",
     title: "Disaster Response Pipeline",
     date: "2023-05-14",
