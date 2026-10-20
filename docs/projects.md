@@ -33,6 +33,10 @@ src/components/projects/
     whale-blog/
         Post.tsx                      this project's body
         WhaleMap.tsx                  three Leaflet maps from one component
+    car-camping-beds/
+        Post.tsx                      prose, a build log of four versions
+        VersionList.tsx               renders them, reusing the timeline styles
+        versions.ts                   the versions — the append point
 ```
 
 The index is uniform because the listing needs to reason about every project at once.
@@ -123,7 +127,7 @@ it, and extracting the data is often easier than making the artefact behave.
 
 ## Status
 
-Three posts, all written.
+Four posts, three written and one draft.
 
 - `disaster-response-pipeline` — Real prose, real numbers, and the trained model itself
   running in the page.
@@ -139,6 +143,12 @@ The honest reason is better than it used to be and worth stating: the thing is n
 deployed, and a demo is *still* impossible, because invite-only means a reader cannot try
 it. Faking one would be the failure this section exists to prevent, and a screenshot is
 the obvious next step rather than a substitute for it.
+
+- `car-camping-beds` — Draft. Four versions since 2020, in the same build-log shape as
+  `recadvisor`. Structure and the 2020 start date are real; the rest is bracketed
+  placeholder under a `StatusNotice`, and the photos are not in yet. Its index `date` is
+  `"2020"`, not a full ISO date, because the day isn't known — `formatDate` prints an
+  unparseable string as-is rather than inventing January 1st.
 
 ### Appending to a post after it ships
 

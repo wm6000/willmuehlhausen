@@ -8,7 +8,15 @@
  *
  */
 
-export type ProjectTag = "ml" | "llm" | "pipelines" | "platform" | "writing" | "nlp" | "geospatial";
+export type ProjectTag =
+  | "ml"
+  | "llm"
+  | "pipelines"
+  | "platform"
+  | "writing"
+  | "nlp"
+  | "geospatial"
+  | "mechanical";
 
 export type Project = {
   slug: string;
@@ -36,6 +44,7 @@ export const TAG_LABELS: Record<ProjectTag, string> = {
   pipelines: "Pipelines",
   platform: "Platform",
   writing: "Writing",
+  mechanical: "Mechanical",
 };
 
 export const PROJECTS: readonly Project[] = [
@@ -67,6 +76,17 @@ export const PROJECTS: readonly Project[] = [
       "Where whale sightings along the West Coast overlap with global shipping traffic, and what rerouting a few shipping lanes around Los Angeles, San Francisco and San Diego would be worth.",
     tags: ["writing", "geospatial"],
     kind: "Analysis",
+  },
+  {
+    slug: "car-camping-beds",
+    title: "Car Camping Beds",
+    // Known to the year only. formatDate renders an unparseable string as-is, so this
+    // prints "2020" rather than claiming a day.
+    date: "2020",
+    blurb:
+      "Four sleeping platforms for car camping, built since 2020, each one an answer to what the last got wrong. The latest is modelled in Onshape.",
+    tags: ["mechanical"],
+    kind: "Build",
   },
 ];
 
