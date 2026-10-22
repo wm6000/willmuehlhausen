@@ -36,7 +36,7 @@ src/components/projects/
     car-camping-beds/
         Post.tsx                      prose, a build log of four versions
         VersionList.tsx               renders them, reusing the timeline styles
-        versions.ts                   the versions — the append point
+        versions.ts                   the versions and their photos — the append point
 ```
 
 The index is uniform because the listing needs to reason about every project at once.
@@ -127,7 +127,7 @@ it, and extracting the data is often easier than making the artefact behave.
 
 ## Status
 
-Four posts, three written and one draft.
+Four posts.
 
 - `disaster-response-pipeline` — Real prose, real numbers, and the trained model itself
   running in the page.
@@ -144,11 +144,19 @@ deployed, and a demo is *still* impossible, because invite-only means a reader c
 it. Faking one would be the failure this section exists to prevent, and a screenshot is
 the obvious next step rather than a substitute for it.
 
-- `car-camping-beds` — Draft. Four versions since 2020, in the same build-log shape as
-  `recadvisor`. Structure and the 2020 start date are real; the rest is bracketed
-  placeholder under a `StatusNotice`, and the photos are not in yet. Its index `date` is
+- `car-camping-beds` — Four versions since 2020, in the same build-log shape as
+  `recadvisor`, with photos and two clips of version 3's lift-up storage. Its
+  `StatusNotice` says version 4 is built for a smaller car but not yet for the Pilot — keep
+  it until it is. Its index `date` is
   `"2020"`, not a full ISO date, because the day isn't known — `formatDate` prints an
   unparseable string as-is rather than inventing January 1st.
+
+  The clips are `Clip`, a `@/ui` primitive added for this post: a muted, looping MP4 doing
+  a GIF's job at about a tenth of the size, which autoplays only when the reader allows
+  motion. Phone media is re-encoded before it goes in `public/` — webp photos at most
+  1600px, clips at 960px tall with the audio dropped — and the originals are kept out of
+  the repo. Re-encoding also strips EXIF, which on a phone photo includes where it was
+  taken.
 
 ### Appending to a post after it ships
 

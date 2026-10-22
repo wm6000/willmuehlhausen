@@ -5,39 +5,35 @@ import { StatusNotice } from "@/components/projects/StatusNotice";
 import { VersionList } from "@/components/projects/car-camping-beds/VersionList";
 
 /**
- * Four car-camping beds, 2020 onwards, written as a build log like RecAdvisor: why, then
- * each version and what it fixed. The append point is versions.ts.
+ * Four car-camping beds for a Honda Pilot, 2020 onwards, written as a build log like
+ * RecAdvisor: each version and what it fixed. The append point is versions.ts.
  *
- * Draft. The facts known so far are that there are four versions, the first was built in
- * 2020, and the latest is documented in Onshape. Everything else is a bracketed
- * placeholder and the StatusNotice says so — see the honesty rules in AGENTS.md.
+ * The honesty rule that binds here is version 4: it has been built for a smaller car, not
+ * yet for the Pilot, so the StatusNotice and its entry both say so. Change that when it is.
  */
 
 const NOTES = [
-  { label: "Versions", value: "4" },
-  { label: "First built", value: "2020" },
-  { label: "Designed in", value: "Onshape — version 4 is the best documented" },
-  { label: "Vehicle", value: "[Placeholder]" },
-  { label: "Materials", value: "[Placeholder]" },
+  { label: "Vehicle", value: "Honda Pilot" },
+  { label: "Versions", value: "4 since 2020" },
+  { label: "Frames", value: "Wood (v1); Steel Tek tube with push-in connectors (v2, v3)" },
+  { label: "Mattress", value: "Six-inch futon (v3)" },
+  { label: "Designed in", value: "Onshape, with 3D-printed parts (v4)" },
+  { label: "Status", value: "Version 3 in the Pilot; version 4 built for a smaller car, Pilot build next" },
 ];
 
 export function Post() {
   return (
     <Stack gap={7}>
-      <StatusNotice label="Draft.">
-        The structure and the dates are real; the prose in square brackets is placeholder,
-        and the photos have not been added yet.
+      <StatusNotice label="Version 4 isn't in my car yet.">
+        It is built for a smaller car, and the Honda Pilot build is next.
       </StatusNotice>
 
-      <PostSection id="why" title="Why build a bed">
+      <PostSection id="intro" title="Four beds in a Honda Pilot">
         <Text prose>
-          I built my first car-camping bed in 2020, and I have built three more since. Each one
-          was an answer to something the last one got wrong, so this is written the way it
-          happened: four versions, in order, with the mistakes left in.
-        </Text>
-        <Text prose>
-          [Placeholder. What the bed is for — the trips, the vehicle, why sleeping in the car
-          rather than a tent — and what a good one has to do.]
+          I built my first car-camping bed in 2020, and I have kept improving on it since. Each
+          version took what I learned from living with the last one and built on it — lighter,
+          more comfortable, more storage, and more of the car left usable. This is the story of
+          four versions, in order, and what each one taught me.
         </Text>
       </PostSection>
 
@@ -47,8 +43,9 @@ export function Post() {
 
       <PostSection id="now" title="Where it is now">
         <Text prose>
-          [Placeholder. What version 4 gets right, what is still on the list for a fifth, and
-          how much of the earlier versions was modelled before it was built.]
+          Version 3 is still the bed in my car. Version 4 is built for a smaller car and the
+          Pilot build is next, and the open problem is the mattress: everything else folds away
+          into the trunk, and the mattress has to fold or compress into the frame along with it.
         </Text>
         <PostNotes notes={NOTES} />
       </PostSection>

@@ -49,6 +49,8 @@ export { Icon } from "@/ui/display/Icon";
 export type { IconName, IconProps } from "@/ui/display/Icon";
 export { Figure } from "@/ui/display/Figure";
 export type { FigureProps } from "@/ui/display/Figure";
+export { Clip } from "@/ui/display/Clip";
+export type { ClipProps } from "@/ui/display/Clip";
 
 export { SkipLink } from "@/ui/escapes/SkipLink";
 export type { SkipLinkProps } from "@/ui/escapes/SkipLink";

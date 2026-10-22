@@ -1,4 +1,4 @@
-import { Figure, Heading, Stack, Text } from "@/ui";
+import { Clip, Figure, Grid, Heading, Stack, Text } from "@/ui";
 import { VERSIONS } from "@/components/projects/car-camping-beds/versions";
 
 /**
@@ -30,14 +30,28 @@ export function VersionList() {
             </Text>
           ))}
 
-          {version.shots.map((shot) => (
-            <Figure
-              key={shot.src}
-              src={shot.src}
-              alt={shot.alt}
-              {...(shot.caption === undefined ? {} : { caption: shot.caption })}
-            />
-          ))}
+          {version.shots.length === 0 ? null : (
+            <Grid gap={4} className="shot-grid">
+              {version.shots.map((shot) =>
+                shot.poster === undefined ? (
+                  <Figure
+                    key={shot.src}
+                    src={shot.src}
+                    alt={shot.alt}
+                    {...(shot.caption === undefined ? {} : { caption: shot.caption })}
+                  />
+                ) : (
+                  <Clip
+                    key={shot.src}
+                    src={shot.src}
+                    poster={shot.poster}
+                    alt={shot.alt}
+                    caption={shot.caption}
+                  />
+                ),
+              )}
+            </Grid>
+          )}
         </Stack>
       ))}
     </Stack>
