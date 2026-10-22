@@ -33,6 +33,10 @@ src/components/projects/
     whale-blog/
         Post.tsx                      this project's body
         WhaleMap.tsx                  three Leaflet maps from one component
+    car-camping-beds/
+        Post.tsx                      prose, a build log of four versions
+        VersionList.tsx               renders them, reusing the timeline styles
+        versions.ts                   the versions and their photos — the append point
 ```
 
 The index is uniform because the listing needs to reason about every project at once.
@@ -123,7 +127,7 @@ it, and extracting the data is often easier than making the artefact behave.
 
 ## Status
 
-Three posts, all written.
+Four posts.
 
 - `disaster-response-pipeline` — Real prose, real numbers, and the trained model itself
   running in the page.
@@ -139,6 +143,20 @@ The honest reason is better than it used to be and worth stating: the thing is n
 deployed, and a demo is *still* impossible, because invite-only means a reader cannot try
 it. Faking one would be the failure this section exists to prevent, and a screenshot is
 the obvious next step rather than a substitute for it.
+
+- `car-camping-beds` — Four versions since 2020, in the same build-log shape as
+  `recadvisor`, with photos and two clips of version 3's lift-up storage. Its
+  `StatusNotice` says version 4 is built for a smaller car but not yet for the Pilot — keep
+  it until it is. Its index `date` is
+  `"2020"`, not a full ISO date, because the day isn't known — `formatDate` prints an
+  unparseable string as-is rather than inventing January 1st.
+
+  The clips are `Clip`, a `@/ui` primitive added for this post: a muted, looping MP4 doing
+  a GIF's job at about a tenth of the size, which autoplays only when the reader allows
+  motion. Phone media is re-encoded before it goes in `public/` — webp photos at most
+  1600px, clips at 960px tall with the audio dropped — and the originals are kept out of
+  the repo. Re-encoding also strips EXIF, which on a phone photo includes where it was
+  taken.
 
 ### Appending to a post after it ships
 
