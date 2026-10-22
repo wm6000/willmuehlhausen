@@ -152,7 +152,9 @@ One topic per file, and add a row to [docs/README.md](docs/README.md) when you a
 ## Git
 
 Remote is `wm6000/willmuehlhausen`; `main` deploys on push (see
-[docs/deploy.md](docs/deploy.md)), so work on a branch and let the PR run the gate.
+[docs/deploy.md](docs/deploy.md)), so work on a branch and let the PR run the gate: the
+`check` job in `.github/workflows/ci.yml` runs `npm run build` on every pull request, and
+`main` requires it to pass before merging.
 
 Conventions shared with the sibling repos (see `../CLAUDE.md`): trunk-based development,
 squash-merge only, Conventional Commits for PR titles (`feat:`, `fix:`, `docs:`,
