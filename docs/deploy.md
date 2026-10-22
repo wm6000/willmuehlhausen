@@ -6,6 +6,26 @@ Static build, GitHub Pages, served from `willmuehlhausen.com`.
 [.github/workflows/deploy.yml](../.github/workflows/deploy.yml) builds on every push to
 `main` and publishes `dist/`.
 
+## CI
+
+[.github/workflows/ci.yml](../.github/workflows/ci.yml) runs the same `npm run build` on
+every pull request into `main`, as a job named `check`. Without it the gate only ran after
+merge: a failure still blocked the deploy, but `main` was already broken by then.
+
+`main` is protected so that `check` must pass before a PR can merge. That rule is a
+repository setting, not a file, so it lives in GitHub and is recorded here:
+
+```
+gh api -X PUT repos/wm6000/willmuehlhausen/branches/main/protection --input - <<'EOF'
+{"required_status_checks": {"strict": false, "contexts": ["check"]},
+ "enforce_admins": false, "required_pull_request_reviews": null, "restrictions": null}
+EOF
+```
+
+`enforce_admins` is false so the owner can still push straight to `main` in an emergency;
+`strict` is false because requiring every branch to be rebased on `main` before merging
+costs more than it catches on a one-person repo with squash merges.
+
 ## Why a custom domain rather than a project path
 
 Pages would otherwise serve this at `wm6000.github.io/willmuehlhausen/`, and the site is
