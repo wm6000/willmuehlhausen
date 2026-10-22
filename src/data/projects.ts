@@ -85,7 +85,7 @@ export const PROJECTS: readonly Project[] = [
     date: "2020",
     updated: "2026-10-19",
     blurb:
-      "Four sleeping platforms for the back of a Honda Pilot since 2020 — wood, then two steel frames, each one building on what I learned from the last. The fourth, fully modelled in Onshape with 3D-printed parts, folds away into the trunk; it is built for a smaller car, with the Pilot next.",
+      "Four sleeping platforms for the back of a Honda Pilot since 2020 — wood, then two steel frames, each one building on what I learned from the last. The fourth, fully modelled in Onshape with 3D-printed parts, folds away into the trunk; it is built for a Subaru Outback, with the Pilot next.",
     tags: ["mechanical"],
     kind: "Build",
   },
