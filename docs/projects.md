@@ -128,7 +128,8 @@ Three posts, all written.
 - `disaster-response-pipeline` — Real prose, real numbers, and the trained model itself
   running in the page.
 - `whale-blog` — Its original prose and its three maps, rebuilt.
-- `recadvisor` — The progress-and-decisions post, carrying a `StatusNotice` that says it
+- `recadvisor` — "RecAdvisor Blog 1": the progress-and-decisions post up to the dev
+  release, the first of a series, carrying a `StatusNotice` that says it
   is deployed to a dev environment and invite-only. It absorbed the separate
   `data-platform` post: the hosting story straddled both, and one narrative beat one
   narrative split in half.

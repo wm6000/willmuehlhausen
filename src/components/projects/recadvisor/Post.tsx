@@ -6,15 +6,17 @@ import { StatusNotice } from "@/components/projects/StatusNotice";
 import { ChapterList } from "@/components/projects/recadvisor/ChapterList";
 
 /**
- * A build log rather than an argument: why I wanted it, then every step that got it here,
+ * Blog 1: the first post about RecAdvisor, covering everything up to the dev release. A
+ * build log rather than an argument — why I wanted it, then every step that got it here,
  * dated from the commit history of the repository each one describes.
  *
  * The append point is a data file — timeline.ts, one object per chapter — so adding to this
- * post never means editing prose in the middle of it.
+ * post never means editing prose in the middle of it. Work after the dev release belongs
+ * in a later post rather than at the end of this one.
  *
- * The honesty rule in docs/spec.md binds hardest on two things here: the tester program is
- * built but unmerged, so it is written as a decision rather than as something in use; and
- * both source repositories are private, so nothing links to them.
+ * The honesty rule in docs/spec.md binds hardest on the status: it is invite-only on dev,
+ * with no production environment, and both source repositories are private, so nothing
+ * links to them.
  */
 
 const NOTES = [
@@ -54,23 +56,25 @@ export function Post() {
           easier to abandon the plan than to work out what it should have said instead.
         </Text>
         <Text prose>
-          So RecAdvisor takes in the things that ought to matter — what I have actually been
+          So RecAdvisor takes in the things that should matter — what I have actually been
           doing, what my week actually looks like, what I am training for, and whatever is
-          currently sore — and makes one call on what to do today. When something new turns
-          up, it adapts, instead of leaving me to reconcile the plan with reality on my own.
+          currently sore — and uses that information to build a plan for today and the week.
+          When something new turns up, it adapts, instead of leaving me to reconcile the plan
+          with reality on my own.
         </Text>
         <Text prose>
-          I built it for myself first, since mine is the week I understand best, but I wanted
-          it to be something other people could sign into and use. Those turn out to be fairly
+          I built it for myself first, since I know what I want, but I also wanted it to be
+          something other people could sign into and use. Those turn out to be fairly
           different jobs. Something built for one person can assume that person remembers how
           it works, knows which numbers are real, and will forgive it when it is wrong, and
           handing it to a friend takes all three of those away. A good deal of what follows is
           really about that.
         </Text>
         <Text prose>
-          What follows is the steps that got it here, in order, with dates from the commit
-          history rather than from memory. I have left in the attempts that went nowhere,
-          since taking them out would make the path look a lot straighter than it was.
+          This is the first post about it, and it covers everything up to the dev release:
+          the steps that got it here, in order, with dates from the commit history rather
+          than from memory. I have left in the attempts that went nowhere, since taking them
+          out would make the path look a lot straighter than it was.
         </Text>
         <Figure
           src="/recadvisor/page.webp"
@@ -83,11 +87,11 @@ export function Post() {
         <ChapterList />
       </PostSection>
 
-      <PostSection id="state" title="Where it is now">
+      <PostSection id="state" title="Where Blog 1 leaves it">
         <Text prose>
-          Live on dev and invite-only. The backend and the client are both deployed, the plan
-          revises itself daily against real Strava and calendar data, and the tester program
-          is merged and running — so it is ready for people to try, which is the thing I have
+          Released to dev, and invite-only. The backend and the client are both deployed, the
+          plan revises itself daily against real Strava and calendar data, and the tester
+          program is merged and running — so it is ready for people to try, which is the thing I have
           been working towards since March.
         </Text>
         <Text prose>
@@ -95,6 +99,10 @@ export function Post() {
           one, and the client&rsquo;s tests cover its library layer rather than its
           components. Both repositories are private, so there is nothing to link to for the
           code and the write-up is the artefact.
+        </Text>
+        <Text prose>
+          The next stage is people other than me using it, and that is where the next post
+          will pick up.
         </Text>
         <PostNotes notes={NOTES} />
       </PostSection>

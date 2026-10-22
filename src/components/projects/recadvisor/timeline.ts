@@ -47,7 +47,7 @@ export const TIMELINE: readonly Chapter[] = [
   {
     date: "2026-03-21",
     until: "2026-04-08",
-    title: "A cron job that emailed me a training plan",
+    title: "A daily email run with a script",
     paragraphs: [
       "I started with a Python script that emailed me a plan every morning at seven, and again on Monday mornings for the week ahead. It read my Strava history, my calendar and the weather, along with a markdown file where I kept my goals and the things a coach would want to know about me, and sent all of that to OpenAI.",
       "Two ideas from it have not changed since. The first is that the context about me belongs in a file I can edit, because my goals and my injuries change far more often than the code does. The second is that my own Strava titles are the most useful signal in the whole system — when I write easy run, legs still heavy, that is me telling the planner how I actually feel, and it goes straight into the prompt.",
@@ -65,7 +65,7 @@ export const TIMELINE: readonly Chapter[] = [
   {
     date: "2026-08-04",
     until: "2026-08-21",
-    title: "Two advisors that never talked to each other",
+    title: "One recreation advisor and one ski advisor",
     paragraphs: [
       "The next attempt was a portfolio site in Next.js, and it got as far as two separate advisors side by side: a fitness dashboard and a ski dashboard, each its own section of the site, each producing its own seven-day list.",
       "Building it is what showed me the split was wrong. Recreation as a whole is the thing I want to address, and dividing it in two meant neither advisor could see the week I was really having — which left me reconciling two lists in my head, the exact work I had been hoping to hand off. So I decided to treat recreation as one problem and leave the detailed skiing analysis for later. None of that site was deployed; by then I had started a second site before finishing the first, so neither was live.",
@@ -76,8 +76,8 @@ export const TIMELINE: readonly Chapter[] = [
     title: "Starting over, and getting further in a day than in a month",
     paragraphs: [
       "I started again, beginning with documents written alongside Claude rather than diagrams — what the thing is, what each page owes the person reading it, and the rules that were not allowed to bend. In a day I had the whole portfolio standing up: the shell, a mock sign-in, the projects blog, a profile carrying the full Strava sport catalogue, and the advisor running on sample data.",
-      "It went faster than the month before it because I dropped the framework and the component library and wrote the primitives by hand. That sounds like more work and it was less, since every decision stayed small and local rather than becoming a question about how somebody else&rsquo;s abstraction wanted to be used. Three structural rules went in the same day and the build still fails if any of them breaks, which is the only reason they have held.",
-      "The more useful thing I worked out was that the advisor needed to be its own app. What I had been building, across three attempts, was a suite of tools bolted onto my personal website.",
+      "It went faster than the month before because, before, I had been working through each task very specifically in GitHub alongside Claude. That is a good practice, but I can get a similar result in a tenth of the time by outlining the project in documentation and having Claude do the work. That is how I have worked since.",
+      "One more useful thing I worked out was that the advisor needed to be its own app. What I had been building, across three attempts, was a suite of tools bolted onto my personal website, which was difficult to present without it being confusing.",
     ],
   },
   {
@@ -93,7 +93,7 @@ export const TIMELINE: readonly Chapter[] = [
     title: "A name, a domain, and nothing real behind it",
     paragraphs: [
       "The portfolio went live at willmuehlhausen.com, published by GitHub Actions on every push, and the advisor got its name. Calling it RecAdvisor was part of deciding what it was: a recreation advisor rather than a fitness tracker, and something in its own right rather than one more page on my site.",
-      "Everything it displayed was still sample data, and a single switch in the code made the whole site say so, with a chip in the footer and a banner on any page showing numbers. No page was allowed to claim real conditions while that switch said mock. I am glad I wrote that down early, because it turned the difference between a demo and a lie into something the build could check rather than something I had to remember.",
+      "Everything it displayed was still sample data, and a single switch in the code made the whole site say so, with a chip in the footer and a banner on any page showing numbers. No page was allowed to claim real conditions while that switch said mock.",
     ],
   },
   {
@@ -102,16 +102,7 @@ export const TIMELINE: readonly Chapter[] = [
     title: "A backend that actually reads your training",
     paragraphs: [
       "This is where it stopped being a mock: Python, FastAPI and Postgres, with Strava sync, profiles, and the daily verdict logic moved out of the browser and onto a server.",
-      "Moving that logic is the part I am most pleased with. The advice had been coming from a TypeScript function running over sample data, and rewriting it in another language is the sort of change where behaviour drifts without anybody noticing, so before deleting the TypeScript I recorded 216 cases from it and wrote a test holding the Python to them. It does not insist the two agree everywhere — it insists every disagreement is one of three I wrote down and can explain. All three came from the same confusion, where load had meant both what the plan asks of you and what you are already carrying, which you can only get away with while the plan is imaginary. That test is still running, and it is the oldest code in the project.",
-      "Strava is the only connection, which is worth saying because the plumbing suggests otherwise. There is a rule in here for working out when two activities are really the same workout, which will matter if you wear a Garmin that pushes to Strava and I end up reading both. Garmin, COROS and Wahoo are named in the code as providers I am waiting on access for, and none is implemented, so for now there is one source and that rule has nothing to do. I wrote it anyway, so that adding a second connection later would not mean rethinking what an activity is.",
-    ],
-  },
-  {
-    date: "2026-09-20",
-    title: "Giving it its own app, and building that twice in one day",
-    paragraphs: [
-      "RecAdvisor became its own app rather than a section of my portfolio, which is what I had been circling since the start of the month. A write-up about my work and a service holding somebody&rsquo;s training data have almost nothing in common at deploy time, and keeping them together had been quietly making both harder to think about.",
-      "I built the new client in Next.js, because that is what my own specification said to do — and the specification was pointing at the wrong sibling. It told me to match a repository that was a month stale and never deployed, while the site actually serving my domain was the Vite one with the hand-written primitives. So I rebuilt it the same day on Vite and copied the portfolio&rsquo;s component layer across. The API client, the auth layer, the response types and every test came through untouched, none of them being framework-specific, which is a decent argument for keeping that sort of code at arm&rsquo;s length from the framework.",
+      "This part is really important to me. I wanted a backend that could work with any frontend, so that in the future I can build an Android app that works with the same backend seamlessly.",
     ],
   },
   {
@@ -119,7 +110,7 @@ export const TIMELINE: readonly Chapter[] = [
     title: "Sessions with structure, and a history you can go back through",
     paragraphs: [
       "A plan stopped being a sentence per day and became structured sessions: a sport, a kind, a duration, a load, and the details that belong to that sport — intervals with their steps, lifts with sets and reps, distances where a distance means something. Calendars got access levels at the same time, and the table holds busy intervals and nothing else: no titles, no attendees, no locations. The advisor needs to know whether Thursday evening is free, not what I am doing with it.",
-      "Plan history arrived here too, and it is the feature I underestimated most. Every version of every day is kept and any of them can be restored, so nothing is ever deleted. I did not realise it at the time, but that one property is what later made it safe to let the plan change at all.",
+      "Plan history arrived here too, and it is a feature I felt was important. Every version of every day is kept and any of them can be restored, so nothing is ever deleted. That lets a user change their plan comfortably, without fear of losing previous versions.",
     ],
     shot: {
       src: "/recadvisor/today.webp",
@@ -129,10 +120,10 @@ export const TIMELINE: readonly Chapter[] = [
   },
   {
     date: "2026-10-10",
-    title: "On the internet, and refusing almost everybody",
+    title: "On the internet, with a limited release",
     paragraphs: [
       "The day it stopped being localhost. The API went onto Cloud Run with a managed Postgres on a free tier, which I chose because the more obvious managed database would have been close to the entire bill at this size, and the client went onto Firebase Hosting at dev.recadvisor.app.",
-      "Passwords came out altogether — signing in is a six-digit code sent to your email, or Google — and signing up and signing in became the same action. Then I made it refuse people, which felt strange to build and is right for where this is. There is an invite list of four addresses, and the check happens before the account row is created, so an address I have not added never gets one.",
+      "Passwords came out altogether — signing in is a six-digit code sent to your email, or Google — and signing up and signing in became the same action. I have invited close family so far.",
       "New accounts also got a walkthrough: connect Strava, connect a calendar, say what you are training for. Connecting comes first because both of those leave the app for a consent screen and come back to a fresh page, so anything typed beforehand would not survive the trip.",
     ],
   },
@@ -170,7 +161,7 @@ export const TIMELINE: readonly Chapter[] = [
     title: "Saying how hard a day is, instead of what kind of day it is",
     paragraphs: [
       "Until this week each day carried a verdict — train, rest, busy or ski — which told you what sort of day it was and nothing about what it would cost you. Two training days can sit a long way apart in effort, and the label flattened that.",
-      "So the badge now says how hard the day is, in tiers borrowed from Strava&rsquo;s relative effort: historic, massive and tough at the top, then steady, easy, recovery, and rest, busy or event where there is nothing to do. The week reads tough, steady, rest at a glance, which is the question I was actually asking when I looked at it. The verdict colours came out with the old labels.",
+      "So the badge now says how hard the day is, in tiers borrowed from Strava’s relative effort: historic, massive and tough at the top, then steady, easy, recovery, and rest, busy or event where there is nothing to do. The week reads tough, steady, rest at a glance, which is the question I was actually asking when I looked at it. The verdict colours came out with the old labels.",
     ],
     shot: {
       src: "/recadvisor/week.webp",

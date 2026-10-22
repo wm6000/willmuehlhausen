@@ -41,11 +41,11 @@ export const TAG_LABELS: Record<ProjectTag, string> = {
 export const PROJECTS: readonly Project[] = [
   {
     slug: "recadvisor",
-    title: "RecAdvisor",
+    title: "RecAdvisor Blog 1",
     date: "2026-09-16",
-    updated: "2026-10-19",
+    updated: "2026-10-22",
     blurb:
-      "A training advisor that reads what you actually did and what your week actually looks like, and makes one call on the day. It shipped on a rule it had to break — the plan was never allowed to change on its own, and a month of real use taught it how to, visibly, one day at a time.",
+      "I've built myself a training and recreation advisor. This is how that has gone, up to its first dev release.",
     tags: ["platform", "llm", "pipelines"],
     kind: "Product",
   },
