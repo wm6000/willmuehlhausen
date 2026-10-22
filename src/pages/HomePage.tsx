@@ -2,22 +2,24 @@ import { ButtonLink, Card, Grid, Heading, Icon, Row, Section, Stack, Text } from
 import { EXTERNAL, SITE } from "@/data/site";
 
 /**
- * RecAdvisor is a card here like any other project, and an external one: it runs on its
- * own domain now. Keeping it in the list rather than in the nav is the honest shape —
- * it is a thing I built, and this site is the place that says so.
+ * Three doors and a short introduction. The alternative — leading with the newest project
+ * cards — puts the work first, which reads well for somebody who already wants to read a
+ * write-up and badly for somebody deciding whether to.
+ *
+ * RecAdvisor points at its own write-up rather than at dev.recadvisor.app. The app is
+ * invite-only, so an outbound link from here would send almost everybody to a refusal; the
+ * post carries the link along with the sentence explaining who can use it.
  */
 const CARDS = [
   {
     to: "/projects",
-    external: false,
     title: "Projects",
     body: "Write-ups of what I've built, with the architecture and what each one taught me.",
   },
   {
-    to: EXTERNAL.recadvisor,
-    external: true,
+    to: "/projects/recadvisor",
     title: "RecAdvisor",
-    body: "A training advisor that reads your activity history, your calendar and the forecast, and makes one call on the day.",
+    body: "A training advisor that reads your activity history and your calendar, and makes one call on the day. In private testing.",
   },
   {
     to: EXTERNAL.resume,
@@ -36,9 +38,9 @@ export function HomePage() {
             <Stack gap={4}>
               <Heading level={1}>{SITE.headline}</Heading>
               <Text size="md" tone="muted" balance>
-                I'm an engineer — mechanical by training, software by habit. This is where I
-                write up the things I've built: machine learning models, data pipelines,
-                factory systems, and the occasional map. Have a look around.
+                I&rsquo;m an engineer — mechanical by training, software by habit. This is where
+                I write up the things I&rsquo;ve built: machine learning models, data
+                pipelines, factory systems, and the occasional map. Have a look around.
               </Text>
             </Stack>
             <Row gap={3} wrap>
@@ -46,8 +48,8 @@ export function HomePage() {
                 See my projects
                 <Icon name="arrowRight" size={16} />
               </ButtonLink>
-              <ButtonLink to={EXTERNAL.recadvisor} variant="secondary" size="lg" external>
-                Try RecAdvisor
+              <ButtonLink to="/projects/recadvisor" variant="secondary" size="lg">
+                Read about RecAdvisor
               </ButtonLink>
             </Row>
           </Stack>
@@ -61,13 +63,13 @@ export function HomePage() {
           </Heading>
           <Grid gap={4} className="card-grid">
             {CARDS.map((card) => (
-              <Card key={card.to} to={card.to} external={card.external}>
+              <Card key={card.to} to={card.to} external={card.external ?? false}>
                 <Stack gap={3}>
                   <Row justify="between" gap={3}>
                     <Heading level={3} size={4}>
                       {card.title}
                     </Heading>
-                    <Icon name={card.external ? "external" : "arrowRight"} size={16} />
+                    <Icon name={card.external === true ? "external" : "arrowRight"} size={16} />
                   </Row>
                   <Text size="sm" tone="muted">
                     {card.body}

@@ -4,7 +4,7 @@ My portfolio: the things I've built, each written up with its architecture, stac
 what it taught me.
 
 RecAdvisor used to live here too. It has its own repo and its own domain now —
-**[recadvisor.app](https://recadvisor.app)** — and the two share nothing but a starting
+**dev.recadvisor.app** (invite-only) — and the two share nothing but a starting
 point: each carries its own copy of the design tokens and the primitive layer, free to
 drift.
 
@@ -84,14 +84,15 @@ posts claim, they claim for real: the disaster-response classifier runs the actu
 model, and `npm run lint` fails the build if it disagrees with scikit-learn on any of
 7,200 predictions.
 
-Both posts are drafts and say so on the page, via `DraftNotice`. Placeholder URLs in
+The RecAdvisor post describes a system deployed to a dev environment and open to four
+invited addresses, and says so on the page via `StatusNotice`. Placeholder URLs in
 `src/data/site.ts` (`EXTERNAL`) want replacing before launch.
 
 ## Status
 
 Live at <https://willmuehlhausen.com>, deployed from `main` — see [docs/deploy.md](docs/deploy.md).
 
-- **Shell** — routing, theming, shared design tokens, primitives, header, footer.
+- **Shell** — routing, theming, design tokens, primitives, header, footer.
 - **`/projects`** — a blog-style listing, and posts that carry their own custom features.
   The disaster-response post is written, and runs the real trained classifier in the
   browser: 1,800 decision stumps exported to JSON, with `npm run lint` failing the build
@@ -100,4 +101,8 @@ Live at <https://willmuehlhausen.com>, deployed from `main` — see [docs/deploy
   generated iframes down to about 1.6MB of data, and 34,932 sightings drawn on a canvas
   instead of as 34,932 DOM nodes.
 
-Both posts still want real prose. See [docs/spec.md](docs/spec.md) for the whole picture.
+- **`/projects/recadvisor`** — the progress-and-decisions write-up of RecAdvisor: the rule
+  it shipped on, why a month of real use broke that rule, and what replaced it. Prose only,
+  with a reflections section that fills in as the people I invited report back.
+
+See [docs/spec.md](docs/spec.md) for the whole picture.

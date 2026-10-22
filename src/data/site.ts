@@ -8,12 +8,7 @@
 
 export const SITE = {
   name: "Will Muehlhausen",
-  /**
-   * The home page's h1. The site is a portfolio again — RecAdvisor moved to its own
-   * domain — so the first line sells the work rather than the product. Separate from
-   * `tagline` because the two are read in different places and a headline aimed at a
-   * visitor is the wrong thing to print under a name.
-   */
+  /** The home page's h1. Separate from `tagline`, which is printed under the name in the footer. */
   headline: "Welcome to my website!",
   /** The identity line, under the name in the footer. */
   tagline: "Building solutions: mechanical, software and anything between.",
@@ -40,11 +35,13 @@ export const EXTERNAL = {
   /** Served straight out of public/, so it keeps this path whatever the PDF is called. */
   resume: "/resume.pdf",
   /**
-   * RecAdvisor lives on its own domain and its own deploy. It is linked from here as a
-   * project rather than routed to: nothing about it renders in this app any more, so a
-   * router link would be a promise this bundle cannot keep.
+   * RecAdvisor's dev deployment. Invite-only, so it is never rendered as a bare link —
+   * the invite-only sentence has to sit next to it or a reader is sent to a refusal.
+   *
+   * There is deliberately no link to either source repository: both are private, so a
+   * link would 404 for everyone who isn't me.
    */
-  recadvisor: "https://recadvisor.app",
+  recadvisorDev: "https://dev.recadvisor.app",
 } as const;
 
 export const COLOPHON = "Built with React, TypeScript and Vite.";

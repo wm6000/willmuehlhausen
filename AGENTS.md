@@ -100,7 +100,8 @@ These are product invariants, not style. Breaking one is a bug, not a nitpick.
 - `DATA_SOURCE.kind` in [src/data/site.ts](src/data/site.ts) is the single switch for
   "this is sample data". **No page may claim real conditions while it says `"mock"`.**
 - A mock must say it's a mock, on the page: the login says no password is checked and
-  unfinished posts render a `DraftNotice`. The inverse binds too — the disaster-response
+  unfinished posts render a `StatusNotice` saying which way they fall short. The inverse
+  binds too — the disaster-response
   classifier claims to *be* the trained model, so `scripts/parity.mjs` proves it on every
   build. A claim about what the code is needs a check, not a comment.
 - Never invent facts about the work — stacks, metrics, outcomes. Placeholder text that

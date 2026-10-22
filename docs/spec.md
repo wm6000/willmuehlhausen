@@ -9,8 +9,9 @@ so it can hold all of it.
 
 It used to be two things. RecAdvisor — the training advisor that reads activity history,
 calendar and mountain conditions and makes one call on the day — shared this codebase and
-this domain, and now has its own of both at **recadvisor.app**. It is linked from here as
-a project, because that is what it is from this site's point of view.
+this domain, and now has its own of both — serving from **dev.recadvisor.app**, invite-only
+while it is shown to a handful of people. It is linked from here as a project, because that
+is what it is from this site's point of view.
 
 Why they split: the advisor grew a real backend, real auth and real user data, and none of
 that belongs behind the same deploy as a static portfolio. A hiring manager reading a
@@ -27,7 +28,7 @@ every visitor sees the same site, which is the whole site.
 
 | Route | Owes the visitor |
 |---|---|
-| `/` | What I do, and two doors: the projects, and RecAdvisor |
+| `/` | What I do, and the newest three projects — the work itself, not doors to it |
 | `/projects` | The blog-style listing, filterable by tag — see [projects.md](projects.md) |
 | `/projects/:slug` | One post, free to carry its own custom features |
 | `*` | A real 404 that offers a way back |
@@ -39,7 +40,11 @@ milestones, and there aren't any.
 
 **Honesty about the work.** Never invent facts about a project — stacks, metrics,
 outcomes. Placeholder text that announces itself beats plausible fiction, which is what
-`DraftNotice` is for: both posts are drafts and say so. The inverse binds too — the
+`StatusNotice` is for: a post says up front which way it falls short, in its own words.
+It replaced a fixed "the prose is placeholder" banner, which described one kind of
+incompleteness and misdescribed every other — a post whose writing is done but whose
+subject is not deployed would have claimed the opposite of its real problem. The inverse
+binds too — the
 disaster-response classifier claims to *be* the trained model, so `scripts/parity.mjs`
 proves it on every build, replaying 200 messages and comparing 7,200 predictions against
 scikit-learn. **A claim about what the code is needs a check, not a comment.**
@@ -82,8 +87,12 @@ shell so pages get them without asking.
 
 ## Open
 
-- Real prose for both project posts. They are drafts and say so.
+- A custom feature for the RecAdvisor post. The prose is written; it is the one post
+  carrying no demo, and the reason is real (invite-only) rather than unfinished work. A
+  screenshot would close most of the gap.
 - Replace the placeholder URLs in `EXTERNAL` ([src/data/site.ts](../src/data/site.ts)).
-- `recadvisor.app` is linked from the home page and the footer before it serves anything.
-  Either ship it or drop the links — a portfolio that links to a dead product is worse
-  than one that doesn't mention it.
+- ~~`recadvisor.app` is linked before it serves anything~~ — resolved, then resolved
+  again. The links came out in September because the domain served nothing. It now serves
+  from `dev.recadvisor.app`, so the condition was met and the link went back in — but only
+  inside the post, and only with the sentence saying it is invite-only and will refuse you.
+  A link that is also a refusal needs to say so where it is clicked, not in a footer.

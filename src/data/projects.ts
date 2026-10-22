@@ -8,7 +8,7 @@
  *
  */
 
-export type ProjectTag = "ml" | "pipelines" | "platform" | "writing" | "nlp" | "geospatial";
+export type ProjectTag = "ml" | "llm" | "pipelines" | "platform" | "writing" | "nlp" | "geospatial";
 
 export type Project = {
   slug: string;
@@ -25,6 +25,12 @@ export type Project = {
 
 export const TAG_LABELS: Record<ProjectTag, string> = {
   ml: "Machine learning",
+  /**
+   * Separate from `ml` on purpose. `ml` is a model I trained and can evaluate; `llm` is a
+   * model somebody else trained that I prompt and guard. Filing both under one label
+   * would blur exactly the distinction the honesty rules exist to keep.
+   */
+  llm: "LLM",
   geospatial: "Geospatial",
   nlp: "NLP",
   pipelines: "Pipelines",
@@ -33,6 +39,16 @@ export const TAG_LABELS: Record<ProjectTag, string> = {
 };
 
 export const PROJECTS: readonly Project[] = [
+  {
+    slug: "recadvisor",
+    title: "RecAdvisor Blog 1",
+    date: "2026-09-16",
+    updated: "2026-10-22",
+    blurb:
+      "I've built myself a training and recreation advisor. This is how that has gone, up to its first dev release.",
+    tags: ["platform", "llm", "pipelines"],
+    kind: "Product",
+  },
   {
     slug: "disaster-response-pipeline",
     title: "Disaster Response Pipeline",

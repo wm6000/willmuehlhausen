@@ -17,7 +17,12 @@ src/components/projects/
     registry.ts                       slug -> post component
     PostCard, PostHeader,             shared furniture, so only the body
     PostSection, PostNotes,           has to be bespoke
-    DraftNotice
+    StatusNotice
+    recadvisor/
+        Post.tsx                      prose only; the product it describes
+                                      lives in another, private repo
+        ChapterList.tsx               renders the dated build log
+        timeline.ts                   the chapters — the only file an append touches
     disaster-response-pipeline/
         Post.tsx                      this project's body
         Classifier.tsx                the trained model, run in the browser
@@ -118,7 +123,35 @@ it, and extracting the data is often easier than making the artefact behave.
 
 ## Status
 
-Both posts are **written**. Neither renders a `DraftNotice`.
+Three posts, all written.
 
-`disaster-response-pipeline` carries real prose, real numbers and the trained model
-itself. `whale-blog` carries its original prose and its three maps, rebuilt.
+- `disaster-response-pipeline` — Real prose, real numbers, and the trained model itself
+  running in the page.
+- `whale-blog` — Its original prose and its three maps, rebuilt.
+- `recadvisor` — "RecAdvisor Blog 1": the progress-and-decisions post up to the dev
+  release, the first of a series, carrying a `StatusNotice` that says it
+  is deployed to a dev environment and invite-only. It absorbed the separate
+  `data-platform` post: the hosting story straddled both, and one narrative beat one
+  narrative split in half.
+
+`recadvisor` is prose without a custom feature, which is allowed but is the weaker form.
+The honest reason is better than it used to be and worth stating: the thing is now
+deployed, and a demo is *still* impossible, because invite-only means a reader cannot try
+it. Faking one would be the failure this section exists to prevent, and a screenshot is
+the obvious next step rather than a substitute for it.
+
+### Appending to a post after it ships
+
+`recadvisor` is a dated build log, and it gains chapters as the work continues. The shape is
+the index/body split again, one level down: `timeline.ts` holds the chapters and
+`ChapterList.tsx` renders them in array order, so adding one is a single object literal at
+the end of a data file rather than an edit to prose in the middle of a long component.
+
+Two parts are load-bearing:
+
+- **Chapters stay two or three paragraphs.** The value of the format is that a reader can
+  skim the dates and stop where they are interested, and that stops working once each entry
+  is an essay.
+- **Entries carry plain strings, not markup.** Rule 3 keeps raw DOM tags inside `src/ui/`,
+  and a `.ts` file holding JSX would be a way around that rather than a reason it does not
+  apply.
