@@ -37,9 +37,7 @@ export function Post() {
         <Link to={EXTERNAL.recadvisorDev} external>
           dev.recadvisor.app
         </Link>{" "}
-        with its API on Cloud Run, and it is invite-only — four addresses at the time of
-        writing. Signing in will refuse you unless I have added you, so the link is here for
-        honesty rather than as an invitation. If you want to look,{" "}
+        with its API on Cloud Run, and it is invite-only. If you want to give it a try,{" "}
         <Link to={EXTERNAL.email} external>
           email me
         </Link>

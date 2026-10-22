@@ -10,7 +10,7 @@
  * has. Write what is actually known; a bracketed placeholder beats a guessed year. The
  * years for versions 2 and 3 are the dates of their earliest photos.
  *
- * Version 4 has been built for a smaller car and not yet for the Pilot. Its entry says so,
+ * Version 4 has been built for a Subaru Outback and not yet for the Pilot. Its entry says so,
  * and must keep saying so until it is in the Pilot.
  */
 
@@ -63,8 +63,8 @@ export const VERSIONS: readonly Version[] = [
       },
       {
         src: v("v1", "20201227_151406.webp"),
-        alt: "A person in ski goggles sitting on the open tailgate of the SUV in a snowy parking lot, the platform visible behind them with gear stowed underneath",
-        caption: "Out in the snow that winter.",
+        alt: "Me in ski goggles, sitting on the open tailgate of the SUV in a snowy parking lot, with the platform behind me and gear stowed underneath",
+        caption: "Me, out in the snow that winter.",
       },
     ],
   },
@@ -89,11 +89,6 @@ export const VERSIONS: readonly Version[] = [
         caption: "May 2022: cutting and fitting the plywood deck.",
       },
       {
-        src: v("v2", "20230928_182527.webp"),
-        alt: "A frame of galvanised steel tube and push-in connectors along the driver side of the SUV, its feet bolted to the floor, with a drawer slide lying on the carpet beside it",
-        caption: "The bare frame on the driver side: Steel Tek tube, push-in connectors, and feet bolted into the seat mounts.",
-      },
-      {
         src: v("v2", "20230930_055918.webp"),
         alt: "The steel tube frame running along one side of the SUV's interior, with a bench seat still in place on the other side",
         caption: "The frame along one side, with the other half of the car left free.",
@@ -109,6 +104,11 @@ export const VERSIONS: readonly Version[] = [
       "The frame has two sections that pivot up from the middle of the car, along its length. On either side I can lift the mattress and the board under it to reach the storage underneath, which gives it the most storage, and the easiest to get at, of any version. It also leaves the far back passenger seat usable, so in a pinch the car still seats three. It has been in my car for the last few years.",
     ],
     shots: [
+      {
+        src: v("v3", "20230928_182527.webp"),
+        alt: "The version 2 steel tube frame along the driver side of the SUV, with blue lines drawn over the photo across the rest of the cargo area, and a drawer slide lying on the carpet",
+        caption: "September 2023: planning version 3. The blue lines are drawn over the version 2 frame to mark out the new one.",
+      },
       {
         src: v("v3", "20231026_214616.webp"),
         alt: "A steel tube frame spanning the whole cargo area of the SUV, with one plywood panel laid across it and connectors and a screwdriver on the floor",
@@ -135,17 +135,17 @@ export const VERSIONS: readonly Version[] = [
   },
   {
     name: "Version 4",
-    when: "Built for a smaller car; Pilot build next",
+    when: "Built for a Subaru Outback; Pilot build next",
     title: "A bed that folds back into the trunk",
     paragraphs: [
       "Version 3 has served me well, and the next step is getting the whole car back: with it in, the car seats three at most. So version 4 is designed to fold up completely into the trunk. Stowed, I have my regular seats in the middle and back rows; when I'm going camping, I unfold the mechanism and the bed is ready to sleep on.",
-      "It is the first version fully modelled in Onshape before it was built, and the first to use 3D-printed parts. I have built it for a smaller car first. Next I'm building it for my own car. The part I haven't figured out yet is the mattress: this design needs one that can fold or compress into the frame when it is stowed.",
+      "It is the first version fully modelled in Onshape before it was built, and the first to use 3D-printed parts. I have built it for a Subaru Outback first. Next I'm building it for my own car. The part I haven't figured out yet is the mattress: this design needs one that can fold or compress into the frame when it is stowed.",
     ],
     shots: [
       {
         src: v("v4", "20260602_115703.webp"),
         alt: "A low rectangular frame of metal tube with round connectors and black hinge blocks, standing on a garage floor next to a drill",
-        caption: "June 2026: the start of the version 4 frame.",
+        caption: "June 2026: the start of the version 4 frame, for the Subaru Outback.",
       },
       {
         src: v("v4", "20260609_130205.webp"),

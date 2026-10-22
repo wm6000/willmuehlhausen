@@ -146,7 +146,7 @@ the obvious next step rather than a substitute for it.
 
 - `car-camping-beds` — Four versions since 2020, in the same build-log shape as
   `recadvisor`, with photos and two clips of version 3's lift-up storage. Its
-  `StatusNotice` says version 4 is built for a smaller car but not yet for the Pilot — keep
+  `StatusNotice` says version 4 is built for a Subaru Outback but not yet for the Pilot — keep
   it until it is. Its index `date` is
   `"2020"`, not a full ISO date, because the day isn't known — `formatDate` prints an
   unparseable string as-is rather than inventing January 1st.
