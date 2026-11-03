@@ -124,7 +124,7 @@ The cheap mitigation is in place: the 404 page's own RecAdvisor button used to p
 `/recadvisor` and therefore at itself, and now points at `/projects/recadvisor`.
 
 **They should redirect to RecAdvisor, and on this hosting they cannot** — and the target is
-now `dev.recadvisor.app`, which is invite-only, so a redirect would land most people on a
+now `recadvisor.app`, which is invite-only, so a redirect would land most people on a
 refusal anyway. A 301 needs a
 server, and Pages has no rewrite rule; Cloudflare could do it, but only for proxied
 traffic, and [these records must stay DNS-only](#why-a-custom-domain-rather-than-a-project-path)

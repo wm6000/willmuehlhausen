@@ -14,9 +14,8 @@ import { ChapterList } from "@/components/projects/recadvisor/ChapterList";
  * post never means editing prose in the middle of it. Work after the dev release belongs
  * in a later post rather than at the end of this one.
  *
- * The honesty rule in docs/spec.md binds hardest on the status: it is invite-only on dev,
- * with no production environment, and both source repositories are private, so nothing
- * links to them.
+ * The honesty rule in docs/spec.md binds hardest on the status: it is live but
+ * invite-only, and both source repositories are private, so nothing links to them.
  */
 
 const NOTES = [
@@ -26,22 +25,22 @@ const NOTES = [
   { label: "Auth", value: "A code sent by email, or Google. No passwords anywhere" },
   { label: "Backend scale", value: "73 files, ~11,500 lines, 426 unit tests, 12 migrations, 21 tables" },
   { label: "Frontend scale", value: "~9,500 lines, 32 tests across the lib layer" },
-  { label: "Status", value: "Live on dev, invite-only. No production environment" },
+  { label: "Status", value: "Live at recadvisor.app, invite-only" },
 ];
 
 export function Post() {
   return (
     <Stack gap={7}>
-      <StatusNotice label="Deployed to dev.">
+      <StatusNotice label="Live, invite-only.">
         RecAdvisor runs at{" "}
-        <Link to={EXTERNAL.recadvisorDev} external>
-          dev.recadvisor.app
+        <Link to={EXTERNAL.recadvisor} external>
+          recadvisor.app
         </Link>{" "}
         with its API on Cloud Run, and it is invite-only. If you want to give it a try,{" "}
         <Link to={EXTERNAL.email} external>
           email me
         </Link>
-        . There is no production environment yet.
+        .
       </StatusNotice>
 
       <PostSection id="why" title="Why I built RecAdvisor">
@@ -87,14 +86,14 @@ export function Post() {
 
       <PostSection id="state" title="Where Blog 1 leaves it">
         <Text prose>
-          Released to dev, and invite-only. The backend and the client are both deployed, the
+          Live at recadvisor.app, and invite-only. The backend and the client are both deployed, the
           plan revises itself daily against real Strava and calendar data, and the tester
           program is merged and running — so it is ready for people to try, which is the thing I have
           been working towards since March.
         </Text>
         <Text prose>
-          Still true that it is early. There is no production environment yet, only the dev
-          one, and the client&rsquo;s tests cover its library layer rather than its
+          Still true that it is early. There is one hosted environment, with testing done
+          locally, and the client&rsquo;s tests cover its library layer rather than its
           components. Both repositories are private, so there is nothing to link to for the
           code and the write-up is the artefact.
         </Text>
