@@ -9,7 +9,7 @@ so it can hold all of it.
 
 It used to be two things. RecAdvisor — the training advisor that reads activity history,
 calendar and mountain conditions and makes one call on the day — shared this codebase and
-this domain, and now has its own of both — serving from **dev.recadvisor.app**, invite-only
+this domain, and now has its own of both — serving from **recadvisor.app**, invite-only
 while it is shown to a handful of people. It is linked from here as a project, because that
 is what it is from this site's point of view.
 
@@ -93,6 +93,6 @@ shell so pages get them without asking.
 - Replace the placeholder URLs in `EXTERNAL` ([src/data/site.ts](../src/data/site.ts)).
 - ~~`recadvisor.app` is linked before it serves anything~~ — resolved, then resolved
   again. The links came out in September because the domain served nothing. It now serves
-  from `dev.recadvisor.app`, so the condition was met and the link went back in — but only
+  from `recadvisor.app` (from `dev.recadvisor.app` until November 2026), so the condition was met and the link went back in — but only
   inside the post, and only with the sentence saying it is invite-only and will refuse you.
   A link that is also a refusal needs to say so where it is clicked, not in a footer.

@@ -6,7 +6,7 @@ import { EXTERNAL, SITE } from "@/data/site";
  * cards — puts the work first, which reads well for somebody who already wants to read a
  * write-up and badly for somebody deciding whether to.
  *
- * RecAdvisor points at its own write-up rather than at dev.recadvisor.app. The app is
+ * RecAdvisor points at its own write-up rather than at recadvisor.app. The app is
  * invite-only, so an outbound link from here would send almost everybody to a refusal; the
  * post carries the link along with the sentence explaining who can use it.
  */

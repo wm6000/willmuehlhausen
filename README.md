@@ -4,7 +4,7 @@ My portfolio: the things I've built, each written up with its architecture, stac
 what it taught me.
 
 RecAdvisor used to live here too. It has its own repo and its own domain now —
-**dev.recadvisor.app** (invite-only) — and the two share nothing but a starting
+**recadvisor.app** (invite-only) — and the two share nothing but a starting
 point: each carries its own copy of the design tokens and the primitive layer, free to
 drift.
 
